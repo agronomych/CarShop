@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 public class  utils {
 
+    /* вспомогательный класс для загрузки данных из файлов: clients.txt,cars.txt,contracts.txt,managers.txt*/
     private static  ArrayList<String> loadStrings(String filename){
         ArrayList<String> strings = new ArrayList<>();
         try {
