@@ -1,0 +1,3 @@
+{"Model":"Pagani Zonda","id":"A666"}
+{"Model":"Zaporozhec","id":"B13"}
+{"Model":"Lada Ferrari","id":"C111"}

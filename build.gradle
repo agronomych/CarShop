@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'Anton.Suryapin'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.springframework', name: 'spring-core', version: '5.2.9.RELEASE'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.2.9.RELEASE'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    implementation(
+            'org.apache.logging.log4j:log4j-core:2.11.1'
+
+    )
+}
