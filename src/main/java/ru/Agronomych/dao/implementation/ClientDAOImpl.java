@@ -7,7 +7,7 @@ import ru.Agronomych.model.ClientModel;
 import java.util.HashMap;
 
 /**
- * Имплементация интерфейса работы с сущеностью клиент в слое DAO
+ * имплементация интерфейса работы с сущеностью клиент в слое DAO
  *
  * @author Anton_Suryapin
  */
@@ -18,6 +18,9 @@ public class ClientDAOImpl extends CommonDaoImpl<ClientModel, String> implements
         super(ClientModel.class, new HashMap<>());
     }
 
+    /**
+     * Получить список клиентов с данной фамилией
+     */
     @Override
     public HashMap<ClientModel,String> getClientsByLastName(String lastName) {
         HashMap<ClientModel,String> temp = new HashMap<ClientModel,String>();

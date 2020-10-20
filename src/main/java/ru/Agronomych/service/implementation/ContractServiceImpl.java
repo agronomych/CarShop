@@ -17,20 +17,25 @@ public class ContractServiceImpl implements ContractService {
         this.contractDAO = contractDAO;
     }
 
+    /**
+     * Добавить новый контракт
+     */
     @Override
     public void addContract(ContractModel contract) {
         contractDAO.save(contract);
     }
 
-    public void setContractDAO(ContractDAO contractDAO) {
-        this.contractDAO = contractDAO;
-    }
-
+    /**
+     * Добавить список контрактов
+     */
     @Override
     public void addAllContracts(HashMap<Long, ContractModel> map) {
         contractDAO.addAll(map);
     }
 
+    /**
+     * Получить список всех контрактов
+     */
     @Override
     public HashMap<Long, ContractModel> getAllContracts() {
         return (HashMap<Long, ContractModel>) contractDAO.getAll();

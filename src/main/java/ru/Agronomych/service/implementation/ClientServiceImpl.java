@@ -17,14 +17,15 @@ public class ClientServiceImpl implements ClientService {
         this.clientDAO = clientDAO;
     }
 
+    /**
+     * Добаивть нового клиента
+     */
     @Override
     public void addClient(ClientModel client) {
         clientDAO.save(client);
     }
 
-    public void setClientDAO(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
-    }
+
     @Override
     public void addAllClients(HashMap<String, ClientModel> map) {
         clientDAO.addAll(map);

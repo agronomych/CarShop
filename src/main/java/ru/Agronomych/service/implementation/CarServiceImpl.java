@@ -17,20 +17,25 @@ public class CarServiceImpl implements CarService {
         this.carDAO = carDAO;
     }
 
+    /**
+     * Добавить автомобиль
+     */
     @Override
     public void addCar(CarModel car) {
         carDAO.save(car);
     }
 
+    /**
+     * Добавить список автомобилей
+     */
     @Override
     public void addAllCars(HashMap<String, CarModel> map) {
         carDAO.addAll(map);
     }
 
-    public void setCarDAO(CarDAO carDAO) {
-        this.carDAO = carDAO;
-    }
-
+    /**
+     * Получить список всех автомобилей
+     */
     @Override
     public HashMap<String, CarModel> getAllCars() {
         return (HashMap<String, CarModel>) carDAO.getAll();

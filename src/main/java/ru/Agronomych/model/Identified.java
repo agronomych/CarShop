@@ -3,7 +3,7 @@ package ru.Agronomych.model;
 import java.io.Serializable;
 
 /**
- * Интерфейс идентифицируемых объектов.
+ * интерфейс идентифицируемых объектов.
  */
 public interface Identified<PK extends Serializable> extends Serializable {
 

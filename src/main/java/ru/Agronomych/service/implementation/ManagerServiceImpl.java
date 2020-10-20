@@ -23,25 +23,33 @@ public class ManagerServiceImpl implements ManagerService {
         this.managerDAO = managerDAO;
     }
 
+    /**
+     * Добавить нового менеджера
+     */
     @Override
     public void addManager(ManagerModel manager) {
         managerDAO.save(manager);
     }
 
-    public void setManagerDAO(ManagerDAO managerDAO) {
-        this.managerDAO = managerDAO;
-    }
-
+    /**
+     * Добаивть список менеджеров
+     */
     @Override
     public void addAllManagers(HashMap<Long, ManagerModel> map) {
         managerDAO.addAll(map);
     }
 
+    /**
+     * Получить спискок всех менеджеров
+     */
     @Override
     public HashMap<Long, ManagerModel> getAllManagers() {
         return (HashMap<Long, ManagerModel>) managerDAO.getAll();
     }
 
+    /**
+     * Получить имя организации
+     */
     @Override
     public String getOrgName() {
         return orgName;

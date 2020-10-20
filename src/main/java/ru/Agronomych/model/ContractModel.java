@@ -63,8 +63,4 @@ public class ContractModel implements Identified<Long>{
         this.id = id;
     }
 
-   /* @Override
-    public String toString() {
-        return this.getId()+"";
-    }*/
 }

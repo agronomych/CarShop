@@ -26,8 +26,4 @@ public class ManagerModel extends Human implements Identified<Long>{
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return this.getId()+this.getLastName()+this.getName()+this.getPatronymic();
-    }
 }

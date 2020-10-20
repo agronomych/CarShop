@@ -8,10 +8,16 @@ public class CarModel implements Identified<String>{
     private String model;
     private String id;
 
+    /**
+     * Получить модель машины
+     */
     public String getModel() {
         return model;
     }
 
+    /**
+     * Установить модель машины
+     */
     public void setModel(String model) {
         model = model;
     }
@@ -25,8 +31,4 @@ public class CarModel implements Identified<String>{
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "{\"Model\":\""+this.getModel()+"\"}";
-    }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Имплементация общего интерфейса работы в слое DAO
+ * имплементация общего интерфейса работы в слое DAO
  *
  * @author Anton_Suryapin
  */

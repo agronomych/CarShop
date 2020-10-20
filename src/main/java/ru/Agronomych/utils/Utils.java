@@ -1,6 +1,7 @@
 package ru.Agronomych.utils;
 
 import com.google.gson.Gson;
+import org.apache.logging.log4j.core.util.JsonUtils;
 import ru.Agronomych.model.CarModel;
 import ru.Agronomych.model.ClientModel;
 import ru.Agronomych.model.ContractModel;
@@ -32,6 +33,7 @@ public class Utils {
             }
         }
         catch (Exception e){
+            System.out.println("Ошибка чтения файла "+filename);
             System.out.println(e.getStackTrace());
         };
         return strings;

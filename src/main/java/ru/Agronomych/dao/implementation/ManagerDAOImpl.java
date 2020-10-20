@@ -7,7 +7,7 @@ import ru.Agronomych.model.ManagerModel;
 import java.util.HashMap;
 
 /**
- * Имплементация интерфейса работы с сущеностью менеджер в слое DAO
+ * имплементация интерфейса работы с сущеностью менеджер в слое DAO
  *
  * @author Anton_Suryapin
  */
@@ -18,6 +18,9 @@ public class ManagerDAOImpl extends CommonDaoImpl<ManagerModel,Long> implements 
         super(ManagerModel.class, new HashMap<>());
     }
 
+    /**
+     * Получить спиской менеджеров по фамилии
+     */
     @Override
     public ManagerModel getManagerByLasName(String lastName) {
         for (ManagerModel el : elements.values()){
@@ -27,6 +30,9 @@ public class ManagerDAOImpl extends CommonDaoImpl<ManagerModel,Long> implements 
         return null;
     }
 
+    /**
+     * Получить спиской менеджеров по имени
+     */
     @Override
     public ManagerModel getManagerByName(String lastName) {
         for (ManagerModel el : elements.values()){
@@ -36,6 +42,9 @@ public class ManagerDAOImpl extends CommonDaoImpl<ManagerModel,Long> implements 
         return null;
     }
 
+    /**
+     * Получить спиской менеджеров по отчеству
+     */
     @Override
     public ManagerModel getManagerByPatronymic(String patronymic) {
         for (ManagerModel el : elements.values()){

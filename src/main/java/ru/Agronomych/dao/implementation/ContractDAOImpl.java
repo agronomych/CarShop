@@ -10,7 +10,7 @@ import ru.Agronomych.model.ContractModel;
 import java.util.HashMap;
 
 /**
- * Имплементация интерфейса работы с сущеностью контракт в слое DAO
+ * имплементация интерфейса работы с сущеностью контракт в слое DAO
  *
  * @author Anton_Suryapin
  */
@@ -21,6 +21,9 @@ public class ContractDAOImpl extends CommonDaoImpl<ContractModel,Long> implement
         super(ContractModel.class, new HashMap<>());
     }
 
+    /**
+     * Получить список контрактов по id менеджера
+     */
     @Override
     public HashMap<ContractModel,Long> getContractsByManager(Long managerId) {
         HashMap<ContractModel,Long> temp = new HashMap<ContractModel,Long>();
