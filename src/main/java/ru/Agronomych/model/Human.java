@@ -1,0 +1,37 @@
+package ru.Agronomych.model;
+
+import java.io.Serializable;
+
+/**
+ * Вспоомогательный класс Человек
+ */
+public class Human implements Serializable {
+
+    private String name;
+    private String lastName;
+    private String patronymic;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+}
