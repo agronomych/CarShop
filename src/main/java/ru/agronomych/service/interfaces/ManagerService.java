@@ -1,5 +1,6 @@
 package ru.agronomych.service.interfaces;
 
+import ru.agronomych.model.ClientModel;
 import ru.agronomych.model.ManagerModel;
 
 import java.util.HashMap;
@@ -30,4 +31,20 @@ public interface ManagerService {
      * получить имя оранизации
      */
     public String getOrgName();
+
+    /**
+     * получить менеджера по id
+     */
+    public ManagerModel getManagerById(Long id);
+
+    /**
+     * удалить менеджера по id
+     */
+    public void deleteManagerById(Long id);
+
+    /**
+     * обновить данные менеджера по id
+     */
+    public void updateManager(ManagerModel manager);
+
 }

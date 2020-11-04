@@ -7,7 +7,7 @@ import ru.agronomych.model.ClientModel;
 import java.util.HashMap;
 
 /**
- * имплементация интерфейса работы с сущеностью клиент в слое DAO
+ * имплементация интерфейса работы с сущностью клиент в слое DAO
  *
  * @author Anton_Suryapin
  */

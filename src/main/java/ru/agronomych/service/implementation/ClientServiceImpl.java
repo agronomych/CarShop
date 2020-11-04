@@ -1,5 +1,6 @@
 package ru.agronomych.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.agronomych.dao.interfaces.ClientDAO;
 import ru.agronomych.model.ClientModel;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 @Service(value = "ClientService")
 public class ClientServiceImpl implements ClientService {
 
+    @Autowired
     private ClientDAO clientDAO;
 
     public ClientServiceImpl(ClientDAO clientDAO) {
@@ -21,9 +23,6 @@ public class ClientServiceImpl implements ClientService {
         clientDAO.save(client);
     }
 
-    public void setClientDAO(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
-    }
     @Override
     public void addAllClients(HashMap<String, ClientModel> map) {
         clientDAO.addAll(map);
@@ -32,5 +31,20 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public HashMap<String, ClientModel> getAllClients() {
         return (HashMap<String, ClientModel>) clientDAO.getAll();
+    }
+
+    @Override
+    public ClientModel getClientById(String id) {
+        return clientDAO.getByPK(id);
+    }
+
+    @Override
+    public void deleteClientById(String id) {
+        clientDAO.deleteByPK(id);
+    }
+
+    @Override
+    public void updateClient(ClientModel client) {
+        clientDAO.update(client);
     }
 }

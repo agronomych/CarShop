@@ -1,12 +1,13 @@
-package ru.agronomych.model;
+package ru.agronomych.controller.dto;
 
 import java.io.Serializable;
 
-/**
- * Вспоомогательный класс Человек
- */
-public class Human implements Serializable {
+public class ManagerDTO implements Serializable {
 
+    /**
+     * Ключ, однозначно идентифицирующий менеджера
+     */
+    private Long id;
     /**
      * имя человека
      */
@@ -42,5 +43,13 @@ public class Human implements Serializable {
 
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

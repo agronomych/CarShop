@@ -1,6 +1,7 @@
 package ru.agronomych.service.interfaces;
 
 import ru.agronomych.model.ContractModel;
+import ru.agronomych.model.ContractModel;
 
 import java.util.HashMap;
 
@@ -27,7 +28,17 @@ public interface ContractService {
     public HashMap<Long, ContractModel> getAllContracts();
 
     /**
-     * получить все контракты по id менеджера
+     * получить контракт по id
      */
-    public HashMap<Long,ContractModel> getAllContractsByManager(Long managerId);
+    public ContractModel getContractById(Long id);
+
+    /**
+     * удалить контракт по id
+     */
+    public void deleteContractById(Long id);
+
+    /**
+     * обновить данные контракта по id
+     */
+    public void updateContract(ContractModel contract);
 }

@@ -6,9 +6,7 @@ import ru.agronomych.model.ClientModel;
 import ru.agronomych.model.ContractModel;
 import ru.agronomych.model.ManagerModel;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,6 +51,8 @@ public class Utils {
             map.put(car.getId(),car);
         }
         return map;
+
+
     };
 
     /**
@@ -86,9 +86,9 @@ public class Utils {
             contract.setSum(preContract.getSum());
             contract.setId(preContract.getId());
             contract.setDate(preContract.getDate());
-            contract.setManager(managers.get(preContract.getManager()));
-            contract.setClient(clients.get(preContract.getClient()));
-            contract.setCar(cars.get(preContract.getCar()));
+            contract.setManager(managers.get(preContract.getManagerId()));
+            contract.setClient(clients.get(preContract.getClientId()));
+            contract.setCar(cars.get(preContract.getCarId()));
             map.put(contract.getId(),contract);
         }
         return map;
@@ -108,4 +108,6 @@ public class Utils {
         }
         return map;
     };
+
+
 }

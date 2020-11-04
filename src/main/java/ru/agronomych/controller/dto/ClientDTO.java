@@ -1,24 +1,14 @@
-package ru.agronomych.model;
+package ru.agronomych.controller.dto;
 
-/**
- * Представление сущности Клиент в системе
- */
-public class ClientModel implements Identified<String> {
+import java.io.Serializable;
+
+public class ClientDTO implements Serializable {
+
 
     /**
      * Ключ, однозначно идентифицирующий авто (номер паспорта)
      */
     private String id;
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     /**
      * имя человека
      */
@@ -56,4 +46,11 @@ public class ClientModel implements Identified<String> {
         this.patronymic = patronymic;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

@@ -25,4 +25,17 @@ public interface CarService {
      * получить все автомобили
      */
     public HashMap<String, CarModel> getAllCars();
+
+    /**
+     * получить автомобиль по id
+     */
+    public CarModel getCarById(String id);
+
+    /**
+     * удалить автомобиль по id
+     */
+    public void deleteCarById(String id);
+
+    public void updateCar(CarModel car);
+
 }

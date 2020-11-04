@@ -1,29 +1,28 @@
-package ru.agronomych.utils;
+package ru.agronomych.controller.dto;
 
+import ru.agronomych.model.CarModel;
+import ru.agronomych.model.ClientModel;
+import ru.agronomych.model.ManagerModel;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * Вспомогательный класс для загрузки тестовых данных -
- * менеджер, автомобиль и клиент указаны с помощью только их id в txt-файлах
- *
- * @author Anton_Suryapin
- */
-public class ContractPreLoad {
+public class ContractDTO implements Serializable {
 
     /**
-     * id контракта в организации
+     * Ключ, однозначно идентифицирующий контракт (id в системе организации)
      */
     private Long id;
     /**
-     * id автомобиля
+     * Название модели авто, продаваемая по договору
      */
     private String carId;
     /**
-     * id клиента
+     * клиент покупатель авто
      */
     private String clientId;
     /**
-     * id менеджера
+     * менеджер, оформивший продажу
      */
     private Long managerId;
     /**

@@ -1,5 +1,6 @@
 package ru.agronomych.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.agronomych.dao.interfaces.CarDAO;
 import ru.agronomych.model.CarModel;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 @Service(value = "CarService")
 public class CarServiceImpl implements CarService {
 
+    @Autowired
     private CarDAO carDAO;
 
     public CarServiceImpl(CarDAO carDAO) {
@@ -26,12 +28,23 @@ public class CarServiceImpl implements CarService {
         carDAO.addAll(map);
     }
 
-    public void setCarDAO(CarDAO carDAO) {
-        this.carDAO = carDAO;
-    }
-
     @Override
     public HashMap<String, CarModel> getAllCars() {
         return (HashMap<String, CarModel>) carDAO.getAll();
+    }
+
+    @Override
+    public CarModel getCarById(String id) {
+        return carDAO.getByPK(id);
+    }
+
+    @Override
+    public void deleteCarById(String id) {
+        carDAO.deleteByPK(id);
+    }
+
+    @Override
+    public void updateCar(CarModel car) {
+        carDAO.update(car);
     }
 }

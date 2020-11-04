@@ -30,7 +30,7 @@ public class CarShop {
 
     public static void main(String[] args) {
 
-        ApplicationContext context =
+        /*ApplicationContext context =
                 new AnnotationConfigApplicationContext(SpringConfig.class);
 
         CarService carService = (CarService) context.getBean("CarService");
@@ -49,31 +49,8 @@ public class CarShop {
 
         System.out.println();
         System.out.println("Данные по организации " + managerService.getOrgName());
-        System.out.println();
+        System.out.println();*/
 
-        Gson gson = new Gson();
-
-        for (CarModel car:carService.getAllCars().values()) {
-            System.out.println(gson.toJson(car));
-        }
-
-        for (ClientModel client:clientService.getAllClients().values()) {
-            System.out.println(gson.toJson(client));
-        }
-
-        for (ManagerModel manager:managerService.getAllManagers().values()) {
-            System.out.println(gson.toJson(manager));
-        }
-
-        for (ContractModel contract:contractService.getAllContracts().values()) {
-            System.out.println(gson.toJson(contract));
-        }
-
-        System.out.println();
-        for (ContractModel contract:contractService.getAllContractsByManager(123L).values()) {
-            System.out.println(gson.toJson(contract));
-        }
-        System.out.println();
     }
 
 }
