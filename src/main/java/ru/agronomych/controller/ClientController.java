@@ -42,8 +42,8 @@ public class ClientController {
      * @param clientData
      */
     @PostMapping("/add")
-    public void addClient(@RequestBody String clientData){
-        clientDTO.add((new Gson()).fromJson(clientData, ClientDTO.class));
+    public void addClient(@RequestBody ClientDTO clientData){
+        clientDTO.add(clientData);
     }
 
     /**
@@ -60,8 +60,8 @@ public class ClientController {
      * @param clientData
      */
     @PutMapping(value = "/update")
-    public void updateClient(@RequestBody String clientData){
-        clientDTO.update((new Gson()).fromJson(clientData, ClientDTO.class));
+    public void updateClient(@RequestBody ClientDTO clientData){
+        clientDTO.update(clientData);
     }
 
     /**

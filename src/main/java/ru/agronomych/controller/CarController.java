@@ -42,8 +42,8 @@ public class CarController {
      * @param carData
      */
     @PostMapping("/add")
-    public void addCar(@RequestBody String carData){
-        CarDTO car = (new Gson()).fromJson(carData,CarDTO.class);
+    public void addCar(@RequestBody CarDTO carData){
+        CarDTO car = carData;
         carDTOservice.add(car);
     }
 
@@ -61,8 +61,8 @@ public class CarController {
      * @param carData
      */
     @PutMapping(value = "/update")
-    public void updateCar(@RequestBody String carData){
-        carDTOservice.update((new Gson()).fromJson(carData,CarDTO.class));
+    public void updateCar(@RequestBody CarDTO carData){
+        carDTOservice.update(carData);
     }
 
     /**

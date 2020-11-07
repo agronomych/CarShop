@@ -42,8 +42,8 @@ public class ContractController {
      * @param contractData
      */
     @PostMapping("/add")
-    public void addContract(@RequestBody String contractData){
-        contractDTO.add((new Gson()).fromJson(contractData, ContractDTO.class));
+    public void addContract(@RequestBody ContractDTO contractData){
+        contractDTO.add(contractData);
     }
 
     /**
@@ -60,8 +60,8 @@ public class ContractController {
      * @param contractData
      */
     @PutMapping(value = "/update")
-    public void updateContract(@RequestBody String contractData){
-        contractDTO.update((new Gson()).fromJson(contractData, ContractDTO.class));
+    public void updateContract(@RequestBody ContractDTO contractData){
+        contractDTO.update(contractData);
     }
 
     /**

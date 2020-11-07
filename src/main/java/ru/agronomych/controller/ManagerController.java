@@ -42,8 +42,8 @@ public class ManagerController {
      * @param managerData
      */
     @PostMapping("/add")
-    public void addManager(@RequestBody String managerData){
-        managerDTO.add((new Gson()).fromJson(managerData, ManagerDTO.class));
+    public void addManager(@RequestBody ManagerDTO managerData){
+        managerDTO.add(managerData);
     }
 
     /**
@@ -60,8 +60,8 @@ public class ManagerController {
      * @param managerData
      */
     @PutMapping(value = "/update")
-    public void updateManager(@RequestBody String managerData){
-        managerDTO.update((new Gson()).fromJson(managerData, ManagerDTO.class));
+    public void updateManager(@RequestBody ManagerDTO managerData){
+        managerDTO.update(managerData);
     }
 
     /**
