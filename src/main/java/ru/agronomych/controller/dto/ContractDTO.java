@@ -1,12 +1,11 @@
 package ru.agronomych.controller.dto;
 
-import ru.agronomych.model.CarModel;
-import ru.agronomych.model.ClientModel;
-import ru.agronomych.model.ManagerModel;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * DTO класс для сущности контракт
+ */
 public class ContractDTO implements Serializable {
 
     /**
@@ -20,7 +19,7 @@ public class ContractDTO implements Serializable {
     /**
      * клиент покупатель авто
      */
-    private String clientId;
+    private Long clientId;
     /**
      * менеджер, оформивший продажу
      */
@@ -50,11 +49,11 @@ public class ContractDTO implements Serializable {
         this.carId = carId;
     }
 
-    public String getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 

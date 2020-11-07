@@ -15,9 +15,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
+/**
+ * сервис для работы со слоем DTO сущности Клиент
+ */
+
 @Service
 @PropertySource(value = {"classpath:application.properties"})
-public class ClientDTOService implements DTOService<ClientDTO,ClientModel,String>{
+public class ClientDTOService implements DTOService<ClientDTO,ClientModel,Long>{
 
     @Autowired
     ClientService clientService;
@@ -34,6 +38,7 @@ public class ClientDTOService implements DTOService<ClientDTO,ClientModel,String
         client.setLastName(clientDTO.getLastName());
         client.setName(clientDTO.getName());
         client.setPatronymic(clientDTO.getPatronymic());
+        client.setPassport(clientDTO.getPassport());
         return client;
     }
 
@@ -44,6 +49,7 @@ public class ClientDTOService implements DTOService<ClientDTO,ClientModel,String
         clientDTO.setLastName(client.getLastName());
         clientDTO.setName(client.getName());
         clientDTO.setPatronymic(client.getPatronymic());
+        clientDTO.setPassport(client.getPassport());
         return clientDTO;
     }
 
@@ -53,14 +59,14 @@ public class ClientDTOService implements DTOService<ClientDTO,ClientModel,String
     }
 
     @Override
-    public ClientDTO get(String id){
+    public ClientDTO get(Long id){
         return toDTO(clientService.getClientById(id));
     }
 
     @Override
-    public HashMap<String,ClientDTO> getAll(){
-        HashMap<String,ClientDTO> map = new HashMap<>();
-        HashMap<String,ClientModel> mapModels;
+    public HashMap<Long,ClientDTO> getAll(){
+        HashMap<Long,ClientDTO> map = new HashMap<>();
+        HashMap<Long,ClientModel> mapModels;
         mapModels = clientService.getAllClients();
         for (ClientModel client:mapModels.values()) {
             map.put(client.getId(),toDTO(client));
@@ -69,7 +75,7 @@ public class ClientDTOService implements DTOService<ClientDTO,ClientModel,String
     }
 
     @Override
-    public void delete(String id){
+    public void delete(Long id){
         clientService.deleteClientById(id);
     }
     
@@ -81,7 +87,7 @@ public class ClientDTOService implements DTOService<ClientDTO,ClientModel,String
     @Override
     public String save(){
         try {
-            HashMap<String, ClientDTO> map = new HashMap<>();
+            HashMap<Long, ClientDTO> map = new HashMap<>();
             FileOutputStream outputStream = new FileOutputStream(dbPath+"/"+filename);
             ObjectOutputStream output = new ObjectOutputStream(outputStream);
             for(ClientModel client:clientService.getAllClients().values()){
@@ -99,10 +105,10 @@ public class ClientDTOService implements DTOService<ClientDTO,ClientModel,String
     @Override
     public String load(){
         try {
-            HashMap<String,ClientDTO> map = new HashMap<>();
+            HashMap<Long,ClientDTO> map;
             FileInputStream inputStream = new FileInputStream(dbPath+"/"+filename);
             ObjectInputStream input = new ObjectInputStream(inputStream);
-            map  = (HashMap<String,ClientDTO>)input.readObject();
+            map  = (HashMap<Long,ClientDTO>)input.readObject();
             for(ClientDTO client:map.values()){
                 clientService.addClient(fromDTO(client));
             }

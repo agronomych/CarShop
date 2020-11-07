@@ -7,11 +7,11 @@ import java.util.HashMap;
 /**
  * интерфейс для работы со слоем DAO сущности Клиент
  */
-public interface ClientDAO extends CommonDAO<ClientModel,String> {
+public interface ClientDAO extends CommonDAO<ClientModel,Long> {
 
     /**
      * получаем списко клиентов с данной фамилией
      */
-    HashMap<ClientModel,String> getClientsByLastName(String lastName);
+    HashMap<ClientModel,Long> getClientsByLastName(String lastName);
 
 }

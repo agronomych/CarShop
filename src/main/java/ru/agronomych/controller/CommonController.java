@@ -9,6 +9,9 @@ import ru.agronomych.controller.dto.services.ClientDTOService;
 import ru.agronomych.controller.dto.services.ContractDTOService;
 import ru.agronomych.controller.dto.services.ManagerDTOService;
 
+/**
+ * Контроллер для обработки запросов /common - общие запросы
+ */
 @RestController
 @RequestMapping(value = "/common")
 public class CommonController {

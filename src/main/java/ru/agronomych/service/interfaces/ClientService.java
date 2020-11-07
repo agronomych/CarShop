@@ -20,22 +20,22 @@ public interface ClientService {
     /**
      * добавить группу клиентов
      */
-    public  void addAllClients(HashMap<String, ClientModel> map);
+    public  void addAllClients(HashMap<Long, ClientModel> map);
 
     /**
      * получить всех клиентов
      */
-    public HashMap<String, ClientModel> getAllClients();
+    public HashMap<Long, ClientModel> getAllClients();
 
     /**
      * получить клиента по id
      */
-    public ClientModel getClientById(String id);
+    public ClientModel getClientById(Long id);
 
     /**
      * удалить клиента по id
      */
-    public void deleteClientById(String id);
+    public void deleteClientById(Long id);
 
     /**
      * обновить данные клиента по id

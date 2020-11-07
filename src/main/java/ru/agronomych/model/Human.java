@@ -1,16 +1,21 @@
-package ru.agronomych.controller.dto;
+package ru.agronomych.model;
 
-import java.io.Serializable;
-
-/**
- * DTO класс для сущности менеджер
- */
-public class ManagerDTO implements Serializable {
+public class Human implements Identified<Long>{
 
     /**
-     * Ключ, однозначно идентифицирующий менеджера
+     * Ключ, однозначно идентифицирующий авто (номер паспорта)
      */
     private Long id;
+
+    @Override
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     /**
      * имя человека
      */
@@ -48,11 +53,4 @@ public class ManagerDTO implements Serializable {
         this.patronymic = patronymic;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

@@ -24,22 +24,22 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void addAllClients(HashMap<String, ClientModel> map) {
+    public void addAllClients(HashMap<Long, ClientModel> map) {
         clientDAO.addAll(map);
     }
 
     @Override
-    public HashMap<String, ClientModel> getAllClients() {
-        return (HashMap<String, ClientModel>) clientDAO.getAll();
+    public HashMap<Long, ClientModel> getAllClients() {
+        return (HashMap<Long, ClientModel>) clientDAO.getAll();
     }
 
     @Override
-    public ClientModel getClientById(String id) {
+    public ClientModel getClientById(Long id) {
         return clientDAO.getByPK(id);
     }
 
     @Override
-    public void deleteClientById(String id) {
+    public void deleteClientById(Long id) {
         clientDAO.deleteByPK(id);
     }
 

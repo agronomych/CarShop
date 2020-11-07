@@ -1,15 +1,11 @@
 package ru.agronomych.controller.dto;
 
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
-import ru.agronomych.model.CarModel;
-import ru.agronomych.service.interfaces.CarService;
-
 import java.io.Serializable;
-import java.util.HashMap;
 
+/**
+ * DTO класс для сущности автомобиль
+ */
 public class CarDTO implements Serializable {
-
 
     /**
      * Название модели авто

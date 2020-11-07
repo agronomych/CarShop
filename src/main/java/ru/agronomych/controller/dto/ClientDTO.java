@@ -2,13 +2,16 @@ package ru.agronomych.controller.dto;
 
 import java.io.Serializable;
 
+/**
+ * DTO класс для сущности клиент
+ */
 public class ClientDTO implements Serializable {
 
 
     /**
-     * Ключ, однозначно идентифицирующий авто (номер паспорта)
+     * Ключ, однозначно идентифицирующий клиента
      */
-    private String id;
+    private Long id;
     /**
      * имя человека
      */
@@ -21,6 +24,11 @@ public class ClientDTO implements Serializable {
      * Отчество человека
      */
     private String patronymic;
+
+    /**
+     * пасспорт человека
+     */
+    private String passport;
 
     public String getName() {
         return name;
@@ -46,11 +54,19 @@ public class ClientDTO implements Serializable {
         this.patronymic = patronymic;
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 }

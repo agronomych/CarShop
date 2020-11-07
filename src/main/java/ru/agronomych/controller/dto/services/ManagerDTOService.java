@@ -14,6 +14,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
+/**
+ * сервис для работы со слоем DTO сущности Менеджер
+ */
+
 @Service
 @PropertySource(value = {"classpath:application.properties"})
 public class ManagerDTOService implements DTOService<ManagerDTO,ManagerModel,Long>{

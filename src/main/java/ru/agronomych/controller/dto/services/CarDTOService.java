@@ -11,6 +11,10 @@ import ru.agronomych.service.interfaces.CarService;
 import java.io.*;
 import java.util.HashMap;
 
+/**
+ * сервис для работы со слоем DTO сущности Автомобиль
+ */
+
 @Service
 @PropertySource(value = {"classpath:application.properties"})
 public class CarDTOService implements DTOService<CarDTO,CarModel,String>{

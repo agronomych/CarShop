@@ -12,15 +12,15 @@ import java.util.HashMap;
  * @author Anton_Suryapin
  */
 @Repository(value = "ClientDAO")
-public class ClientDAOImpl extends CommonDaoImpl<ClientModel, String> implements ClientDAO {
+public class ClientDAOImpl extends CommonDaoImpl<ClientModel, Long> implements ClientDAO {
 
     public ClientDAOImpl() {
         super(ClientModel.class, new HashMap<>());
     }
 
     @Override
-    public HashMap<ClientModel,String> getClientsByLastName(String lastName) {
-        HashMap<ClientModel,String> temp = new HashMap<ClientModel,String>();
+    public HashMap<ClientModel,Long> getClientsByLastName(String lastName) {
+        HashMap<ClientModel,Long> temp = new HashMap();
         for (ClientModel el : elements.values()) {
             if (el.getLastName().equals(lastName)) {
                 temp.put(el,el.getId());

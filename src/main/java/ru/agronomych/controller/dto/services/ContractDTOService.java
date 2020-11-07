@@ -17,6 +17,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
+/**
+ * сервис для работы со слоем DTO сущности Контракт
+ */
+
 @Service
 @PropertySource(value = {"classpath:application.properties"})
 public class ContractDTOService implements DTOService<ContractDTO,ContractModel,Long>{
