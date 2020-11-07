@@ -11,7 +11,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/common/loadAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"common",
+						"loadAll"
+					]
 				}
 			},
 			"response": []
@@ -22,7 +31,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/cars/getAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars",
+						"getAll"
+					]
 				}
 			},
 			"response": []
@@ -30,10 +48,28 @@
 		{
 			"name": "add a car",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"model\":\"Caterpillar\",\"id\":\"13-666\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/cars/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars",
+						"add"
+					]
 				}
 			},
 			"response": []
@@ -44,7 +80,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/cars/get?id=A666",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars",
+						"get"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "A666"
+						}
+					]
 				}
 			},
 			"response": []
@@ -66,7 +117,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/cars/load",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars",
+						"load"
+					]
 				}
 			},
 			"response": []
@@ -74,10 +134,20 @@
 		{
 			"name": "delete a car",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/cars/delete/A666",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars",
+						"delete",
+						"A666"
+					]
 				}
 			},
 			"response": []

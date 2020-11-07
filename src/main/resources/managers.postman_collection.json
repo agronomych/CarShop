@@ -11,7 +11,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/managers/getAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"managers",
+						"getAll"
+					]
 				}
 			},
 			"response": []
@@ -19,10 +28,28 @@
 		{
 			"name": "add a manager",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":565,\"name\":\"Илья\",\"lastName\":\"Ильич\",\"patronymic\": \"Ильич\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/managers/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"managers",
+						"add"
+					]
 				}
 			},
 			"response": []
@@ -33,7 +60,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/managers/get?id=565",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"managers",
+						"get"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "565"
+						}
+					]
 				}
 			},
 			"response": []
@@ -44,7 +86,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/managers/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"managers",
+						"save"
+					]
 				}
 			},
 			"response": []
@@ -55,7 +106,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/managers/load",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"managers",
+						"load"
+					]
 				}
 			},
 			"response": []
@@ -63,10 +123,19 @@
 		{
 			"name": "delete a manager",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/managers/98",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"managers",
+						"98"
+					]
 				}
 			},
 			"response": []

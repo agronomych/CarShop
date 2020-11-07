@@ -11,7 +11,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/contracts/getAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contracts",
+						"getAll"
+					]
 				}
 			},
 			"response": []
@@ -19,10 +28,28 @@
 		{
 			"name": "add a contract",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"3\",\"carId\":\"C111\",\"clientId\":\"0000000123\",\"managerId\":98,date:\"08.02.2002\",\"sum\":500}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/contracts/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contracts",
+						"add"
+					]
 				}
 			},
 			"response": []
@@ -33,7 +60,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/contracts/get?id=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contracts",
+						"get"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
 				}
 			},
 			"response": []
@@ -44,7 +86,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/contracts/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contracts",
+						"save"
+					]
 				}
 			},
 			"response": []
@@ -55,7 +106,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/contracts/load",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contracts",
+						"load"
+					]
 				}
 			},
 			"response": []
@@ -63,10 +123,19 @@
 		{
 			"name": "delete a contract",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/contracts/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contracts",
+						"3"
+					]
 				}
 			},
 			"response": []
