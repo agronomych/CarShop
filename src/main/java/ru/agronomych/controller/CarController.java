@@ -30,8 +30,8 @@ public class CarController {
      * @param id
      * @return объект DTO автомобиля
      */
-    @GetMapping("/get")
-    public CarDTO getCar(@RequestParam String id){
+    @GetMapping("/get/{id}")
+    public CarDTO getCar(@PathVariable String id){
         return carDTOservice.get(id);
     }
 

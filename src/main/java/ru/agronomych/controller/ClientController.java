@@ -32,8 +32,8 @@ public class ClientController {
      * @param id
      * @return объект DTO клиента
      */
-    @GetMapping("/get")
-    public ClientDTO getClient(@RequestParam Long id){
+    @GetMapping("/get/{id}")
+    public ClientDTO getClient(@PathVariable Long id){
         return clientDTOService.get(id);
     }
 

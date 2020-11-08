@@ -30,8 +30,8 @@ public class ContractController {
      * @param id
      * @return объект DTO контракта
      */
-    @GetMapping("/get")
-    public ContractDTO getContract(@RequestParam Long id){
+    @GetMapping("/get/{id}")
+    public ContractDTO getContract(@PathVariable Long id){
         return contractDTOService.get(id);
     }
 

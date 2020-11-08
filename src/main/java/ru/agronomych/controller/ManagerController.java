@@ -28,8 +28,8 @@ public class ManagerController {
      * @param id
      * @return объект DTO менеджера
      */
-    @GetMapping("/get")
-    public ManagerDTO getManager(@RequestParam Long id){
+    @GetMapping("/get/{id}")
+    public ManagerDTO getManager(@PathVariable Long id){
         return managerDTOService.get(id);
     }
 

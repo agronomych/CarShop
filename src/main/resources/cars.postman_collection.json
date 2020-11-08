@@ -80,7 +80,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cars/get?id=A666",
+					"raw": "http://localhost:8080/cars/get/A666",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -88,13 +88,8 @@
 					"port": "8080",
 					"path": [
 						"cars",
-						"get"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "A666"
-						}
+						"get",
+						"A666"
 					]
 				}
 			},

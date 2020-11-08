@@ -60,7 +60,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/clients/get?id=565",
+					"raw": "http://localhost:8080/clients/get/565",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -68,13 +68,8 @@
 					"port": "8080",
 					"path": [
 						"clients",
-						"get"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "565"
-						}
+						"get",
+						"565"
 					]
 				}
 			},

@@ -60,7 +60,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/contracts/get?id=4",
+					"raw": "http://localhost:8080/contracts/get/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -68,13 +68,8 @@
 					"port": "8080",
 					"path": [
 						"contracts",
-						"get"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "4"
-						}
+						"get",
+						"4"
 					]
 				}
 			},
