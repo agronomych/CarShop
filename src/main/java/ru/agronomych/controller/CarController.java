@@ -2,9 +2,13 @@ package ru.agronomych.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.controller.dto.services.CarDTOService;
+import ru.agronomych.validator.CarValidator;
 
 import java.util.HashMap;
 
@@ -17,6 +21,9 @@ public class CarController {
 
     @Autowired
     CarDTOService carDTOservice;
+
+    @Autowired
+    private CarValidator carValidator;
 
     /**
      * получение автомобиля по id
@@ -42,9 +49,13 @@ public class CarController {
      * @param carData
      */
     @PostMapping("/add")
-    public void addCar(@RequestBody CarDTO carData){
-        CarDTO car = carData;
-        carDTOservice.add(car);
+    public CarDTO addCar(@Validated @RequestBody CarDTO carData, BindingResult result){
+        if (result.hasErrors()){
+            carData.setErrors(result.getAllErrors());
+            return carData;
+        }
+        carDTOservice.add(carData);
+        return carData;
     }
 
     /**
@@ -61,8 +72,13 @@ public class CarController {
      * @param carData
      */
     @PutMapping(value = "/update")
-    public void updateCar(@RequestBody CarDTO carData){
+    public CarDTO updateCar(@Validated @RequestBody CarDTO carData, BindingResult result){
+        if (result.hasErrors()){
+            carData.setErrors(result.getAllErrors());
+            return carData;
+        }
         carDTOservice.update(carData);
+        return carData;
     }
 
     /**
@@ -81,5 +97,15 @@ public class CarController {
     @GetMapping(value = "/load")
     public String loadCars(){
         return carDTOservice.load();
+    }
+
+    @ModelAttribute
+    public CarDTO carDTO(){
+        return new CarDTO();
+    }
+
+    @InitBinder(value = "carDTO")
+    private void initBinder(WebDataBinder binder){
+        binder.setValidator(carValidator);
     }
 }

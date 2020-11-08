@@ -2,10 +2,16 @@ package ru.agronomych.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.controller.dto.services.ClientDTOService;
+import ru.agronomych.validator.ClientValidator;
 
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 /**
@@ -16,7 +22,10 @@ import java.util.HashMap;
 public class ClientController {
 
     @Autowired
-    ClientDTOService clientDTO;
+    ClientDTOService clientDTOService;
+
+    @Autowired
+    ClientValidator clientValidator;
 
     /**
      * получение клиента по id
@@ -25,7 +34,7 @@ public class ClientController {
      */
     @GetMapping("/get")
     public ClientDTO getClient(@RequestParam Long id){
-        return clientDTO.get(id);
+        return clientDTOService.get(id);
     }
 
     /**
@@ -34,7 +43,7 @@ public class ClientController {
      */
     @GetMapping(value = "/getAll")
     public HashMap<Long,ClientDTO> getAllClients(){
-        return clientDTO.getAll();
+        return clientDTOService.getAll();
     }
 
     /**
@@ -42,8 +51,13 @@ public class ClientController {
      * @param clientData
      */
     @PostMapping("/add")
-    public void addClient(@RequestBody ClientDTO clientData){
-        clientDTO.add(clientData);
+    public ClientDTO addClient(@Validated @RequestBody ClientDTO clientData, BindingResult result){
+        if (result.hasErrors()){
+            clientData.setErrors(result.getAllErrors());
+            return clientData;
+        }
+        clientDTOService.add(clientData);
+        return clientData;
     }
 
     /**
@@ -52,7 +66,7 @@ public class ClientController {
      */
     @DeleteMapping(value = "/delete/{id}")
     public void deleteClientById(@PathVariable Long id){
-        clientDTO.delete(id);
+        clientDTOService.delete(id);
     }
 
     /**
@@ -60,8 +74,13 @@ public class ClientController {
      * @param clientData
      */
     @PutMapping(value = "/update")
-    public void updateClient(@RequestBody ClientDTO clientData){
-        clientDTO.update(clientData);
+    public ClientDTO updateClient(@RequestBody ClientDTO clientData, ClientDTO clientDTO, BindingResult result){
+        if (result.hasErrors()){
+            clientData.setErrors(result.getAllErrors());
+            return clientData;
+        }
+        clientDTOService.add(clientData);
+        return clientData;
     }
 
     /**
@@ -70,7 +89,7 @@ public class ClientController {
      */
     @GetMapping(value = "/save")
     public String saveClients(){
-        return clientDTO.save();
+        return clientDTOService.save();
     }
 
     /**
@@ -79,6 +98,16 @@ public class ClientController {
      */
     @GetMapping(value = "/load")
     public String loadClients(){
-        return clientDTO.load();
+        return clientDTOService.load();
+    }
+
+    @ModelAttribute
+    public ClientDTO clientDTO(){
+        return new ClientDTO();
+    }
+
+    @InitBinder(value = "clientDTO")
+    private void initBinder(WebDataBinder binder){
+        binder.setValidator(clientValidator);
     }
 }

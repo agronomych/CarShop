@@ -1,7 +1,10 @@
 package ru.agronomych.controller.dto;
 
+import org.springframework.validation.ObjectError;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * DTO класс для сущности контракт
@@ -32,6 +35,11 @@ public class ContractDTO implements Serializable {
      * сумма договора
      */
     private BigDecimal sum;
+
+    /**
+     * поле для возврата ошибок валидации
+     */
+    private List<ObjectError> errors;
 
     public Long getId() {
         return id;
@@ -79,5 +87,13 @@ public class ContractDTO implements Serializable {
 
     public void setSum(BigDecimal sum) {
         this.sum = sum;
+    }
+
+    public List<ObjectError> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<ObjectError> errors) {
+        this.errors = errors;
     }
 }

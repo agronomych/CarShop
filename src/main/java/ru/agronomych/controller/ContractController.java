@@ -2,9 +2,14 @@ package ru.agronomych.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.controller.dto.ContractDTO;
 import ru.agronomych.controller.dto.services.ContractDTOService;
+import ru.agronomych.validator.ContractValidator;
 
 import java.util.HashMap;
 
@@ -16,8 +21,10 @@ import java.util.HashMap;
 public class ContractController {
 
     @Autowired
-    ContractDTOService contractDTO;
+    ContractDTOService contractDTOService;
 
+    @Autowired
+    ContractValidator contractValidator;
     /**
      * получение контракта по id
      * @param id
@@ -25,7 +32,7 @@ public class ContractController {
      */
     @GetMapping("/get")
     public ContractDTO getContract(@RequestParam Long id){
-        return contractDTO.get(id);
+        return contractDTOService.get(id);
     }
 
     /**
@@ -34,7 +41,7 @@ public class ContractController {
      */
     @GetMapping(value = "/getAll")
     public HashMap<Long,ContractDTO> getAllContracts(){
-        return contractDTO.getAll();
+        return contractDTOService.getAll();
     }
 
     /**
@@ -42,8 +49,13 @@ public class ContractController {
      * @param contractData
      */
     @PostMapping("/add")
-    public void addContract(@RequestBody ContractDTO contractData){
-        contractDTO.add(contractData);
+    public ContractDTO addContract(@Validated @RequestBody ContractDTO contractData, BindingResult result){
+        if (result.hasErrors()){
+            contractData.setErrors(result.getAllErrors());
+            return contractData;
+        }
+        contractDTOService.add(contractData);
+        return contractData;
     }
 
     /**
@@ -52,7 +64,7 @@ public class ContractController {
      */
     @DeleteMapping(value = "/delete/{id}")
     public void deleteContractById(@PathVariable Long id){
-        contractDTO.delete(id);
+        contractDTOService.delete(id);
     }
 
     /**
@@ -61,7 +73,7 @@ public class ContractController {
      */
     @PutMapping(value = "/update")
     public void updateContract(@RequestBody ContractDTO contractData){
-        contractDTO.update(contractData);
+        contractDTOService.update(contractData);
     }
 
     /**
@@ -70,7 +82,7 @@ public class ContractController {
      */
     @GetMapping(value = "/save")
     public String saveContracts(){
-        return contractDTO.save();
+        return contractDTOService.save();
     }
 
     /**
@@ -79,6 +91,16 @@ public class ContractController {
      */
     @GetMapping(value = "/load")
     public String loadContracts(){
-        return contractDTO.load();
+        return contractDTOService.load();
+    }
+
+    @ModelAttribute
+    public ContractDTO contractDTO(){
+        return new ContractDTO();
+    }
+
+    @InitBinder(value = "contractDTO")
+    private void initBinder(WebDataBinder binder){
+        binder.setValidator(contractValidator);
     }
 }

@@ -1,6 +1,9 @@
 package ru.agronomych.controller.dto;
 
+import org.springframework.validation.ObjectError;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * DTO класс для сущности менеджер
@@ -23,6 +26,11 @@ public class ManagerDTO implements Serializable {
      * Отчество человека
      */
     private String patronymic;
+
+    /**
+     * поле для возврата ошибок валидации
+     */
+    private List<ObjectError> errors;
 
     public String getName() {
         return name;
@@ -54,5 +62,13 @@ public class ManagerDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<ObjectError> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<ObjectError> errors) {
+        this.errors = errors;
     }
 }

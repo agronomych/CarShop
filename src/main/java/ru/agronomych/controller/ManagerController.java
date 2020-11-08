@@ -1,10 +1,13 @@
 package ru.agronomych.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.agronomych.controller.dto.ManagerDTO;
 import ru.agronomych.controller.dto.services.ManagerDTOService;
+import ru.agronomych.validator.ManagerValidator;
 
 import java.util.HashMap;
 
@@ -16,8 +19,10 @@ import java.util.HashMap;
 public class ManagerController {
 
     @Autowired
-    ManagerDTOService managerDTO;
+    ManagerDTOService managerDTOService;
 
+    @Autowired
+    ManagerValidator managerValidator;
     /**
      * получение менеджера по id
      * @param id
@@ -25,7 +30,7 @@ public class ManagerController {
      */
     @GetMapping("/get")
     public ManagerDTO getManager(@RequestParam Long id){
-        return managerDTO.get(id);
+        return managerDTOService.get(id);
     }
 
     /**
@@ -34,7 +39,7 @@ public class ManagerController {
      */
     @GetMapping(value = "/getAll")
     public HashMap<Long,ManagerDTO> getAllManagers(){
-        return managerDTO.getAll();
+        return managerDTOService.getAll();
     }
 
     /**
@@ -42,8 +47,14 @@ public class ManagerController {
      * @param managerData
      */
     @PostMapping("/add")
-    public void addManager(@RequestBody ManagerDTO managerData){
-        managerDTO.add(managerData);
+    public ManagerDTO addManager(@Validated @RequestBody ManagerDTO managerData, BindingResult result){
+
+        if (result.hasErrors()){
+            managerData.setErrors(result.getAllErrors());
+            return managerData;
+        }
+        managerDTOService.add(managerData);
+        return managerData;
     }
 
     /**
@@ -52,7 +63,7 @@ public class ManagerController {
      */
     @DeleteMapping(value = "/delete/{id}")
     public void deleteManagerById(@PathVariable Long id){
-        managerDTO.delete(id);
+        managerDTOService.delete(id);
     }
 
     /**
@@ -61,7 +72,7 @@ public class ManagerController {
      */
     @PutMapping(value = "/update")
     public void updateManager(@RequestBody ManagerDTO managerData){
-        managerDTO.update(managerData);
+        managerDTOService.update(managerData);
     }
 
     /**
@@ -70,7 +81,7 @@ public class ManagerController {
      */
     @GetMapping(value = "/save")
     public String saveManagers(){
-        return managerDTO.save();
+        return managerDTOService.save();
     }
 
     /**
@@ -79,6 +90,16 @@ public class ManagerController {
      */
     @GetMapping(value = "/load")
     public String loadManagers(){
-        return managerDTO.load();
+        return managerDTOService.load();
+    }
+
+    @ModelAttribute
+    public ManagerDTO managerDTO(){
+        return new ManagerDTO();
+    }
+
+    @InitBinder(value = "managerDTO")
+    private void initBinder(WebDataBinder binder){
+        binder.setValidator(managerValidator);
     }
 }
