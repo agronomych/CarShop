@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.agronomych.controller.dto.ContractDTO;
+import ru.agronomych.exception.UnknownIdException;
 import ru.agronomych.service.interfaces.CarService;
 import ru.agronomych.service.interfaces.ClientService;
 import ru.agronomych.service.interfaces.ManagerService;
@@ -33,7 +34,7 @@ public class ContractValidator implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(Object target, Errors errors) throws UnknownIdException{
 
         ContractDTO contractDTO = (ContractDTO) target;
 
@@ -54,5 +55,9 @@ public class ContractValidator implements Validator {
             String message = messageSource.getMessage("car.unknown", new Object[]{}, Locale.getDefault());
             errors.rejectValue("carId", "car.unknown", message);
         }
+        if (errors.getErrorCount()>0){
+            throw new UnknownIdException(errors);
+        }
+
     }
 }

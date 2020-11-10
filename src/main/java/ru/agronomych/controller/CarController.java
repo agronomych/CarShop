@@ -2,6 +2,7 @@ package ru.agronomych.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -31,6 +32,7 @@ public class CarController {
      * @return объект DTO автомобиля
      */
     @GetMapping("/get/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
     public CarDTO getCar(@PathVariable String id){
         return carDTOservice.get(id);
     }
@@ -40,6 +42,7 @@ public class CarController {
      * @return
      */
     @GetMapping(value = "/getAll")
+    @ResponseStatus(value = HttpStatus.OK)
     public HashMap<String,CarDTO> getAllCars(){
         return carDTOservice.getAll();
     }
@@ -49,6 +52,7 @@ public class CarController {
      * @param carData
      */
     @PostMapping("/add")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public CarDTO addCar(@Validated @RequestBody CarDTO carData, BindingResult result){
         if (result.hasErrors()){
             carData.setErrors(result.getAllErrors());
@@ -63,6 +67,7 @@ public class CarController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
     public void deleteCarById(@PathVariable String id){
         carDTOservice.delete(id);
     }
@@ -72,6 +77,7 @@ public class CarController {
      * @param carData
      */
     @PutMapping(value = "/update")
+    @ResponseStatus(value = HttpStatus.OK)
     public CarDTO updateCar(@Validated @RequestBody CarDTO carData, BindingResult result){
         if (result.hasErrors()){
             carData.setErrors(result.getAllErrors());
@@ -86,6 +92,7 @@ public class CarController {
      * @return
      */
     @GetMapping(value = "/save")
+    @ResponseStatus(value = HttpStatus.OK)
     public String saveCars(){
         return carDTOservice.save();
     }
@@ -95,6 +102,7 @@ public class CarController {
      * @return
      */
     @GetMapping(value = "/load")
+    @ResponseStatus(value = HttpStatus.OK)
     public String loadCars(){
         return carDTOservice.load();
     }
