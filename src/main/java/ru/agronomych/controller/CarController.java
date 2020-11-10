@@ -33,7 +33,7 @@ public class CarController {
      */
     @GetMapping("/get/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public CarDTO getCar(@PathVariable String id){
+    public CarDTO getCar(@PathVariable("id") String id){
         return carDTOservice.get(id);
     }
 

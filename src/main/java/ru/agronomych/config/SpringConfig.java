@@ -8,4 +8,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @ComponentScan("ru.agronomych")
 @EnableAsync
 public class SpringConfig {
+
+
+
 }
