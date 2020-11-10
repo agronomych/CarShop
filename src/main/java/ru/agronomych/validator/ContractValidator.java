@@ -59,12 +59,9 @@ public class ContractValidator implements Validator {
         if (errors.getErrorCount()>0){
             throw new UnknownIdException(errors);
         }
-        try {
-            if (contractDTO.getSum() == null || (contractDTO.getSum().equals(0))) {
-                String message = messageSource.getMessage("sum.zero", new Object[]{}, Locale.getDefault());
-                throw new ZeroContractException(message);
-            }
+        if (contractDTO.getSum() == null || (contractDTO.getSum().longValue() == 0)) {
+            String message = messageSource.getMessage("sum.zero", new Object[]{}, Locale.getDefault());
+            throw new ZeroContractException(message);
         }
-        catch (Exception e){};
     }
 }
