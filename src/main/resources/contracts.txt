@@ -1,3 +1,0 @@
-{"id":"1","carId":"A666","clientId":"6304543544","managerId":123,date:"21.06.2012","sum":1000000}
-{"id":"2","carId":"B13","clientId":"1234567890","managerId":124,date:"01.03.2002","sum":800000}
-{"id":"3","carId":"C111","clientId":"0000000123","managerId":98,date:"08.02.2002","sum":500}
