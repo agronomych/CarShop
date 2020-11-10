@@ -32,7 +32,7 @@ public class ManagerController {
      */
     @GetMapping("/get/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public ManagerDTO getManager(@PathVariable Long id){
+    public ManagerDTO getManager(@PathVariable("id") Long id){
         return managerDTOService.get(id);
     }
 
@@ -68,7 +68,7 @@ public class ManagerController {
      */
     @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteManagerById(@PathVariable Long id){
+    public void deleteManagerById(@PathVariable("id") Long id){
         managerDTOService.delete(id);
     }
 

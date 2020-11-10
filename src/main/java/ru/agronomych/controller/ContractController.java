@@ -36,7 +36,7 @@ public class ContractController {
      */
     @GetMapping("/get/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public ContractDTO getContract(@PathVariable Long id){
+    public ContractDTO getContract(@PathVariable("id") Long id){
         return contractDTOService.get(id);
     }
 
@@ -72,7 +72,7 @@ public class ContractController {
      */
     @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteContractById(@PathVariable Long id){
+    public void deleteContractById(@PathVariable("id") Long id){
         contractDTOService.delete(id);
     }
 

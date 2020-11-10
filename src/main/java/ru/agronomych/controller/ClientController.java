@@ -35,7 +35,7 @@ public class ClientController {
      */
     @GetMapping("/get/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public ClientDTO getClient(@PathVariable Long id){
+    public ClientDTO getClient(@PathVariable("id") Long id){
         return clientDTOService.get(id);
     }
 
@@ -70,7 +70,7 @@ public class ClientController {
      */
     @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteClientById(@PathVariable Long id){
+    public void deleteClientById(@PathVariable("id") Long id){
         clientDTOService.delete(id);
     }
 

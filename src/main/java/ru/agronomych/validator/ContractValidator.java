@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.agronomych.controller.dto.ContractDTO;
 import ru.agronomych.exception.UnknownIdException;
+import ru.agronomych.exception.ZeroContractException;
 import ru.agronomych.service.interfaces.CarService;
 import ru.agronomych.service.interfaces.ClientService;
 import ru.agronomych.service.interfaces.ManagerService;
@@ -34,7 +35,7 @@ public class ContractValidator implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) throws UnknownIdException{
+    public void validate(Object target, Errors errors) throws UnknownIdException, ZeroContractException{
 
         ContractDTO contractDTO = (ContractDTO) target;
 
@@ -58,6 +59,12 @@ public class ContractValidator implements Validator {
         if (errors.getErrorCount()>0){
             throw new UnknownIdException(errors);
         }
-
+        try {
+            if (contractDTO.getSum() == null || (contractDTO.getSum().equals(0))) {
+                String message = messageSource.getMessage("sum.zero", new Object[]{}, Locale.getDefault());
+                throw new ZeroContractException(message);
+            }
+        }
+        catch (Exception e){};
     }
 }

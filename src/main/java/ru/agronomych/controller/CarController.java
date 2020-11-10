@@ -68,7 +68,7 @@ public class CarController {
      */
     @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCarById(@PathVariable String id){
+    public void deleteCarById(@PathVariable("id") String id){
         carDTOservice.delete(id);
     }
 
