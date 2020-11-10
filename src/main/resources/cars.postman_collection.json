@@ -26,6 +26,26 @@
 			"response": []
 		},
 		{
+			"name": "Save all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/common/saveAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"common",
+						"saveAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get all cars",
 			"request": {
 				"method": "GET",
