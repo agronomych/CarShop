@@ -32,4 +32,12 @@ public class CommonController {
         managerDTOService.load();
         contractDTOService.load();
     }
+
+    @GetMapping(value = "/saveAll")
+    public void saveAll(){
+        carDTOService.save();
+        clientDTOService.save();
+        managerDTOService.save();
+        contractDTOService.save();
+    }
 }
