@@ -31,7 +31,7 @@ public class ContractController {
      * @return объект DTO контракта
      */
     @GetMapping("/get/{id}")
-    public ContractDTO getContract(@PathVariable Long id){
+    public ContractDTO getContract(@PathVariable("id") Long id){
         return contractDTOService.get(id);
     }
 
@@ -63,7 +63,7 @@ public class ContractController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteContractById(@PathVariable Long id){
+    public void deleteContractById(@PathVariable("id") Long id){
         contractDTOService.delete(id);
     }
 

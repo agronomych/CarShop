@@ -33,7 +33,7 @@ public class ClientController {
      * @return объект DTO клиента
      */
     @GetMapping("/get/{id}")
-    public ClientDTO getClient(@PathVariable Long id){
+    public ClientDTO getClient(@PathVariable("id") Long id){
         return clientDTOService.get(id);
     }
 
@@ -65,7 +65,7 @@ public class ClientController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteClientById(@PathVariable Long id){
+    public void deleteClientById(@PathVariable("id") Long id){
         clientDTOService.delete(id);
     }
 

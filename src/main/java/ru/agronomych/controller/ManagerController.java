@@ -29,7 +29,7 @@ public class ManagerController {
      * @return объект DTO менеджера
      */
     @GetMapping("/get/{id}")
-    public ManagerDTO getManager(@PathVariable Long id){
+    public ManagerDTO getManager(@PathVariable("id") Long id){
         return managerDTOService.get(id);
     }
 
@@ -62,7 +62,7 @@ public class ManagerController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteManagerById(@PathVariable Long id){
+    public void deleteManagerById(@PathVariable("id") Long id){
         managerDTOService.delete(id);
     }
 

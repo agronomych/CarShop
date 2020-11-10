@@ -31,7 +31,7 @@ public class CarController {
      * @return объект DTO автомобиля
      */
     @GetMapping("/get/{id}")
-    public CarDTO getCar(@PathVariable String id){
+    public CarDTO getCar(@PathVariable("id") String id){
         return carDTOservice.get(id);
     }
 
@@ -63,7 +63,7 @@ public class CarController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
-    public void deleteCarById(@PathVariable String id){
+    public void deleteCarById(@PathVariable("id") String id){
         carDTOservice.delete(id);
     }
 
