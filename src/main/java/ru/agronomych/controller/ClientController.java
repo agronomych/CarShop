@@ -73,14 +73,14 @@ public class ClientController {
      * обновляет данные по клинету
      * @param clientData
      */
-    @PutMapping(value = "/update")
-    public ClientDTO updateClient(@RequestBody ClientDTO clientData, ClientDTO clientDTO, BindingResult result){
-        if (result.hasErrors()){
-            clientData.setErrors(result.getAllErrors());
-            return clientData;
+    @PutMapping(value = "/update/{id}")
+    public String updateClient(@PathVariable("{id}") Long id, @RequestBody ClientDTO clientData, BindingResult result){
+        if (clientData.getId() == id) {
+            clientDTOService.update(clientData);
+            return "Data is updated";
+        } else {
+            return "Wrong ID";
         }
-        clientDTOService.add(clientData);
-        return clientData;
     }
 
     /**

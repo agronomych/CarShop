@@ -71,14 +71,14 @@ public class CarController {
      * обновляет данные по автомобилю
      * @param carData
      */
-    @PutMapping(value = "/update")
-    public CarDTO updateCar(@Validated @RequestBody CarDTO carData, BindingResult result){
-        if (result.hasErrors()){
-            carData.setErrors(result.getAllErrors());
-            return carData;
+    @PutMapping(value = "/update/{id}")
+    public String updateCar(@PathVariable("{id}") String id, @Validated @RequestBody CarDTO carData, BindingResult result){
+        if (carData.getId().equals(id)) {
+            carDTOservice.update(carData);
+            return "Data is updated";
+        } else {
+            return "Wrong ID";
         }
-        carDTOservice.update(carData);
-        return carData;
     }
 
     /**

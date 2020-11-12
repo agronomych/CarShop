@@ -71,9 +71,14 @@ public class ContractController {
      * обновляет данные по контракту
      * @param contractData
      */
-    @PutMapping(value = "/update")
-    public void updateContract(@RequestBody ContractDTO contractData){
-        contractDTOService.update(contractData);
+    @PutMapping(value = "/update/{id}")
+    public String updateContract(@PathVariable("{id}") Long id, @RequestBody ContractDTO contractData){
+        if (contractData.getId() == id) {
+            contractDTOService.update(contractData);
+            return "Data is updated";
+        } else {
+            return "Wrong ID";
+        }
     }
 
     /**

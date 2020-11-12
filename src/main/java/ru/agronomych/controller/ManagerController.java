@@ -70,9 +70,14 @@ public class ManagerController {
      * обновляет данные по менеджеру
      * @param managerData
      */
-    @PutMapping(value = "/update")
-    public void updateManager(@RequestBody ManagerDTO managerData){
-        managerDTOService.update(managerData);
+    @PutMapping(value = "/update/{id}")
+    public String updateManager(@PathVariable("{id}") Long id, @RequestBody ManagerDTO managerData){
+        if (managerData.getId() == id) {
+            managerDTOService.update(managerData);
+            return "Data is updated";
+        } else {
+            return "Wrong ID";
+        }
     }
 
     /**
