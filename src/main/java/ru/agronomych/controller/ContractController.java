@@ -2,17 +2,13 @@ package ru.agronomych.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.controller.dto.ContractDTO;
 import ru.agronomych.controller.dto.services.ContractDTOService;
-import ru.agronomych.exception.UnknownIdException;
 import ru.agronomych.validator.ContractValidator;
 
 import java.util.HashMap;
@@ -35,7 +31,6 @@ public class ContractController {
      * @return объект DTO контракта
      */
     @GetMapping("/get/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
     public ContractDTO getContract(@PathVariable("id") Long id){
         return contractDTOService.get(id);
     }
@@ -45,7 +40,6 @@ public class ContractController {
      * @return
      */
     @GetMapping(value = "/getAll")
-    @ResponseStatus(value = HttpStatus.OK)
     public HashMap<Long,ContractDTO> getAllContracts(){
         return contractDTOService.getAll();
     }
@@ -55,15 +49,13 @@ public class ContractController {
      * @param contractData
      */
     @PostMapping("/add")
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public ContractDTO addContract(@Validated @RequestBody ContractDTO contractData, BindingResult result) throws UnknownIdException{
-
-        if (result.hasErrors()) {
-            throw new UnknownIdException(result);
+    public ContractDTO addContract(@Validated @RequestBody ContractDTO contractData, BindingResult result){
+        if (result.hasErrors()){
+            contractData.setErrors(result.getAllErrors());
+            return contractData;
         }
         contractDTOService.add(contractData);
         return contractData;
-
     }
 
     /**
@@ -71,7 +63,6 @@ public class ContractController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
     public void deleteContractById(@PathVariable("id") Long id){
         contractDTOService.delete(id);
     }
@@ -80,10 +71,14 @@ public class ContractController {
      * обновляет данные по контракту
      * @param contractData
      */
-    @PutMapping(value = "/update")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void updateContract(@RequestBody ContractDTO contractData){
-        contractDTOService.update(contractData);
+    @PutMapping(value = "/update/{id}")
+    public String updateContract(@PathVariable("{id}") Long id, @RequestBody ContractDTO contractData){
+        if (contractData.getId() == id) {
+            contractDTOService.update(contractData);
+            return "Data is updated";
+        } else {
+            return "Wrong ID";
+        }
     }
 
     /**
@@ -91,7 +86,6 @@ public class ContractController {
      * @return
      */
     @GetMapping(value = "/save")
-    @ResponseStatus(value = HttpStatus.OK)
     public String saveContracts(){
         return contractDTOService.save();
     }
@@ -101,7 +95,6 @@ public class ContractController {
      * @return
      */
     @GetMapping(value = "/load")
-    @ResponseStatus(value = HttpStatus.OK)
     public String loadContracts(){
         return contractDTOService.load();
     }

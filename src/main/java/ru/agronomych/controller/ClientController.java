@@ -2,7 +2,6 @@ package ru.agronomych.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -34,7 +33,6 @@ public class ClientController {
      * @return объект DTO клиента
      */
     @GetMapping("/get/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
     public ClientDTO getClient(@PathVariable("id") Long id){
         return clientDTOService.get(id);
     }
@@ -44,7 +42,6 @@ public class ClientController {
      * @return
      */
     @GetMapping(value = "/getAll")
-    @ResponseStatus(value = HttpStatus.OK)
     public HashMap<Long,ClientDTO> getAllClients(){
         return clientDTOService.getAll();
     }
@@ -54,7 +51,6 @@ public class ClientController {
      * @param clientData
      */
     @PostMapping("/add")
-    @ResponseStatus(value = HttpStatus.CREATED)
     public ClientDTO addClient(@Validated @RequestBody ClientDTO clientData, BindingResult result){
         if (result.hasErrors()){
             clientData.setErrors(result.getAllErrors());
@@ -69,7 +65,6 @@ public class ClientController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
     public void deleteClientById(@PathVariable("id") Long id){
         clientDTOService.delete(id);
     }
@@ -78,15 +73,14 @@ public class ClientController {
      * обновляет данные по клинету
      * @param clientData
      */
-    @PutMapping(value = "/update")
-    @ResponseStatus(value = HttpStatus.OK)
-    public ClientDTO updateClient(@RequestBody ClientDTO clientData, ClientDTO clientDTO, BindingResult result){
-        if (result.hasErrors()){
-            clientData.setErrors(result.getAllErrors());
-            return clientData;
+    @PutMapping(value = "/update/{id}")
+    public String updateClient(@PathVariable("{id}") Long id, @RequestBody ClientDTO clientData, BindingResult result){
+        if (clientData.getId() == id) {
+            clientDTOService.update(clientData);
+            return "Data is updated";
+        } else {
+            return "Wrong ID";
         }
-        clientDTOService.add(clientData);
-        return clientData;
     }
 
     /**
@@ -94,7 +88,6 @@ public class ClientController {
      * @return
      */
     @GetMapping(value = "/save")
-    @ResponseStatus(value = HttpStatus.OK)
     public String saveClients(){
         return clientDTOService.save();
     }
@@ -104,7 +97,6 @@ public class ClientController {
      * @return
      */
     @GetMapping(value = "/load")
-    @ResponseStatus(value = HttpStatus.OK)
     public String loadClients(){
         return clientDTOService.load();
     }

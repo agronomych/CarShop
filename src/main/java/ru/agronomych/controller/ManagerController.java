@@ -1,8 +1,6 @@
 package ru.agronomych.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -31,7 +29,6 @@ public class ManagerController {
      * @return объект DTO менеджера
      */
     @GetMapping("/get/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
     public ManagerDTO getManager(@PathVariable("id") Long id){
         return managerDTOService.get(id);
     }
@@ -41,7 +38,6 @@ public class ManagerController {
      * @return
      */
     @GetMapping(value = "/getAll")
-    @ResponseStatus(value = HttpStatus.OK)
     public HashMap<Long,ManagerDTO> getAllManagers(){
         return managerDTOService.getAll();
     }
@@ -51,7 +47,6 @@ public class ManagerController {
      * @param managerData
      */
     @PostMapping("/add")
-    @ResponseStatus(value = HttpStatus.CREATED)
     public ManagerDTO addManager(@Validated @RequestBody ManagerDTO managerData, BindingResult result){
 
         if (result.hasErrors()){
@@ -67,7 +62,6 @@ public class ManagerController {
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
     public void deleteManagerById(@PathVariable("id") Long id){
         managerDTOService.delete(id);
     }
@@ -76,10 +70,14 @@ public class ManagerController {
      * обновляет данные по менеджеру
      * @param managerData
      */
-    @PutMapping(value = "/update")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void updateManager(@RequestBody ManagerDTO managerData){
-        managerDTOService.update(managerData);
+    @PutMapping(value = "/update/{id}")
+    public String updateManager(@PathVariable("{id}") Long id, @RequestBody ManagerDTO managerData){
+        if (managerData.getId() == id) {
+            managerDTOService.update(managerData);
+            return "Data is updated";
+        } else {
+            return "Wrong ID";
+        }
     }
 
     /**
@@ -87,8 +85,6 @@ public class ManagerController {
      * @return
      */
     @GetMapping(value = "/save")
-    @ResponseStatus(value = HttpStatus.OK)
-    //@Async
     public String saveManagers(){
         return managerDTOService.save();
     }
@@ -98,7 +94,6 @@ public class ManagerController {
      * @return
      */
     @GetMapping(value = "/load")
-    @ResponseStatus(value = HttpStatus.OK)
     public String loadManagers(){
         return managerDTOService.load();
     }
