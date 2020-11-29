@@ -1,30 +1,47 @@
 package ru.agronomych.controller;
 
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.controller.dto.ContractDTO;
-import ru.agronomych.controller.dto.services.ContractDTOService;
+import ru.agronomych.controller.dto.ManagerDTO;
+import ru.agronomych.model.ContractModel;
+import ru.agronomych.service.interfaces.CarService;
+import ru.agronomych.service.interfaces.ClientService;
+import ru.agronomych.service.interfaces.ContractService;
+import ru.agronomych.service.interfaces.ManagerService;
 import ru.agronomych.validator.ContractValidator;
+
+import static ru.agronomych.controller.dto.converters.ContractDTOConverter.*;
 
 import java.util.HashMap;
 
 /**
- * Контроллер для обработки запросов /contracts
+ * Контроллер для обработки запросов с корневым контекстом /contracts
  */
 @RestController
 @RequestMapping(value = "/contracts")
 public class ContractController {
 
-    @Autowired
-    ContractDTOService contractDTOService;
-
-    @Autowired
+    ContractService contractService;
     ContractValidator contractValidator;
+    CarService carService;
+    ClientService clientService;
+    ManagerService managerService;
+
+
+    public ContractController(ContractService contractService,
+                              ContractValidator contractValidator,
+                              CarService carService,
+                              ManagerService managerService,
+                              ClientService clientService){
+        this.contractService = contractService;
+        this.contractValidator = contractValidator;
+        this.carService = carService;
+        this.clientService = clientService;
+        this.managerService = managerService;
+    }
     /**
      * получение контракта по id
      * @param id
@@ -32,7 +49,12 @@ public class ContractController {
      */
     @GetMapping("/get/{id}")
     public ContractDTO getContract(@PathVariable("id") Long id){
-        return contractDTOService.get(id);
+        ContractModel contract = contractService.getContractById(id);
+        return toDTO(   contract,
+                        contract.getCar().getId(),
+                        contract.getClient().getId(),
+                        contract.getManager().getId()
+                );
     }
 
     /**
@@ -40,8 +62,20 @@ public class ContractController {
      * @return
      */
     @GetMapping(value = "/getAll")
-    public HashMap<Long,ContractDTO> getAllContracts(){
-        return contractDTOService.getAll();
+    public HashMap<Long,ContractDTO> getAllContracts(BindingResult result){
+        if (result.hasErrors()){
+            return null;
+        }
+        HashMap<Long, ContractDTO> mapDTO = new HashMap<>();
+        HashMap<Long, ContractModel> mapModel = contractService.getAllContracts();
+        for (Long id:mapModel.keySet()) {
+            ContractModel contract = mapModel.get(id);
+            mapDTO.put(id, toDTO(   contract,
+                                    contract.getCar().getId(),
+                                    contract.getClient().getId(),
+                                    contract.getManager().getId()));
+        }
+        return mapDTO;
     }
 
     /**
@@ -54,7 +88,10 @@ public class ContractController {
             contractData.setErrors(result.getAllErrors());
             return contractData;
         }
-        contractDTOService.add(contractData);
+        contractService.addContract(fromDTO(contractData,
+                                            carService.getCarById(contractData.getCarId()),
+                                            clientService.getClientById(contractData.getClientId()),
+                                            managerService.getManagerById(contractData.getManagerId())));
         return contractData;
     }
 
@@ -64,7 +101,7 @@ public class ContractController {
      */
     @DeleteMapping(value = "/delete/{id}")
     public void deleteContractById(@PathVariable("id") Long id){
-        contractDTOService.delete(id);
+        contractService.deleteContractById(id);
     }
 
     /**
@@ -74,7 +111,10 @@ public class ContractController {
     @PutMapping(value = "/update/{id}")
     public String updateContract(@PathVariable("{id}") Long id, @RequestBody ContractDTO contractData){
         if (contractData.getId() == id) {
-            contractDTOService.update(contractData);
+            contractService.updateContract(fromDTO(contractData,
+                    carService.getCarById(contractData.getCarId()),
+                    clientService.getClientById(contractData.getClientId()),
+                    managerService.getManagerById(contractData.getManagerId())));
             return "Data is updated";
         } else {
             return "Wrong ID";
@@ -87,7 +127,7 @@ public class ContractController {
      */
     @GetMapping(value = "/save")
     public String saveContracts(){
-        return contractDTOService.save();
+        return contractService.save();
     }
 
     /**
@@ -96,7 +136,7 @@ public class ContractController {
      */
     @GetMapping(value = "/load")
     public String loadContracts(){
-        return contractDTOService.load();
+        return contractService.load();
     }
 
     @ModelAttribute

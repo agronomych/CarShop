@@ -11,6 +11,7 @@ public interface ClientDAO extends CommonDAO<ClientModel,Long> {
 
     /**
      * получаем списко клиентов с данной фамилией
+     * @param lastName
      */
     HashMap<ClientModel,Long> getClientsByLastName(String lastName);
 

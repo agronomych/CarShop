@@ -1,14 +1,14 @@
 package ru.agronomych.controller;
 
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.agronomych.controller.dto.CarDTO;
-import ru.agronomych.controller.dto.services.CarDTOService;
+import ru.agronomych.model.CarModel;
+import ru.agronomych.service.interfaces.CarService;
 import ru.agronomych.validator.CarValidator;
+import static ru.agronomych.controller.dto.converters.CarDTOConverter.*;
 
 import java.util.HashMap;
 
@@ -19,11 +19,14 @@ import java.util.HashMap;
 @RequestMapping(value = "/cars")
 public class CarController {
 
-    @Autowired
-    CarDTOService carDTOservice;
-
-    @Autowired
+    private CarService carService;
     private CarValidator carValidator;
+
+    public CarController(CarService carService,
+                         CarValidator carValidator){
+        this.carService = carService;
+        this.carValidator = carValidator;
+    }
 
     /**
      * получение автомобиля по id
@@ -32,7 +35,7 @@ public class CarController {
      */
     @GetMapping("/get/{id}")
     public CarDTO getCar(@PathVariable("id") String id){
-        return carDTOservice.get(id);
+        return toDTO(carService.getCarById(id));
     }
 
     /**
@@ -41,7 +44,12 @@ public class CarController {
      */
     @GetMapping(value = "/getAll")
     public HashMap<String,CarDTO> getAllCars(){
-        return carDTOservice.getAll();
+        HashMap<String,CarDTO> mapDTO = new HashMap<>();
+        HashMap<String,CarModel> mapModel = carService.getAllCars();
+        for (String id:mapModel.keySet()) {
+            mapDTO.put(id,toDTO(mapModel.get(id)));
+        }
+        return mapDTO;
     }
 
     /**
@@ -54,7 +62,7 @@ public class CarController {
             carData.setErrors(result.getAllErrors());
             return carData;
         }
-        carDTOservice.add(carData);
+        carService.addCar(fromDTO(carData));
         return carData;
     }
 
@@ -64,7 +72,7 @@ public class CarController {
      */
     @DeleteMapping(value = "/delete/{id}")
     public void deleteCarById(@PathVariable("id") String id){
-        carDTOservice.delete(id);
+        carService.deleteCarById(id);
     }
 
     /**
@@ -74,7 +82,7 @@ public class CarController {
     @PutMapping(value = "/update/{id}")
     public String updateCar(@PathVariable("{id}") String id, @Validated @RequestBody CarDTO carData, BindingResult result){
         if (carData.getId().equals(id)) {
-            carDTOservice.update(carData);
+            carService.updateCar(fromDTO(carData));
             return "Data is updated";
         } else {
             return "Wrong ID";
@@ -87,7 +95,7 @@ public class CarController {
      */
     @GetMapping(value = "/save")
     public String saveCars(){
-        return carDTOservice.save();
+        return carService.save();
     }
 
     /**
@@ -96,7 +104,7 @@ public class CarController {
      */
     @GetMapping(value = "/load")
     public String loadCars(){
-        return carDTOservice.load();
+        return carService.load();
     }
 
     @ModelAttribute

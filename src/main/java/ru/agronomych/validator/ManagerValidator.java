@@ -2,7 +2,6 @@ package ru.agronomych.validator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,19 +10,31 @@ import ru.agronomych.controller.dto.ManagerDTO;
 
 import java.util.Locale;
 
+/**
+ * Класс для валидации данных по менеджеру
+ */
 @Component
 public class ManagerValidator implements Validator {
 
 
     private final static Logger logger = LogManager.getLogger(ClientValidator.class);
-    @Autowired
+
     MessageSource messageSource;
+
+    public ManagerValidator(MessageSource messageSource){
+        this.messageSource = messageSource;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
         return ManagerDTO.class.equals(clazz);
     }
 
+    /**
+     * Валидация: имя и фамилия у менеджера обязательны
+     * @param target
+     * @param errors
+     */
     @Override
     public void validate(Object target, Errors errors) {
         ManagerDTO toCheck = (ManagerDTO) target;
