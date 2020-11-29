@@ -11,6 +11,7 @@ public interface CarDAO extends CommonDAO<CarModel, String> {
 
     /**
      * получаем списко автомобилей конкретной модели
+     * @param model
      */
     HashMap<CarModel,String> getCarsByModel(String model);
 

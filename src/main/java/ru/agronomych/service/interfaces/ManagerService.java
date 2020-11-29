@@ -47,4 +47,16 @@ public interface ManagerService {
      */
     public void updateManager(ManagerModel manager);
 
+    /**
+     * метод сохранения всех данных в файлы
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String save();
+
+    /**
+     * метод загрузки всех данных из файла
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String load();
+
 }

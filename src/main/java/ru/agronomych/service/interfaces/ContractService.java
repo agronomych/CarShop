@@ -41,4 +41,16 @@ public interface ContractService {
      * обновить данные контракта по id
      */
     public void updateContract(ContractModel contract);
+
+    /**
+     * метод сохранения всех данных в файлы
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String save();
+
+    /**
+     * метод загрузки всех данных из файла
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String load();
 }

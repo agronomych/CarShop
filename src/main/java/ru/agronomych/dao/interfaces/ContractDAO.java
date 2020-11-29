@@ -11,6 +11,7 @@ public interface ContractDAO extends CommonDAO<ContractModel,Long> {
 
     /**
      * получить список контрактов конкретного менеджера
+     * @param managerId
      */
     HashMap<Long,ContractModel> getContractsByManager(Long managerId);
 }

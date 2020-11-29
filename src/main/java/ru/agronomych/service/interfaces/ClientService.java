@@ -41,4 +41,16 @@ public interface ClientService {
      * обновить данные клиента по id
      */
     public void updateClient(ClientModel client);
+
+    /**
+     * метод сохранения всех данных в файлы
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String save();
+
+    /**
+     * метод загрузки всех данных из файла
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String load();
 }
