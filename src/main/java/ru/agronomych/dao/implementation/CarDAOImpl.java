@@ -18,6 +18,11 @@ public class CarDAOImpl extends CommonDaoImpl<CarModel,String> implements CarDAO
         super(CarModel.class, new HashMap<>());
     }
 
+    /**
+     * Получаем список автомобилей указанной модели
+     * @param model
+     * @return
+     */
     @Override
     public HashMap<CarModel,String> getCarsByModel(String model) {
         HashMap<CarModel,String> temp = new HashMap<CarModel,String>();

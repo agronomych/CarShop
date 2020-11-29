@@ -12,7 +12,7 @@ import java.util.HashMap;
 public interface CarService {
 
     /**
-     * добавить автомобиль
+     * добавляет автомобиль в
      */
     public void addCar(CarModel car);
 
@@ -37,5 +37,17 @@ public interface CarService {
     public void deleteCarById(String id);
 
     public void updateCar(CarModel car);
+
+    /**
+     * метод сохранения всех данных в файлы
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String save();
+
+    /**
+     * метод загрузки всех данных из файла
+     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     */
+    public String load();
 
 }

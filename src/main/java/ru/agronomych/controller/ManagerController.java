@@ -1,13 +1,15 @@
 package ru.agronomych.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.agronomych.controller.dto.ManagerDTO;
-import ru.agronomych.controller.dto.services.ManagerDTOService;
+import ru.agronomych.model.ManagerModel;
+import ru.agronomych.service.interfaces.ManagerService;
 import ru.agronomych.validator.ManagerValidator;
+
+import static ru.agronomych.controller.dto.converters.ManagerDTOConverter.*;
 
 import java.util.HashMap;
 
@@ -18,11 +20,14 @@ import java.util.HashMap;
 @RequestMapping(value = "/managers")
 public class ManagerController {
 
-    @Autowired
-    ManagerDTOService managerDTOService;
-
-    @Autowired
+    ManagerService managerService;
     ManagerValidator managerValidator;
+
+    public ManagerController(ManagerService managerService,
+                             ManagerValidator managerValidator){
+        this.managerService = managerService;
+        this.managerValidator = managerValidator;
+    }
     /**
      * получение менеджера по id
      * @param id
@@ -30,7 +35,7 @@ public class ManagerController {
      */
     @GetMapping("/get/{id}")
     public ManagerDTO getManager(@PathVariable("id") Long id){
-        return managerDTOService.get(id);
+        return toDTO(managerService.getManagerById(id));
     }
 
     /**
@@ -39,7 +44,12 @@ public class ManagerController {
      */
     @GetMapping(value = "/getAll")
     public HashMap<Long,ManagerDTO> getAllManagers(){
-        return managerDTOService.getAll();
+        HashMap<Long, ManagerDTO> mapDTO = new HashMap<>();
+        HashMap<Long, ManagerModel> mapModel = managerService.getAllManagers();
+        for (Long id:mapModel.keySet()) {
+            mapDTO.put(id, toDTO(mapModel.get(id)));
+        }
+        return mapDTO;
     }
 
     /**
@@ -53,7 +63,7 @@ public class ManagerController {
             managerData.setErrors(result.getAllErrors());
             return managerData;
         }
-        managerDTOService.add(managerData);
+        managerService.addManager(fromDTO(managerData));
         return managerData;
     }
 
@@ -63,7 +73,7 @@ public class ManagerController {
      */
     @DeleteMapping(value = "/delete/{id}")
     public void deleteManagerById(@PathVariable("id") Long id){
-        managerDTOService.delete(id);
+        managerService.deleteManagerById(id);
     }
 
     /**
@@ -73,7 +83,7 @@ public class ManagerController {
     @PutMapping(value = "/update/{id}")
     public String updateManager(@PathVariable("{id}") Long id, @RequestBody ManagerDTO managerData){
         if (managerData.getId() == id) {
-            managerDTOService.update(managerData);
+            managerService.updateManager(fromDTO(managerData));
             return "Data is updated";
         } else {
             return "Wrong ID";
@@ -86,7 +96,7 @@ public class ManagerController {
      */
     @GetMapping(value = "/save")
     public String saveManagers(){
-        return managerDTOService.save();
+        return managerService.save();
     }
 
     /**
@@ -95,7 +105,7 @@ public class ManagerController {
      */
     @GetMapping(value = "/load")
     public String loadManagers(){
-        return managerDTOService.load();
+        return managerService.load();
     }
 
     @ModelAttribute

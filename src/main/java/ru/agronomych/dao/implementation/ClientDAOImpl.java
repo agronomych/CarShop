@@ -18,6 +18,11 @@ public class ClientDAOImpl extends CommonDaoImpl<ClientModel, Long> implements C
         super(ClientModel.class, new HashMap<>());
     }
 
+    /**
+     * Получаем список клиентов с указанной фамилией
+     * @param lastName
+     * @return
+     */
     @Override
     public HashMap<ClientModel,Long> getClientsByLastName(String lastName) {
         HashMap<ClientModel,Long> temp = new HashMap();

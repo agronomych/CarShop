@@ -1,0 +1,36 @@
+package ru.agronomych.controller.dto.converters;
+
+import ru.agronomych.controller.dto.CarDTO;
+import ru.agronomych.model.CarModel;
+
+/**
+ * сервис для конвертации DTO <-> Model сущности Автомобиль
+ */
+
+public class CarDTOConverter{
+
+    /**
+     * Конвертация из DTO объекта в модель, храняющуюся в бд
+     * @param carDTO
+     * @return
+     */
+    public static CarModel fromDTO(CarDTO carDTO){
+        CarModel car = new CarModel();
+        car.setId(carDTO.getId());
+        car.setModel(carDTO.getModel());
+        return car;
+    }
+
+    /**
+     * Конвертация из модели, хранящейся в бд, в DTO объект
+     * @param car
+     * @return
+     */
+    public static CarDTO toDTO(CarModel car){
+        CarDTO carDTO = new CarDTO();
+        carDTO.setId(car.getId());
+        carDTO.setModel(car.getModel());
+        return carDTO;
+    }
+
+}

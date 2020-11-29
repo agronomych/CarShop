@@ -1,18 +1,21 @@
 package ru.agronomych.controller;
 
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.controller.dto.ClientDTO;
-import ru.agronomych.controller.dto.services.ClientDTOService;
+import ru.agronomych.controller.dto.converters.CarDTOConverter;
+import ru.agronomych.controller.dto.converters.ClientDTOConverter;
+import ru.agronomych.model.CarModel;
+import ru.agronomych.model.ClientModel;
+import ru.agronomych.service.interfaces.ClientService;
 import ru.agronomych.validator.ClientValidator;
 
-import java.awt.event.ActionListener;
 import java.util.HashMap;
+
+import static ru.agronomych.controller.dto.converters.ClientDTOConverter.*;
 
 /**
  * Контроллер для обработки запросов /clients
@@ -21,11 +24,14 @@ import java.util.HashMap;
 @RequestMapping(value = "/clients")
 public class ClientController {
 
-    @Autowired
-    ClientDTOService clientDTOService;
-
-    @Autowired
+    ClientService clientService;
     ClientValidator clientValidator;
+
+    public ClientController(ClientService clientService,
+                            ClientValidator clientValidator){
+        this.clientService = clientService;
+        this.clientValidator = clientValidator;
+    }
 
     /**
      * получение клиента по id
@@ -34,7 +40,7 @@ public class ClientController {
      */
     @GetMapping("/get/{id}")
     public ClientDTO getClient(@PathVariable("id") Long id){
-        return clientDTOService.get(id);
+        return toDTO(clientService.getClientById(id));
     }
 
     /**
@@ -43,7 +49,12 @@ public class ClientController {
      */
     @GetMapping(value = "/getAll")
     public HashMap<Long,ClientDTO> getAllClients(){
-        return clientDTOService.getAll();
+        HashMap<Long, ClientDTO> mapDTO = new HashMap<>();
+        HashMap<Long, ClientModel> mapModel = clientService.getAllClients();
+        for (Long id:mapModel.keySet()) {
+            mapDTO.put(id, toDTO(mapModel.get(id)));
+        }
+        return mapDTO;
     }
 
     /**
@@ -56,7 +67,7 @@ public class ClientController {
             clientData.setErrors(result.getAllErrors());
             return clientData;
         }
-        clientDTOService.add(clientData);
+        clientService.addClient(fromDTO(clientData));
         return clientData;
     }
 
@@ -66,7 +77,7 @@ public class ClientController {
      */
     @DeleteMapping(value = "/delete/{id}")
     public void deleteClientById(@PathVariable("id") Long id){
-        clientDTOService.delete(id);
+        clientService.deleteClientById(id);
     }
 
     /**
@@ -76,7 +87,7 @@ public class ClientController {
     @PutMapping(value = "/update/{id}")
     public String updateClient(@PathVariable("{id}") Long id, @RequestBody ClientDTO clientData, BindingResult result){
         if (clientData.getId() == id) {
-            clientDTOService.update(clientData);
+            clientService.updateClient(fromDTO(clientData));
             return "Data is updated";
         } else {
             return "Wrong ID";
@@ -89,7 +100,7 @@ public class ClientController {
      */
     @GetMapping(value = "/save")
     public String saveClients(){
-        return clientDTOService.save();
+        return clientService.save();
     }
 
     /**
@@ -98,7 +109,7 @@ public class ClientController {
      */
     @GetMapping(value = "/load")
     public String loadClients(){
-        return clientDTOService.load();
+        return clientService.load();
     }
 
     @ModelAttribute
