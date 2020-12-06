@@ -7,7 +7,7 @@ import ru.agronomych.model.ContractModel;
 import ru.agronomych.model.ManagerModel;
 
 /**
- * сервис для конвертации DTO <-> Model сущности Контракт
+ * класс для конвертации DTO <-> Model сущности Контракт
  */
 
 public class ContractDTOConverter{

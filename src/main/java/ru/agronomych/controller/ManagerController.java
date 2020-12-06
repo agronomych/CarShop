@@ -1,5 +1,7 @@
 package ru.agronomych.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,16 +14,18 @@ import ru.agronomych.validator.ManagerValidator;
 import static ru.agronomych.controller.dto.converters.ManagerDTOConverter.*;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Контроллер для обработки запросов /managers
  */
 @RestController
-@RequestMapping(value = "/managers")
+@RequestMapping(value = "/api/v1/managers")
 public class ManagerController {
 
-    ManagerService managerService;
-    ManagerValidator managerValidator;
+    private ManagerService managerService;
+    private ManagerValidator managerValidator;
 
     public ManagerController(ManagerService managerService,
                              ManagerValidator managerValidator){
@@ -33,7 +37,7 @@ public class ManagerController {
      * @param id
      * @return объект DTO менеджера
      */
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ManagerDTO getManager(@PathVariable("id") Long id){
         return toDTO(managerService.getManagerById(id));
     }
@@ -42,21 +46,21 @@ public class ManagerController {
      * Возвращает список всех менеджеров
      * @return
      */
-    @GetMapping(value = "/getAll")
-    public HashMap<Long,ManagerDTO> getAllManagers(){
-        HashMap<Long, ManagerDTO> mapDTO = new HashMap<>();
+    @GetMapping(value = "/")
+    public List<ManagerDTO> getAllManagers(){
+        List<ManagerDTO> listDTO = new LinkedList<>();
         HashMap<Long, ManagerModel> mapModel = managerService.getAllManagers();
         for (Long id:mapModel.keySet()) {
-            mapDTO.put(id, toDTO(mapModel.get(id)));
+            listDTO.add(toDTO(mapModel.get(id)));
         }
-        return mapDTO;
+        return listDTO;
     }
 
     /**
      * добавляет нового менеджера
      * @param managerData
      */
-    @PostMapping("/add")
+    @PostMapping("/")
     public ManagerDTO addManager(@Validated @RequestBody ManagerDTO managerData, BindingResult result){
 
         if (result.hasErrors()){
@@ -71,7 +75,7 @@ public class ManagerController {
      * удаляет менеджера с ключом id
      * @param id
      */
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public void deleteManagerById(@PathVariable("id") Long id){
         managerService.deleteManagerById(id);
     }
@@ -80,32 +84,14 @@ public class ManagerController {
      * обновляет данные по менеджеру
      * @param managerData
      */
-    @PutMapping(value = "/update/{id}")
-    public String updateManager(@PathVariable("{id}") Long id, @RequestBody ManagerDTO managerData){
+    @PutMapping("/{id}")
+    public ResponseEntity<ManagerDTO> updateManager(@PathVariable("id") Long id, @RequestBody ManagerDTO managerData){
         if (managerData.getId() == id) {
             managerService.updateManager(fromDTO(managerData));
-            return "Data is updated";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(managerData);
         } else {
-            return "Wrong ID";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(managerData);
         }
-    }
-
-    /**
-     * сорхраняет всех менеджеров в файл
-     * @return
-     */
-    @GetMapping(value = "/save")
-    public String saveManagers(){
-        return managerService.save();
-    }
-
-    /**
-     * загружает менеджеров из файлов
-     * @return
-     */
-    @GetMapping(value = "/load")
-    public String loadManagers(){
-        return managerService.load();
     }
 
     @ModelAttribute

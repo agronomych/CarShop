@@ -1,5 +1,7 @@
 package ru.agronomych.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -14,6 +16,8 @@ import ru.agronomych.service.interfaces.ClientService;
 import ru.agronomych.validator.ClientValidator;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import static ru.agronomych.controller.dto.converters.ClientDTOConverter.*;
 
@@ -21,11 +25,11 @@ import static ru.agronomych.controller.dto.converters.ClientDTOConverter.*;
  * Контроллер для обработки запросов /clients
  */
 @RestController
-@RequestMapping(value = "/clients")
+@RequestMapping(value = "/api/v1/clients")
 public class ClientController {
 
-    ClientService clientService;
-    ClientValidator clientValidator;
+    private ClientService clientService;
+    private ClientValidator clientValidator;
 
     public ClientController(ClientService clientService,
                             ClientValidator clientValidator){
@@ -38,7 +42,7 @@ public class ClientController {
      * @param id
      * @return объект DTO клиента
      */
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ClientDTO getClient(@PathVariable("id") Long id){
         return toDTO(clientService.getClientById(id));
     }
@@ -47,21 +51,21 @@ public class ClientController {
      * Возвращает список всех клиентов
      * @return
      */
-    @GetMapping(value = "/getAll")
-    public HashMap<Long,ClientDTO> getAllClients(){
-        HashMap<Long, ClientDTO> mapDTO = new HashMap<>();
+    @GetMapping(value = "/")
+    public List<ClientDTO> getAllClients(){
+        List<ClientDTO> listDTO = new LinkedList<>();
         HashMap<Long, ClientModel> mapModel = clientService.getAllClients();
         for (Long id:mapModel.keySet()) {
-            mapDTO.put(id, toDTO(mapModel.get(id)));
+            listDTO.add(toDTO(mapModel.get(id)));
         }
-        return mapDTO;
+        return listDTO;
     }
 
     /**
      * добавляет нового клиента
      * @param clientData
      */
-    @PostMapping("/add")
+    @PostMapping("/")
     public ClientDTO addClient(@Validated @RequestBody ClientDTO clientData, BindingResult result){
         if (result.hasErrors()){
             clientData.setErrors(result.getAllErrors());
@@ -75,7 +79,7 @@ public class ClientController {
      * удаляет клиента с ключом id
      * @param id
      */
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public void deleteClientById(@PathVariable("id") Long id){
         clientService.deleteClientById(id);
     }
@@ -84,32 +88,14 @@ public class ClientController {
      * обновляет данные по клинету
      * @param clientData
      */
-    @PutMapping(value = "/update/{id}")
-    public String updateClient(@PathVariable("{id}") Long id, @RequestBody ClientDTO clientData, BindingResult result){
+    @PutMapping("/{id}")
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable("id") Long id, @RequestBody ClientDTO clientData, BindingResult result){
         if (clientData.getId() == id) {
             clientService.updateClient(fromDTO(clientData));
-            return "Data is updated";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(clientData);
         } else {
-            return "Wrong ID";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(clientData);
         }
-    }
-
-    /**
-     * сорхраняет всех клиентов в файл
-     * @return
-     */
-    @GetMapping(value = "/save")
-    public String saveClients(){
-        return clientService.save();
-    }
-
-    /**
-     * загружает клиентов из файлов
-     * @return
-     */
-    @GetMapping(value = "/load")
-    public String loadClients(){
-        return clientService.load();
     }
 
     @ModelAttribute
