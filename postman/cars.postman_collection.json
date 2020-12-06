@@ -6,60 +6,22 @@
 	},
 	"item": [
 		{
-			"name": "Load all",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/common/loadAll",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"common",
-						"loadAll"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Save all",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/common/saveAll",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"common",
-						"saveAll"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "get all cars",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cars/getAll",
+					"raw": "http://localhost:8080/api/v1/cars/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"cars",
-						"getAll"
+						""
 					]
 				}
 			},
@@ -72,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"model\":\"Caterpillar\",\"id\":\"13-666\"}",
+					"raw": "{\"model\":\"Lada Vesta\",\"id\":\"13-666\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -80,15 +42,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/cars/add",
+					"raw": "http://localhost:8080/api/v1/cars/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"cars",
-						"add"
+						""
 					]
 				}
 			},
@@ -100,47 +64,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cars/get/A666",
+					"raw": "http://localhost:8080/api/v1/cars/A666",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"cars",
-						"get",
 						"A666"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "save cars",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "load cars",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/cars/load",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"cars",
-						"load"
 					]
 				}
 			},
@@ -152,15 +86,78 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cars/delete/A666",
+					"raw": "http://localhost:8080/api/v1/cars/A666",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"cars",
-						"delete",
+						"A666"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add a car 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"model\":\"Nissan X-Trailz\",\"id\":\"A666\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/cars/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"cars",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update car",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"model\":\"Nissan X-Trail\",\"id\":\"A666\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/cars/A666",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"cars",
 						"A666"
 					]
 				}
