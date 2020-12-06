@@ -6,10 +6,9 @@ import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.model.ClientModel;
 
 /**
- * сервис для конвертации DTO <-> Model сущности Клиент
+ * класс для конвертации DTO <-> Model сущности Клиент
  */
 
-@Service
 @PropertySource(value = {"classpath:application.properties"})
 public class ClientDTOConverter{
 

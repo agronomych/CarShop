@@ -11,15 +11,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/managers/getAll",
+					"raw": "http://localhost:8080/api/v1/managers/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"managers",
-						"getAll"
+						""
 					]
 				}
 			},
@@ -40,15 +42,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/managers/add",
+					"raw": "http://localhost:8080/api/v1/managers/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"managers",
-						"add"
+						""
 					]
 				}
 			},
@@ -60,56 +64,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/managers/get/565",
+					"raw": "http://localhost:8080/api/v1/managers/565",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"managers",
-						"get",
 						"565"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "save managers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/managers/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"managers",
-						"save"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "load managers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/managers/load",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"managers",
-						"load"
 					]
 				}
 			},
@@ -121,15 +86,17 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/managers/98",
+					"raw": "http://localhost:8080/api/v1/managers/565",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
 						"managers",
-						"98"
+						"565"
 					]
 				}
 			},

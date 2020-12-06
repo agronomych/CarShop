@@ -4,7 +4,7 @@ import ru.agronomych.controller.dto.ManagerDTO;
 import ru.agronomych.model.ManagerModel;
 
 /**
- * сервис для конвертации DTO <-> Model сущности Менеджер
+ * класс для конвертации DTO <-> Model сущности Менеджер
  */
 
 public class ManagerDTOConverter{
