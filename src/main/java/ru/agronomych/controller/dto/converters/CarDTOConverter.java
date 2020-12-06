@@ -4,7 +4,7 @@ import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.model.CarModel;
 
 /**
- * сервис для конвертации DTO <-> Model сущности Автомобиль
+ * класс для конвертации DTO <-> Model сущности Автомобиль
  */
 
 public class CarDTOConverter{
