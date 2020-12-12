@@ -3,7 +3,7 @@ package ru.agronomych.model;
 /**
  * Представление сущности Клиент в системе
  */
-public class ClientModel extends Human{
+public class Client extends Human{
 
     private String passport;
 

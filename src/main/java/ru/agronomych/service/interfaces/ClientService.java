@@ -1,9 +1,8 @@
 package ru.agronomych.service.interfaces;
 
-import ru.agronomych.model.CarModel;
-import ru.agronomych.model.ClientModel;
+import ru.agronomych.controller.dto.ClientDTO;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Сервис работоы с клиентом
@@ -13,44 +12,45 @@ import java.util.HashMap;
 public interface ClientService {
 
     /**
-     * добавить клиента
+     * добавляет клиента
+     * @param client - клиент, который будет добавлен
      */
-    public void addClient(ClientModel client);
+    public void add(ClientDTO client);
 
     /**
-     * добавить группу клиентов
+     * добавляет список клиентов
+     * @param list - список клиентов, которые будут добавлены
      */
-    public  void addAllClients(HashMap<Long, ClientModel> map);
+    public  void addAll(List<ClientDTO> list);
 
     /**
      * получить всех клиентов
+     * @return - возвращает список клиентов
      */
-    public HashMap<Long, ClientModel> getAllClients();
+    public List<ClientDTO> getAll();
 
     /**
-     * получить клиента по id
+     * получить клиента
+     * @param id - уникальный идентификтаор, по которому будет получен клиент
+     * @return - полученный клиент
      */
-    public ClientModel getClientById(Long id);
+    public ClientDTO getById(Long id);
 
     /**
-     * удалить клиента по id
+     * удаляет клиента
+     * @param id - уникальный идентификатор, по которому будет удалён клиент
      */
-    public void deleteClientById(Long id);
+    public void deleteById(Long id);
 
     /**
-     * обновить данные клиента по id
+     * обновляет данные клиента
+     * @param client - обновлённые данные клиента
      */
-    public void updateClient(ClientModel client);
+    public void update(ClientDTO client);
 
     /**
-     * метод сохранения всех данных в файлы
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     * Получает все уникальные идентификаторы клиентов
+     * @return список уникальных идентификаторов клиентов
      */
-    public String save();
-
-    /**
-     * метод загрузки всех данных из файла
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
-     */
-    public String load();
+    public List<Long> getIDs();
 }

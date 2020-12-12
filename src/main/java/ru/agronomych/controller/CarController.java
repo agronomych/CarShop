@@ -7,17 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.agronomych.controller.dto.CarDTO;
-import ru.agronomych.model.CarModel;
 import ru.agronomych.service.interfaces.CarService;
 import ru.agronomych.validator.CarValidator;
-import static ru.agronomych.controller.dto.converters.CarDTOConverter.*;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Контроллер для обработки запросов /cars
+ * Контроллер для обработки запросов /api/v1/cars
  */
 @RestController
 @RequestMapping(value = "/api/v1/cars")
@@ -34,59 +30,55 @@ public class CarController {
 
     /**
      * получение автомобиля по id
-     * @param id
+     * @param id - уникальный идентификатор
      * @return объект DTO автомобиля
      */
     @GetMapping("/{id}")
-    public CarDTO getCar(@PathVariable("id") String id){
-        return toDTO(carService.getCarById(id));
+    public CarDTO get(@PathVariable("id") String id){
+        return carService.getById(id);
     }
 
     /**
      * Возвращает список всех автомобилей
-     * @return
+     * @return список автомобилей
      */
     @GetMapping("/")
-    public List<CarDTO> getAllCars(){
-        List<CarDTO> listDTO = new LinkedList<>();
-        HashMap<String,CarModel> mapModel = carService.getAllCars();
-        for (String id:mapModel.keySet()) {
-            listDTO.add(toDTO(mapModel.get(id)));
-        }
-        return listDTO;
+    public List<CarDTO> getAll(){
+        return carService.getAll();
     }
 
     /**
      * добавляет новый автомобиль
-     * @param carData
+     * @param carData данные автомобиля
      */
     @PostMapping("/")
-    public CarDTO addCar(@Validated @RequestBody CarDTO carData, BindingResult result){
+    public CarDTO add(@Validated @RequestBody CarDTO carData, BindingResult result){
         if (result.hasErrors()){
             carData.setErrors(result.getAllErrors());
             return carData;
         }
-        carService.addCar(fromDTO(carData));
+        carService.add(carData);
         return carData;
     }
 
     /**
      * удаляет автомобиль с ключом id
-     * @param id
+     * @param id уникальный идентификатор
      */
     @DeleteMapping("/{id}")
-    public void deleteCarById(@PathVariable("id") String id){
-        carService.deleteCarById(id);
+    public void deleteById(@PathVariable("id") String id){
+        carService.deleteById(id);
     }
 
     /**
-     * обновляет данные по автомобилю
-     * @param carData
+     * обновляет данные по автомобилю с уникальный идентификатором id
+     * @param carData обновлённые данные
+     * @param id уникальный идентификатор
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CarDTO> updateCar(@PathVariable("id") String id, @Validated @RequestBody CarDTO carData, BindingResult result){
+    public ResponseEntity<CarDTO> update(@PathVariable("id") String id, @Validated @RequestBody CarDTO carData, BindingResult result){
         if (carData.getId().equals(id)) {
-            carService.updateCar(fromDTO(carData));
+            carService.update(carData);
             return ResponseEntity.status(HttpStatus.OK).body(carData);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(carData);

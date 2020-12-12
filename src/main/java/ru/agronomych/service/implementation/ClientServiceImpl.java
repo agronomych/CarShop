@@ -3,17 +3,19 @@ package ru.agronomych.service.implementation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.controller.dto.ClientDTO;
+import ru.agronomych.controller.dto.converters.CarDTOConverter;
 import ru.agronomych.dao.interfaces.ClientDAO;
-import ru.agronomych.model.ClientModel;
+import ru.agronomych.model.Car;
+import ru.agronomych.model.Client;
 import ru.agronomych.service.interfaces.ClientService;
-import static ru.agronomych.controller.dto.converters.ClientDTOConverter.*;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+import static ru.agronomych.controller.dto.converters.ClientDTOConverter.*;
 
 @Service(value = "ClientService")
 @PropertySource(value = {"classpath:application.properties"})
@@ -31,67 +33,50 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void addClient(ClientModel client) {
-        clientDAO.save(client);
+    public void add(ClientDTO client) {
+        clientDAO.save(fromDTO(client));
     }
 
     @Override
-    public void addAllClients(HashMap<Long, ClientModel> map) {
+    public void addAll(List<ClientDTO> list) {
+        HashMap<Long, Client> map = new HashMap<>();
+        for(ClientDTO client:list){
+            map.put(client.getId(), fromDTO(client));
+        }
         clientDAO.addAll(map);
     }
 
     @Override
-    public HashMap<Long, ClientModel> getAllClients() {
-        return (HashMap<Long, ClientModel>) clientDAO.getAll();
+    public List<ClientDTO> getAll() {
+        HashMap<Long,Client> map = (HashMap<Long, Client>)clientDAO.getAll();
+        List<ClientDTO> list = new LinkedList<>();
+        for(Client client:map.values()){
+            list.add(toDTO(client));
+        }
+        return list;
     }
 
     @Override
-    public ClientModel getClientById(Long id) {
-        return clientDAO.getByPK(id);
+    public ClientDTO getById(Long id) {
+        return toDTO(clientDAO.getByPK(id));
     }
 
     @Override
-    public void deleteClientById(Long id) {
+    public void deleteById(Long id) {
         clientDAO.deleteByPK(id);
     }
 
     @Override
-    public void updateClient(ClientModel client) {
-        clientDAO.update(client);
+    public void update(ClientDTO client) {
+        clientDAO.update(fromDTO(client));
     }
 
     @Override
-    public String save(){
-        try {
-            HashMap<Long, ClientDTO> map = new HashMap<>();
-            FileOutputStream outputStream = new FileOutputStream(dbPath+"/"+filename);
-            ObjectOutputStream output = new ObjectOutputStream(outputStream);
-            for(ClientModel client:this.getAllClients().values()){
-                map.put(client.getId(),toDTO(client));
-            }
-            output.writeObject(map);
-            output.close();
+    public List<Long> getIDs() {
+        List<Long> list = new LinkedList<>();
+        for(Client client:clientDAO.getAll().values()){
+            list.add(client.getId());
         }
-        catch (Exception e){
-            return "Something is wrong with I/O";
-        }
-        return "Clients are saved correctly";
-    }
-
-    @Override
-    public String load(){
-        try {
-            HashMap<Long,ClientDTO> map;
-            FileInputStream inputStream = new FileInputStream(dbPath+"/"+filename);
-            ObjectInputStream input = new ObjectInputStream(inputStream);
-            map  = (HashMap<Long,ClientDTO>)input.readObject();
-            for(ClientDTO client:map.values()){
-                this.addClient(fromDTO(client));
-            }
-        }
-        catch (Exception e){
-            return "Something is wrong with I/O";
-        }
-        return "Clients are loaded correctly";
+        return list;
     }
 }
