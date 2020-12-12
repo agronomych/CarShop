@@ -1,7 +1,7 @@
 package ru.agronomych.controller.dto.converters;
 
 import ru.agronomych.controller.dto.ManagerDTO;
-import ru.agronomych.model.ManagerModel;
+import ru.agronomych.model.Manager;
 
 /**
  * класс для конвертации DTO <-> Model сущности Менеджер
@@ -14,8 +14,8 @@ public class ManagerDTOConverter{
      * @param managerDTO
      * @return
      */
-    public static ManagerModel fromDTO(ManagerDTO managerDTO){
-        ManagerModel manager = new ManagerModel();
+    public static Manager fromDTO(ManagerDTO managerDTO){
+        Manager manager = new Manager();
         manager.setId((managerDTO.getId()));
         manager.setLastName(managerDTO.getLastName());
         manager.setName(managerDTO.getName());
@@ -28,7 +28,7 @@ public class ManagerDTOConverter{
      * @param manager
      * @return
      */
-    public static ManagerDTO toDTO(ManagerModel manager){
+    public static ManagerDTO toDTO(Manager manager){
         ManagerDTO managerDTO = new ManagerDTO();
         managerDTO.setId(manager.getId());
         managerDTO.setLastName(manager.getLastName());

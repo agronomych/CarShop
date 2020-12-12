@@ -3,9 +3,12 @@ package ru.agronomych.service.implementation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.controller.dto.ManagerDTO;
 import ru.agronomych.dao.interfaces.ManagerDAO;
-import ru.agronomych.model.ManagerModel;
+import ru.agronomych.model.Car;
+import ru.agronomych.model.Client;
+import ru.agronomych.model.Manager;
 import ru.agronomych.service.interfaces.ManagerService;
 
 import java.io.FileInputStream;
@@ -13,6 +16,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import static ru.agronomych.controller.dto.converters.ManagerDTOConverter.*;
 
@@ -35,18 +40,27 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void addManager(ManagerModel manager) {
-        managerDAO.save(manager);
+    public void add(ManagerDTO manager) {
+        managerDAO.save(fromDTO(manager));
     }
 
     @Override
-    public void addAllManagers(HashMap<Long, ManagerModel> map) {
+    public void addAll (List<ManagerDTO> list) {
+        HashMap<Long, Manager> map = new HashMap<>();
+        for(ManagerDTO manager:list){
+            map.put(manager.getId(), fromDTO(manager));
+        }
         managerDAO.addAll(map);
     }
 
     @Override
-    public HashMap<Long, ManagerModel> getAllManagers() {
-        return (HashMap<Long, ManagerModel>) managerDAO.getAll();
+    public List<ManagerDTO> getAll() {
+        HashMap<Long,Manager> map = (HashMap<Long, Manager>)managerDAO.getAll();
+        List<ManagerDTO> list = new LinkedList<>();
+        for(Manager manager:map.values()){
+            list.add(toDTO(manager));
+        }
+        return list;
     }
 
     @Override
@@ -55,52 +69,26 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public ManagerModel getManagerById(Long id) {
-        return managerDAO.getByPK(id);
+    public ManagerDTO getById(Long id) {
+        return toDTO(managerDAO.getByPK(id));
     }
 
     @Override
-    public void deleteManagerById(Long id) {
+    public void deleteById(Long id) {
         managerDAO.deleteByPK(id);
     }
 
     @Override
-    public void updateManager(ManagerModel manager) {
-        managerDAO.update(manager);
+    public void update(ManagerDTO manager) {
+        managerDAO.update(fromDTO(manager));
     }
 
     @Override
-    public String save(){
-        try {
-            HashMap<Long, ManagerDTO> map = new HashMap<>();
-            FileOutputStream outputStream = new FileOutputStream(dbPath+"/"+filename);
-            ObjectOutputStream output = new ObjectOutputStream(outputStream);
-            for(ManagerModel manager:this.getAllManagers().values()){
-                map.put(manager.getId(),toDTO(manager));
-            }
-            output.writeObject(map);
-            output.close();
+    public List<Long> getIDs() {
+        List<Long> list = new LinkedList<>();
+        for(Manager manager:managerDAO.getAll().values()){
+            list.add(manager.getId());
         }
-        catch (Exception e){
-            return "Something is wrong with I/O";
-        }
-        return "Managers are saved correctly";
-    }
-
-    @Override
-    public String load(){
-        try {
-            HashMap<Long,ManagerDTO> map;
-            FileInputStream inputStream = new FileInputStream(dbPath+"/"+filename);
-            ObjectInputStream input = new ObjectInputStream(inputStream);
-            map  = (HashMap<Long,ManagerDTO>)input.readObject();
-            for(ManagerDTO manager:map.values()){
-                this.addManager(fromDTO(manager));
-            }
-        }
-        catch (Exception e){
-            return "Something is wrong with I/O";
-        }
-        return "Managers are loaded correctly";
+        return list;
     }
 }

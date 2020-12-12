@@ -1,10 +1,10 @@
 package ru.agronomych.controller.dto.converters;
 
 import ru.agronomych.controller.dto.ContractDTO;
-import ru.agronomych.model.CarModel;
-import ru.agronomych.model.ClientModel;
-import ru.agronomych.model.ContractModel;
-import ru.agronomych.model.ManagerModel;
+import ru.agronomych.model.Car;
+import ru.agronomych.model.Client;
+import ru.agronomych.model.Contract;
+import ru.agronomych.model.Manager;
 
 /**
  * класс для конвертации DTO <-> Model сущности Контракт
@@ -20,11 +20,11 @@ public class ContractDTOConverter{
      * @param manager
      * @return
      */
-    public static ContractModel fromDTO(ContractDTO contractDTO,
-                                        CarModel car,
-                                        ClientModel client,
-                                        ManagerModel manager){
-        ContractModel contract = new ContractModel();
+    public static Contract fromDTO(ContractDTO contractDTO,
+                                   Car car,
+                                   Client client,
+                                   Manager manager){
+        Contract contract = new Contract();
         contract.setId(contractDTO.getId());
         contract.setSum(contractDTO.getSum());
         contract.setDate(contractDTO.getDate());
@@ -42,7 +42,7 @@ public class ContractDTOConverter{
      * @param managerID
      * @return
      */
-    public static ContractDTO toDTO(ContractModel contract,
+    public static ContractDTO toDTO(Contract contract,
                                     String carID,
                                     Long clientID,
                                     Long managerID

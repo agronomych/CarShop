@@ -2,7 +2,7 @@ package ru.agronomych.dao.implementation;
 
 import org.springframework.stereotype.Repository;
 import ru.agronomych.dao.interfaces.CarDAO;
-import ru.agronomych.model.CarModel;
+import ru.agronomych.model.Car;
 
 import java.util.HashMap;
 
@@ -12,10 +12,10 @@ import java.util.HashMap;
  * @author Anton_Suryapin
  */
 @Repository(value = "CarDAO")
-public class CarDAOImpl extends CommonDaoImpl<CarModel,String> implements CarDAO{
+public class CarDAOImpl extends CommonDaoImpl<Car,String> implements CarDAO{
 
     public CarDAOImpl() {
-        super(CarModel.class, new HashMap<>());
+        super(Car.class, new HashMap<>());
     }
 
     /**
@@ -24,9 +24,9 @@ public class CarDAOImpl extends CommonDaoImpl<CarModel,String> implements CarDAO
      * @return
      */
     @Override
-    public HashMap<CarModel,String> getCarsByModel(String model) {
-        HashMap<CarModel,String> temp = new HashMap<CarModel,String>();
-        for (CarModel el : elements.values()) {
+    public HashMap<Car,String> getCarsByModel(String model) {
+        HashMap<Car,String> temp = new HashMap<Car,String>();
+        for (Car el : elements.values()) {
             if (el.getModel().equals(model)) {
                 temp.put(el,el.getId());
             }
