@@ -1,9 +1,8 @@
 package ru.agronomych.controller.dto.converters;
 
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Service;
 import ru.agronomych.controller.dto.ClientDTO;
-import ru.agronomych.model.ClientModel;
+import ru.agronomych.model.Client;
 
 /**
  * класс для конвертации DTO <-> Model сущности Клиент
@@ -17,8 +16,8 @@ public class ClientDTOConverter{
      * @param clientDTO
      * @return
      */
-    public static ClientModel fromDTO(ClientDTO clientDTO){
-        ClientModel client = new ClientModel();
+    public static Client fromDTO(ClientDTO clientDTO){
+        Client client = new Client();
         client.setId((clientDTO.getId()));
         client.setLastName(clientDTO.getLastName());
         client.setName(clientDTO.getName());
@@ -32,7 +31,7 @@ public class ClientDTOConverter{
      * @param client
      * @return
      */
-    public static ClientDTO toDTO(ClientModel client){
+    public static ClientDTO toDTO(Client client){
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setId(client.getId());
         clientDTO.setLastName(client.getLastName());

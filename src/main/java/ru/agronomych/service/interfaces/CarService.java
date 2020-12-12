@@ -1,8 +1,8 @@
 package ru.agronomych.service.interfaces;
 
-import ru.agronomych.model.CarModel;
+import ru.agronomych.controller.dto.CarDTO;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Сервис работоы с автомобилем
@@ -12,42 +12,45 @@ import java.util.HashMap;
 public interface CarService {
 
     /**
-     * добавляет автомобиль в
+     * добавляет автомобиль
+     * @param car - автомобиль, который будет добавлен
      */
-    public void addCar(CarModel car);
+    public void add(CarDTO car);
 
     /**
-     * добавить группу автомобилей
+     * добавляет список автомобилей
+     * @param list - список автомобилей, которые будет добавлены
      */
-    public  void addAllCars(HashMap<String, CarModel> map);
+    public  void addAll(List<CarDTO> list);
 
     /**
-     * получить все автомобили
+     * Возвращает все автомобили
+     * @return
      */
-    public HashMap<String, CarModel> getAllCars();
+    public List<CarDTO> getAll();
 
     /**
-     * получить автомобиль по id
+     * получить автомобиль
+     * @param id - уникальный идентификатор, по которому надо получить автомобиль
+     * @return - полученный автомобиль
      */
-    public CarModel getCarById(String id);
+    public CarDTO getById(String id);
 
     /**
-     * удалить автомобиль по id
+     * удаляет автомобиль
+     * @param id - уникальный идентификатор автомобиля, который будет удалён
      */
-    public void deleteCarById(String id);
-
-    public void updateCar(CarModel car);
+    public void deleteById(String id);
 
     /**
-     * метод сохранения всех данных в файлы
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     * Обновляет данные автомобиля
+     * @param car - обновлённые данные автомобиля
      */
-    public String save();
+    public void update(CarDTO car);
 
     /**
-     * метод загрузки всех данных из файла
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     * Получает список уникальный идентификаторов автомобилей
+     * @return список уникальных идентификаторов автомобилей
      */
-    public String load();
-
+    public List<String> getIDs();
 }

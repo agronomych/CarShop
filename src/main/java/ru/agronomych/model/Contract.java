@@ -5,7 +5,7 @@ package ru.agronomych.model;
  */
 import java.math.BigDecimal;
 
-public class ContractModel implements Identified<Long>{
+public class Contract implements Identified<Long>{
 
     /**
      * Ключ, однозначно идентифицирующий контракт (id в системе организации)
@@ -14,15 +14,15 @@ public class ContractModel implements Identified<Long>{
     /**
      * Название модели авто, продаваемая по договору
      */
-    private CarModel car;
+    private Car car;
     /**
      * клиент покупатель авто
      */
-    private ClientModel client;
+    private Client client;
     /**
      * менеджер, оформивший продажу
      */
-    private ManagerModel manager;
+    private Manager manager;
     /**
      * дата договора (DD.MM.YYYY)
      */
@@ -32,27 +32,27 @@ public class ContractModel implements Identified<Long>{
      */
     private BigDecimal sum;
 
-    public CarModel getCar() {
+    public Car getCar() {
         return car;
     }
 
-    public void setCar(CarModel car) {
+    public void setCar(Car car) {
         this.car = car;
     }
 
-    public ClientModel getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(ClientModel client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 
-    public ManagerModel getManager() {
+    public Manager getManager() {
         return manager;
     }
 
-    public void setManager(ManagerModel manager) {
+    public void setManager(Manager manager) {
         this.manager = manager;
     }
 
