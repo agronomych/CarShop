@@ -2,7 +2,7 @@ package ru.agronomych.dao.implementation;
 
 import org.springframework.stereotype.Repository;
 import ru.agronomych.dao.interfaces.ClientDAO;
-import ru.agronomych.model.ClientModel;
+import ru.agronomych.model.Client;
 
 import java.util.HashMap;
 
@@ -12,10 +12,10 @@ import java.util.HashMap;
  * @author Anton_Suryapin
  */
 @Repository(value = "ClientDAO")
-public class ClientDAOImpl extends CommonDaoImpl<ClientModel, Long> implements ClientDAO {
+public class ClientDAOImpl extends CommonDaoImpl<Client, Long> implements ClientDAO {
 
     public ClientDAOImpl() {
-        super(ClientModel.class, new HashMap<>());
+        super(Client.class, new HashMap<>());
     }
 
     /**
@@ -24,9 +24,9 @@ public class ClientDAOImpl extends CommonDaoImpl<ClientModel, Long> implements C
      * @return
      */
     @Override
-    public HashMap<ClientModel,Long> getClientsByLastName(String lastName) {
-        HashMap<ClientModel,Long> temp = new HashMap();
-        for (ClientModel el : elements.values()) {
+    public HashMap<Client,Long> getClientsByLastName(String lastName) {
+        HashMap<Client,Long> temp = new HashMap();
+        for (Client el : elements.values()) {
             if (el.getLastName().equals(lastName)) {
                 temp.put(el,el.getId());
             }

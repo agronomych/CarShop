@@ -1,9 +1,8 @@
 package ru.agronomych.service.interfaces;
 
-import ru.agronomych.model.ContractModel;
-import ru.agronomych.model.ContractModel;
+import ru.agronomych.controller.dto.ContractDTO;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Сервис работоы с контрактом
@@ -13,44 +12,45 @@ import java.util.HashMap;
 public interface ContractService {
 
     /**
-     * добавить контракт
+     * добавляет контракт
+     * @param contract
      */
-    void addContract(ContractModel contract);
+    void add(ContractDTO contract);
 
     /**
-     * добавить группу контрактов
+     * добавляет список контрактов
+     * @param list
      */
-    public  void addAllContracts(HashMap<Long, ContractModel> map);
+    public  void addAll(List<ContractDTO> list);
 
     /**
-     * получить все контракты
+     * получает все контракты
+     * @return - возвращает список всех контрактов
      */
-    public HashMap<Long, ContractModel> getAllContracts();
+    public List<ContractDTO> getAll();
 
     /**
-     * получить контракт по id
+     * получает контракт по id
+     * @param id - уникальный идентификатор, по которому будет получен контракт
+     * @return - полученный контракт
      */
-    public ContractModel getContractById(Long id);
+    public ContractDTO getById(Long id);
 
     /**
-     * удалить контракт по id
+     * удаляет контракт по id
+     * @param id - уникальный идентификатор контракта, который будет удалён
      */
-    public void deleteContractById(Long id);
+    public void deleteById(Long id);
 
     /**
-     * обновить данные контракта по id
+     * обновляет данные контракта
+     * @param contract - обновлённые данные
      */
-    public void updateContract(ContractModel contract);
+    public void update(ContractDTO contract);
 
     /**
-     * метод сохранения всех данных в файлы
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     * Получает список уникальный идентификаторов контрактов
+     * @return список уникальных идентификаторов контрактов
      */
-    public String save();
-
-    /**
-     * метод загрузки всех данных из файла
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
-     */
-    public String load();
+    public List<Long> getIDs();
 }

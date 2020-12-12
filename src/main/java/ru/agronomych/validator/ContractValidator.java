@@ -53,19 +53,19 @@ public class ContractValidator implements Validator {
 
         ContractDTO contractDTO = (ContractDTO) target;
 
-        if (managerService.getAllManagers().isEmpty() || !managerService.getAllManagers().containsKey(contractDTO.getManagerId())){
+        if (managerService.getAll().isEmpty() || !managerService.getIDs().contains(contractDTO.getManagerId())){
             logger.error("Unknown manager");
             String message = messageSource.getMessage("manager.unknown", new Object[]{}, Locale.getDefault());
             errors.rejectValue("managerId", "manager.unknown", message);
         }
 
-        if (clientService.getAllClients().isEmpty() || !clientService.getAllClients().containsKey(contractDTO.getClientId())){
+        if (clientService.getAll().isEmpty() || !clientService.getIDs().contains(contractDTO.getClientId())){
             logger.error("Unknown client");
             String message = messageSource.getMessage("client.unknown", new Object[]{}, Locale.getDefault());
             errors.rejectValue("clientId", "client.unknown", message);
         }
 
-        if (carService.getAllCars().isEmpty() || !carService.getAllCars().containsKey(contractDTO.getCarId())){
+        if (carService.getAll().isEmpty() || !carService.getIDs().contains(contractDTO.getCarId())){
             logger.error("Unknown manager");
             String message = messageSource.getMessage("car.unknown", new Object[]{}, Locale.getDefault());
             errors.rejectValue("carId", "car.unknown", message);

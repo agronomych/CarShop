@@ -1,9 +1,8 @@
 package ru.agronomych.service.interfaces;
 
-import ru.agronomych.model.ClientModel;
-import ru.agronomych.model.ManagerModel;
+import ru.agronomych.controller.dto.ManagerDTO;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Сервис работоы с менеджером
@@ -13,19 +12,22 @@ import java.util.HashMap;
 public interface ManagerService {
 
     /**
-     * добавить менеджера
+     * добавляет менеджера
+     * @param manager - данные менеджера, который будет добавлен
      */
-    public void addManager(ManagerModel manager);
+    public void add(ManagerDTO manager);
 
     /**
-     * добавить группу менеджеров
+     * добавляет список менеджеров
+     * @param list - список добавляемых менеджеров
      */
-    public  void addAllManagers(HashMap<Long, ManagerModel> map);
+    public  void addAll(List<ManagerDTO> list);
 
     /**
-     * получить всех менеджеров
+     * возвращает всех менеджеров
+     * @return список всех менеджеров
      */
-    public HashMap<Long, ManagerModel> getAllManagers();
+    public List<ManagerDTO> getAll();
 
     /**
      * получить имя оранизации
@@ -33,30 +35,28 @@ public interface ManagerService {
     public String getOrgName();
 
     /**
-     * получить менеджера по id
+     * получить менеджера
+     * @param id - уникальный идентификатор менеджера, которого надо получить
+     * @return - полученный менеджер
      */
-    public ManagerModel getManagerById(Long id);
+    public ManagerDTO getById(Long id);
 
     /**
-     * удалить менеджера по id
+     * удаляет менеджера
+      * @param id - уникальный идентификатор менеджера, который будет удалён
      */
-    public void deleteManagerById(Long id);
+    public void deleteById(Long id);
 
     /**
-     * обновить данные менеджера по id
+     * Обновляет данные менеджера
+     * @param manager - обновлённые данные менеджера
      */
-    public void updateManager(ManagerModel manager);
+    public void update(ManagerDTO manager);
 
     /**
-     * метод сохранения всех данных в файлы
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
+     * Получает список уникальный идентификаторов менеджеров
+     * @return список уникальный идентификаторов менеджеров
      */
-    public String save();
-
-    /**
-     * метод загрузки всех данных из файла
-     * @return сообщение об успешном выполнении либо сообщение об ошибке
-     */
-    public String load();
+    public List<Long> getIDs();
 
 }

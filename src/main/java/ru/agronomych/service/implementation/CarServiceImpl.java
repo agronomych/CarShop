@@ -5,14 +5,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.dao.interfaces.CarDAO;
-import ru.agronomych.model.CarModel;
+import ru.agronomych.model.Car;
 import ru.agronomych.service.interfaces.CarService;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import static ru.agronomych.controller.dto.converters.CarDTOConverter.*;
 
@@ -32,68 +29,50 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void addCar(CarModel car) {
-        carDAO.save(car);
+    public void add(CarDTO car) {
+        carDAO.save(fromDTO(car));
     }
 
     @Override
-    public void addAllCars(HashMap<String, CarModel> map) {
+    public void addAll(List<CarDTO> list) {
+        HashMap<String,Car> map = new HashMap<>();
+        for(CarDTO car:list){
+            map.put(car.getId(),fromDTO(car));
+        }
         carDAO.addAll(map);
     }
 
     @Override
-    public HashMap<String, CarModel> getAllCars() {
-        return (HashMap<String, CarModel>) carDAO.getAll();
+    public List<CarDTO> getAll() {
+        HashMap<String,Car> map = (HashMap<String,Car>)carDAO.getAll();
+        List<CarDTO> list = new LinkedList<>();
+        for(Car car:map.values()){
+            list.add(toDTO(car));
+        }
+        return list;
     }
 
     @Override
-    public CarModel getCarById(String id) {
-        return carDAO.getByPK(id);
+    public CarDTO getById(String id) {
+        return toDTO(carDAO.getByPK(id));
     }
 
     @Override
-    public void deleteCarById(String id) {
+    public void deleteById(String id) {
         carDAO.deleteByPK(id);
     }
 
     @Override
-    public void updateCar(CarModel car) {
-        carDAO.update(car);
+    public void update(CarDTO car) {
+        carDAO.update(fromDTO(car));
     }
 
     @Override
-    public String save(){
-        try {
-            HashMap<String, CarDTO> map = new HashMap<>();
-            FileOutputStream outputStream = new FileOutputStream(dbPath+"/"+filename);
-            ObjectOutputStream output = new ObjectOutputStream(outputStream);
-            for(CarModel car:this.getAllCars().values()){
-                map.put(car.getId(),toDTO(car));
-            }
-            output.writeObject(map);
-            output.close();
+    public List<String> getIDs() {
+        List<String> list = new LinkedList<>();
+        for(Car car:carDAO.getAll().values()){
+            list.add(car.getId());
         }
-        catch (Exception e){
-            e.printStackTrace();
-            return "Something is wrong with I/O";
-        }
-        return "Cars are saved correctly";
-    }
-
-    @Override
-    public String load(){
-        try {
-            HashMap<String,CarDTO> map;
-            FileInputStream inputStream = new FileInputStream(dbPath+"/"+filename);
-            ObjectInputStream input = new ObjectInputStream(inputStream);
-            map  = (HashMap<String,CarDTO>)input.readObject();
-            for(CarDTO car:map.values()){
-                this.addCar(fromDTO(car));
-            }
-        }
-        catch (Exception e){
-            return "Something is wrong with I/O";
-        }
-        return "Cars are loaded correctly";
+        return list;
     }
 }
