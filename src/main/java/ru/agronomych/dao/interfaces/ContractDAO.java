@@ -9,9 +9,4 @@ import java.util.HashMap;
  */
 public interface ContractDAO extends CommonDAO<Contract,Long> {
 
-    /**
-     * получить список контрактов конкретного менеджера
-     * @param managerId
-     */
-    HashMap<Long, Contract> getContractsByManager(Long managerId);
 }

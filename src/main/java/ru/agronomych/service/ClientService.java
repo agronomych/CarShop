@@ -1,4 +1,4 @@
-package ru.agronomych.service.interfaces;
+package ru.agronomych.service;
 
 import ru.agronomych.controller.dto.ClientDTO;
 
@@ -15,42 +15,36 @@ public interface ClientService {
      * добавляет клиента
      * @param client - клиент, который будет добавлен
      */
-    public void add(ClientDTO client);
-
-    /**
-     * добавляет список клиентов
-     * @param list - список клиентов, которые будут добавлены
-     */
-    public  void addAll(List<ClientDTO> list);
+    void add(ClientDTO client);
 
     /**
      * получить всех клиентов
      * @return - возвращает список клиентов
      */
-    public List<ClientDTO> getAll();
+    List<ClientDTO> getAll();
 
     /**
      * получить клиента
      * @param id - уникальный идентификтаор, по которому будет получен клиент
      * @return - полученный клиент
      */
-    public ClientDTO getById(Long id);
+    ClientDTO getById(Long id);
 
     /**
      * удаляет клиента
      * @param id - уникальный идентификатор, по которому будет удалён клиент
      */
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
     /**
      * обновляет данные клиента
      * @param client - обновлённые данные клиента
      */
-    public void update(ClientDTO client);
+    void update(ClientDTO client);
 
     /**
      * Получает все уникальные идентификаторы клиентов
      * @return список уникальных идентификаторов клиентов
      */
-    public List<Long> getIDs();
+    List<Long> getIDs();
 }

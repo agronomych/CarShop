@@ -1,4 +1,4 @@
-package ru.agronomych.service.implementation;
+package ru.agronomych.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.dao.interfaces.CarDAO;
 import ru.agronomych.model.Car;
-import ru.agronomych.service.interfaces.CarService;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,15 +31,6 @@ public class CarServiceImpl implements CarService {
     @Override
     public void add(CarDTO car) {
         carDAO.save(fromDTO(car));
-    }
-
-    @Override
-    public void addAll(List<CarDTO> list) {
-        HashMap<String,Car> map = new HashMap<>();
-        for(CarDTO car:list){
-            map.put(car.getId(),fromDTO(car));
-        }
-        carDAO.addAll(map);
     }
 
     @Override

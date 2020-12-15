@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.agronomych.controller.dto.ContractDTO;
-import ru.agronomych.service.interfaces.CarService;
-import ru.agronomych.service.interfaces.ClientService;
-import ru.agronomych.service.interfaces.ManagerService;
+import ru.agronomych.service.CarService;
+import ru.agronomych.service.ClientService;
+import ru.agronomych.service.ManagerService;
 
 import java.util.Locale;
 

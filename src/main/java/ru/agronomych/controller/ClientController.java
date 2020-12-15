@@ -6,8 +6,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import ru.agronomych.controller.dto.ClientDTO;
-import ru.agronomych.service.interfaces.ClientService;
+import ru.agronomych.service.ClientService;
 import ru.agronomych.validator.ClientValidator;
 
 import java.util.List;
@@ -52,13 +53,13 @@ public class ClientController {
      * @param clientData данные нового клиента
      */
     @PostMapping("/")
-    public ClientDTO add(@Validated @RequestBody ClientDTO clientData, BindingResult result){
+    public ResponseEntity<ClientDTO> add(@Validated @RequestBody ClientDTO clientData, BindingResult result, UriComponentsBuilder uriBuilder){
         if (result.hasErrors()){
             clientData.setErrors(result.getAllErrors());
-            return clientData;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(clientData);
         }
         clientService.add(clientData);
-        return clientData;
+        return ResponseEntity.created(uriBuilder.path("/api/v1/clients/" + clientData.getId()).buildAndExpand(clientData).toUri()).body(clientData);
     }
 
     /**

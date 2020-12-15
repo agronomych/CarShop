@@ -6,8 +6,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import ru.agronomych.controller.dto.CarDTO;
-import ru.agronomych.service.interfaces.CarService;
+import ru.agronomych.service.CarService;
 import ru.agronomych.validator.CarValidator;
 
 import java.util.List;
@@ -52,13 +53,13 @@ public class CarController {
      * @param carData данные автомобиля
      */
     @PostMapping("/")
-    public CarDTO add(@Validated @RequestBody CarDTO carData, BindingResult result){
+    public ResponseEntity<CarDTO> add(@Validated @RequestBody CarDTO carData, BindingResult result, UriComponentsBuilder uriBuilder){
         if (result.hasErrors()){
             carData.setErrors(result.getAllErrors());
-            return carData;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(carData);
         }
         carService.add(carData);
-        return carData;
+        return ResponseEntity.created(uriBuilder.path("/api/v1/cars/" + carData.getId()).buildAndExpand(carData).toUri()).body(carData);
     }
 
     /**
