@@ -11,8 +11,8 @@ public class ManagerDTOConverter{
 
     /**
      * Конвертация из DTO объекта в модель, храняющуюся в бд
-     * @param managerDTO
-     * @return
+     * @param managerDTO данные менеджера ДТО
+     * @return - возвращает объект менеджера
      */
     public static Manager fromDTO(ManagerDTO managerDTO){
         Manager manager = new Manager();
@@ -25,8 +25,8 @@ public class ManagerDTOConverter{
 
     /**
      * Конвертация из модели, хранящейся в бд, в DTO объект
-     * @param manager
-     * @return
+     * @param manager - объект менеджер
+     * @return - ДТО объект менеджера
      */
     public static ManagerDTO toDTO(Manager manager){
         ManagerDTO managerDTO = new ManagerDTO();
