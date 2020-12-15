@@ -21,14 +21,4 @@ public class ContractDAOImpl extends CommonDaoImpl<Contract,Long> implements Con
         super(Contract.class, new HashMap<>());
     }
 
-    @Override
-    public HashMap<Long, Contract> getContractsByManager(Long managerId) {
-        HashMap<Long, Contract> temp = new HashMap<Long, Contract>();
-        for (Contract el : elements.values()) {
-            if (el.getManager().getId().equals(managerId)) {
-                temp.put(managerId,el);
-            }
-        }
-        return temp;
-    }
 }

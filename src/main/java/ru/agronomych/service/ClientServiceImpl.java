@@ -1,15 +1,11 @@
-package ru.agronomych.service.implementation;
+package ru.agronomych.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import ru.agronomych.controller.dto.CarDTO;
 import ru.agronomych.controller.dto.ClientDTO;
-import ru.agronomych.controller.dto.converters.CarDTOConverter;
 import ru.agronomych.dao.interfaces.ClientDAO;
-import ru.agronomych.model.Car;
 import ru.agronomych.model.Client;
-import ru.agronomych.service.interfaces.ClientService;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -35,15 +31,6 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void add(ClientDTO client) {
         clientDAO.save(fromDTO(client));
-    }
-
-    @Override
-    public void addAll(List<ClientDTO> list) {
-        HashMap<Long, Client> map = new HashMap<>();
-        for(ClientDTO client:list){
-            map.put(client.getId(), fromDTO(client));
-        }
-        clientDAO.addAll(map);
     }
 
     @Override

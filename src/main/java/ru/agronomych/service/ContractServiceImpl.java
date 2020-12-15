@@ -1,33 +1,18 @@
-package ru.agronomych.service.implementation;
+package ru.agronomych.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.controller.dto.ContractDTO;
 import ru.agronomych.controller.dto.converters.CarDTOConverter;
 import ru.agronomych.controller.dto.converters.ClientDTOConverter;
 import ru.agronomych.controller.dto.converters.ContractDTOConverter;
 import ru.agronomych.controller.dto.converters.ManagerDTOConverter;
 import ru.agronomych.dao.interfaces.ContractDAO;
-import ru.agronomych.model.Car;
-import ru.agronomych.model.Client;
 import ru.agronomych.model.Contract;
-import ru.agronomych.service.interfaces.CarService;
-import ru.agronomych.service.interfaces.ClientService;
-import ru.agronomych.service.interfaces.ContractService;
-import ru.agronomych.service.interfaces.ManagerService;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import static ru.agronomych.controller.dto.converters.ClientDTOConverter.fromDTO;
-import static ru.agronomych.controller.dto.converters.ClientDTOConverter.toDTO;
-import static ru.agronomych.controller.dto.converters.ContractDTOConverter.*;
 
 @Service(value = "ContractService")
 public class ContractServiceImpl implements ContractService {
@@ -59,19 +44,6 @@ public class ContractServiceImpl implements ContractService {
                         CarDTOConverter.fromDTO(carService.getById(contract.getCarId())),
                         ClientDTOConverter.fromDTO(clientService.getById(contract.getClientId())),
                         ManagerDTOConverter.fromDTO(managerService.getById(contract.getManagerId()))));
-    }
-
-    @Override
-    public void addAll(List<ContractDTO> list) {
-        HashMap<Long, Contract> map = new HashMap<>();
-        for(ContractDTO contract:list){
-            map.put(contract.getId(),
-                    ContractDTOConverter.fromDTO(contract,
-                        CarDTOConverter.fromDTO(carService.getById(contract.getCarId())),
-                        ClientDTOConverter.fromDTO(clientService.getById(contract.getClientId())),
-                        ManagerDTOConverter.fromDTO(managerService.getById(contract.getManagerId()))));
-        }
-        contractDAO.addAll(map);
     }
 
     @Override

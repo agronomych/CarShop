@@ -6,11 +6,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import ru.agronomych.controller.dto.ContractDTO;
-import ru.agronomych.service.interfaces.CarService;
-import ru.agronomych.service.interfaces.ClientService;
-import ru.agronomych.service.interfaces.ContractService;
-import ru.agronomych.service.interfaces.ManagerService;
+import ru.agronomych.service.CarService;
+import ru.agronomych.service.ClientService;
+import ru.agronomych.service.ContractService;
+import ru.agronomych.service.ManagerService;
 import ru.agronomych.validator.ContractValidator;
 
 import java.util.List;
@@ -64,13 +65,13 @@ public class ContractController {
      * @param contractData данные контракта
      */
     @PostMapping("/")
-    public ContractDTO add(@Validated @RequestBody ContractDTO contractData, BindingResult result){
+    public ResponseEntity<ContractDTO> add(@Validated @RequestBody ContractDTO contractData, BindingResult result, UriComponentsBuilder uriBuilder){
         if (result.hasErrors()){
             contractData.setErrors(result.getAllErrors());
-            return contractData;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(contractData);
         }
         contractService.add(contractData);
-        return contractData;
+        return ResponseEntity.created(uriBuilder.path("/api/v1/contracts/" + contractData.getId()).buildAndExpand(contractData).toUri()).body(contractData);
     }
 
     /**
