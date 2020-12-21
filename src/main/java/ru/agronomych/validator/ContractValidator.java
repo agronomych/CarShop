@@ -7,11 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.agronomych.controller.dto.ContractDTO;
-import ru.agronomych.exception.UnknownIdException;
-import ru.agronomych.exception.ZeroContractException;
-import ru.agronomych.service.interfaces.CarService;
-import ru.agronomych.service.interfaces.ClientService;
-import ru.agronomych.service.interfaces.ManagerService;
+import ru.agronomych.service.CarService;
+import ru.agronomych.service.ClientService;
+import ru.agronomych.service.ManagerService;
 
 import java.util.Locale;
 
@@ -49,7 +47,7 @@ public class ContractValidator implements Validator {
      * @param errors
      */
     @Override
-    public void validate(Object target, Errors errors) throws UnknownIdException, ZeroContractException{
+    public void validate(Object target, Errors errors) {
 
         ContractDTO contractDTO = (ContractDTO) target;
 
@@ -69,13 +67,6 @@ public class ContractValidator implements Validator {
             logger.error("Unknown manager");
             String message = messageSource.getMessage("car.unknown", new Object[]{}, Locale.getDefault());
             errors.rejectValue("carId", "car.unknown", message);
-        }
-        if (errors.getErrorCount()>0){
-            throw new UnknownIdException(errors);
-        }
-        if (contractDTO.getSum() == null || (contractDTO.getSum().longValue() == 0)) {
-            String message = messageSource.getMessage("sum.zero", new Object[]{}, Locale.getDefault());
-            throw new ZeroContractException(message);
         }
     }
 }

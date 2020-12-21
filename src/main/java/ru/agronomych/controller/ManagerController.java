@@ -6,8 +6,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import ru.agronomych.controller.dto.ManagerDTO;
-import ru.agronomych.service.interfaces.ManagerService;
+import ru.agronomych.service.ManagerService;
 import ru.agronomych.validator.ManagerValidator;
 
 import java.util.List;
@@ -51,14 +52,14 @@ public class ManagerController {
      * @param managerData данные менеджера
      */
     @PostMapping("/")
-    public ManagerDTO add(@Validated @RequestBody ManagerDTO managerData, BindingResult result){
+    public ResponseEntity<ManagerDTO> add(@Validated @RequestBody ManagerDTO managerData, BindingResult result, UriComponentsBuilder uriBuilder){
 
         if (result.hasErrors()){
             managerData.setErrors(result.getAllErrors());
-            return managerData;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(managerData);
         }
         managerService.add(managerData);
-        return managerData;
+        return ResponseEntity.created(uriBuilder.path("/api/v1/managers/" + managerData.getId()).buildAndExpand(managerData).toUri()).body(managerData);
     }
 
     /**

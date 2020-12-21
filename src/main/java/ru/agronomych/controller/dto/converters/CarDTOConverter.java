@@ -11,8 +11,8 @@ public class CarDTOConverter{
 
     /**
      * Конвертация из DTO объекта в модель, храняющуюся в бд
-     * @param carDTO
-     * @return
+     * @param carDTO - данные автомобиля ДТО
+     * @return - возвращает объект автомобиля
      */
     public static Car fromDTO(CarDTO carDTO){
         Car car = new Car();
@@ -23,8 +23,8 @@ public class CarDTOConverter{
 
     /**
      * Конвертация из модели, хранящейся в бд, в DTO объект
-     * @param car
-     * @return
+     * @param car - объект автомобиль
+     * @return - ДТО объект автомобиль
      */
     public static CarDTO toDTO(Car car){
         CarDTO carDTO = new CarDTO();

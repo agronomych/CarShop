@@ -9,10 +9,4 @@ import java.util.HashMap;
  */
 public interface CarDAO extends CommonDAO<Car, String> {
 
-    /**
-     * получаем списко автомобилей конкретной модели
-     * @param model
-     */
-    HashMap<Car,String> getCarsByModel(String model);
-
 }

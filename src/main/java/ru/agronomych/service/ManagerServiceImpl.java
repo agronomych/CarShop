@@ -1,20 +1,12 @@
-package ru.agronomych.service.implementation;
+package ru.agronomych.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.controller.dto.ManagerDTO;
 import ru.agronomych.dao.interfaces.ManagerDAO;
-import ru.agronomych.model.Car;
-import ru.agronomych.model.Client;
 import ru.agronomych.model.Manager;
-import ru.agronomych.service.interfaces.ManagerService;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,15 +37,6 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void addAll (List<ManagerDTO> list) {
-        HashMap<Long, Manager> map = new HashMap<>();
-        for(ManagerDTO manager:list){
-            map.put(manager.getId(), fromDTO(manager));
-        }
-        managerDAO.addAll(map);
-    }
-
-    @Override
     public List<ManagerDTO> getAll() {
         HashMap<Long,Manager> map = (HashMap<Long, Manager>)managerDAO.getAll();
         List<ManagerDTO> list = new LinkedList<>();
@@ -61,11 +44,6 @@ public class ManagerServiceImpl implements ManagerService {
             list.add(toDTO(manager));
         }
         return list;
-    }
-
-    @Override
-    public String getOrgName() {
-        return orgName;
     }
 
     @Override

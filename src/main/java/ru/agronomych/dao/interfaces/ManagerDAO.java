@@ -7,21 +7,4 @@ import ru.agronomych.model.Manager;
  */
 public interface ManagerDAO extends CommonDAO<Manager,Long>{
 
-    /**
-     * получить список менеджеров по имени
-     * @param lastName
-     */
-    public Manager getManagerByLastName(String lastName);
-
-    /**
-     * получить список менеджеров по фамилии
-     * @param lastName
-     */
-    public Manager getManagerByName(String lastName);
-
-    /**
-     * получить список менеджеров по отчеству
-     * @param patronymic
-     */
-    public Manager getManagerByPatronymic(String patronymic);
 }

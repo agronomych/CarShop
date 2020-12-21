@@ -1,4 +1,4 @@
-package ru.agronomych.service.interfaces;
+package ru.agronomych.service;
 
 import ru.agronomych.controller.dto.ManagerDTO;
 
@@ -15,48 +15,37 @@ public interface ManagerService {
      * добавляет менеджера
      * @param manager - данные менеджера, который будет добавлен
      */
-    public void add(ManagerDTO manager);
-
-    /**
-     * добавляет список менеджеров
-     * @param list - список добавляемых менеджеров
-     */
-    public  void addAll(List<ManagerDTO> list);
+    void add(ManagerDTO manager);
 
     /**
      * возвращает всех менеджеров
      * @return список всех менеджеров
      */
-    public List<ManagerDTO> getAll();
-
-    /**
-     * получить имя оранизации
-     */
-    public String getOrgName();
+    List<ManagerDTO> getAll();
 
     /**
      * получить менеджера
      * @param id - уникальный идентификатор менеджера, которого надо получить
      * @return - полученный менеджер
      */
-    public ManagerDTO getById(Long id);
+    ManagerDTO getById(Long id);
 
     /**
      * удаляет менеджера
       * @param id - уникальный идентификатор менеджера, который будет удалён
      */
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
     /**
      * Обновляет данные менеджера
      * @param manager - обновлённые данные менеджера
      */
-    public void update(ManagerDTO manager);
+    void update(ManagerDTO manager);
 
     /**
      * Получает список уникальный идентификаторов менеджеров
      * @return список уникальный идентификаторов менеджеров
      */
-    public List<Long> getIDs();
+    List<Long> getIDs();
 
 }

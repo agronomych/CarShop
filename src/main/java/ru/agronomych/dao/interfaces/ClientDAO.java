@@ -9,10 +9,4 @@ import java.util.HashMap;
  */
 public interface ClientDAO extends CommonDAO<Client,Long> {
 
-    /**
-     * получаем списко клиентов с данной фамилией
-     * @param lastName
-     */
-    HashMap<Client,Long> getClientsByLastName(String lastName);
-
 }
