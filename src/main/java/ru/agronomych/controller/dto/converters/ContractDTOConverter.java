@@ -14,11 +14,11 @@ public class ContractDTOConverter{
 
     /**
      * Преобразовывает DTO в Model для сохранения в БД
-     * @param contractDTO
-     * @param car
-     * @param client
-     * @param manager
-     * @return
+     * @param contractDTO данные контракта ДТО
+     * @param car данные автомобиля
+     * @param client данные автомобиля
+     * @param manager данные автомобиля
+     * @return - возвращает объект контракта
      */
     public static Contract fromDTO(ContractDTO contractDTO,
                                    Car car,
@@ -36,11 +36,11 @@ public class ContractDTOConverter{
 
     /**
      * Преобразовывает Model в DTO для отправки на фронт
-     * @param contract
-     * @param carID
-     * @param clientID
-     * @param managerID
-     * @return
+     * @param contract Объект контракта
+     * @param carID уникальный идентификатор машины из контракта
+     * @param clientID уникальный идентификатор клиента из контракта
+     * @param managerID уникальный идентификатор менеджера из контракта
+     * @return - возвращает ДТО контракта
      */
     public static ContractDTO toDTO(Contract contract,
                                     String carID,

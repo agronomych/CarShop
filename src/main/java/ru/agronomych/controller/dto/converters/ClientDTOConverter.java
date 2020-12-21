@@ -13,8 +13,8 @@ public class ClientDTOConverter{
 
     /**
      * Конвертация из DTO объекта в модель, храняющуюся в бд
-     * @param clientDTO
-     * @return
+     * @param clientDTO данные клиента ДТО
+     * @return - возвращает объект клиента
      */
     public static Client fromDTO(ClientDTO clientDTO){
         Client client = new Client();
@@ -28,8 +28,8 @@ public class ClientDTOConverter{
 
     /**
      * Конвертация из модели, хранящейся в бд, в DTO объект
-     * @param client
-     * @return
+     * @param client - объект клиент
+     * @return - ДТО объект клиента
      */
     public static ClientDTO toDTO(Client client){
         ClientDTO clientDTO = new ClientDTO();
