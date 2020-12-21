@@ -1,8 +1,6 @@
-package ru.agronomych.dao.interfaces;
+package ru.agronomych.dao;
 
 import ru.agronomych.model.Contract;
-
-import java.util.HashMap;
 
 /**
  * интерфейс для работы со слоем DAO сущности Контракт

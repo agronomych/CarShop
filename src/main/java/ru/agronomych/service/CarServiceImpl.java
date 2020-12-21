@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import ru.agronomych.controller.dto.CarDTO;
-import ru.agronomych.dao.interfaces.CarDAO;
+import ru.agronomych.dao.CarDAO;
 import ru.agronomych.model.Car;
 
 import java.util.HashMap;

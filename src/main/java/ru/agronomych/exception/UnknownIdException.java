@@ -13,6 +13,10 @@ public class UnknownIdException extends RuntimeException{
 
     private String message = "";
 
+    /**
+     * Бросает исключение в случае отсутствия одного из идентификаторов - машина, клиент, менеджер - при добавлении контракта
+     * @param errors объект с ошибками после валидации
+     */
     public UnknownIdException(Errors errors) {
         for(ObjectError error:errors.getAllErrors()){
             message+=error.getDefaultMessage()+" ";
