@@ -20,8 +20,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Обработка ошибок типа "неверный аргумент"
-     * @param exception
-     * @return
+     * @param exception исключение типа IllegalArgumentException
+     * @return объект ResponseEntity с ошибкой и статусом BAD_REQUEST
      */
     @ExceptionHandler
     public ResponseEntity<ResponseError> illegalArgumentException(IllegalArgumentException exception){
@@ -36,8 +36,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Обработка непроверяемых исключений
-     * @param exception
-     * @return
+     * @param exception исключение типа RuntimeException
+     * @return объект ResponseEntity с ошибкой и статусом INTERNAL_SERVER_ERROR
      */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ResponseError> runtimeException(RuntimeException exception) {
@@ -54,8 +54,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Обработка проверяемых исключений
-     * @param exception
-     * @return
+     * @param exception исключение типа Exception
+     * @return объект ResponseEntity с ошибкой и статусом INTERNAL_SERVER_ERROR
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseError> runtimeException(Exception exception) {
@@ -71,8 +71,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * обработка исключения после валидации полей managerId, clientId, carId
-     * @param exception
-     * @return
+     * @param exception исключение типа UnknownIdException
+     * @return объект ResponseEntity с ошибкой и статусом BAD_REQUEST
      */
     @ExceptionHandler(UnknownIdException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
@@ -84,13 +84,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 exception.getMessage(),
                 "CarShop"
         );
-        return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     /**
      * обработка исключения нулевой или отсутствующей суммы контракта
-     * @param exception
-     * @return
+     * @param exception исключение типа ZeroContractException
+     * @return объект ResponseEntity с ошибкой и статусом BAD_REQUEST
      */
     @ExceptionHandler(ZeroContractException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
@@ -102,6 +102,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 exception.getMessage(),
                 "CarShop"
         );
-        return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 }
