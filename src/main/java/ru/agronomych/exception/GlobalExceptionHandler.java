@@ -2,6 +2,7 @@ package ru.agronomych.exception;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LogManager.getLogger(GlobalExceptionHandler.class.getName());
 
+    @Value("${systemName}")
+    private String systemName;
+
     /**
      * Обработка ошибок типа "неверный аргумент"
      * @param exception исключение типа IllegalArgumentException
@@ -29,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 UUID.randomUUID(),
                 "illegalArgumentException",
                 exception.getLocalizedMessage(),
-                "CarShop"
+                systemName
         );
         return new ResponseEntity<>(responseError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
@@ -46,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 UUID.randomUUID(),
                 "unknown",
                 exception.getLocalizedMessage(),
-                "CarShop"
+                systemName
         );
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -64,7 +68,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 UUID.randomUUID(),
                 "unknown",
                 "Неизвестная ошибка",
-                "CarShop"
+                systemName
         );
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -82,7 +86,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 UUID.randomUUID(),
                 "UnknownIDs",
                 exception.getMessage(),
-                "CarShop"
+                systemName
         );
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
@@ -100,7 +104,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 UUID.randomUUID(),
                 "ZeroContract",
                 exception.getMessage(),
-                "CarShop"
+                systemName
         );
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
