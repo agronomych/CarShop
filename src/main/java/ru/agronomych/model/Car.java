@@ -3,7 +3,7 @@ package ru.agronomych.model;
 /**
  * Представление сущности Автомобиль в системе
  */
-public class CarModel implements Identified<String>{
+public class Car implements Identified<String>{
 
     /**
      * Название модели авто

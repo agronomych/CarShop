@@ -2,7 +2,7 @@ package ru.agronomych.dao.implementation;
 
 import org.springframework.stereotype.Repository;
 import ru.agronomych.dao.interfaces.ManagerDAO;
-import ru.agronomych.model.ManagerModel;
+import ru.agronomych.model.Manager;
 
 import java.util.HashMap;
 
@@ -12,45 +12,10 @@ import java.util.HashMap;
  * @author Anton_Suryapin
  */
 @Repository(value = "ManagerDAO")
-public class ManagerDAOImpl extends CommonDaoImpl<ManagerModel,Long> implements ManagerDAO {
+public class ManagerDAOImpl extends CommonDaoImpl<Manager,Long> implements ManagerDAO {
 
     public ManagerDAOImpl() {
-        super(ManagerModel.class, new HashMap<>());
+        super(Manager.class, new HashMap<>());
     }
 
-    /**
-     * Получить спиской менеджеров по фамилии
-     */
-    @Override
-    public ManagerModel getManagerByLastName(String lastName) {
-        for (ManagerModel el : elements.values()){
-            if (el.getLastName().equals(lastName))
-                return el;
-        }
-        return null;
-    }
-
-    /**
-     * Получить спиской менеджеров по имени
-     */
-    @Override
-    public ManagerModel getManagerByName(String lastName) {
-        for (ManagerModel el : elements.values()){
-            if (el.getName().equals(lastName))
-                return el;
-        }
-        return null;
-    }
-
-    /**
-     * Получить спиской менеджеров по отчеству
-     */
-    @Override
-    public ManagerModel getManagerByPatronymic(String patronymic) {
-        for (ManagerModel el : elements.values()){
-            if (el.getPatronymic().equals(patronymic))
-                return el;
-        }
-        return null;
-    }
 }

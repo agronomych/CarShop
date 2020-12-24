@@ -1,3 +1,0 @@
-{"lastName":"Jeep","name":"Cherokee","patronymic":"Saleovich","id":"123"}
-{"lastName":"Citroen","name":"Xara","patronymic":"Saratovich","id":"124"}
-{"lastName":"Lada","name":"Vesta","patronymic":"Vazovna","id":"98"}
