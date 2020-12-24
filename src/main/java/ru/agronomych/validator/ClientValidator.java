@@ -30,8 +30,8 @@ public class ClientValidator implements Validator {
 
     /**
      * Валидация: имя, фамилия и пасспорт для клиента обязательны
-     * @param target
-     * @param errors
+     * @param target входящий объект клиент для валидации
+     * @param errors объект, куда будут сохранены ошибки
      */
     @Override
     public void validate(Object target, Errors errors) {

@@ -2,11 +2,26 @@ package ru.agronomych.controller;
 
 import java.util.UUID;
 
+/**
+ * класс для отображения ошибки
+ */
 public class ResponseError {
 
+    /**
+     * id - уникальный номер события
+     */
     private UUID id;
+    /**
+     * code - код ошибки
+     */
     private String code;
+    /**
+     * message - сообщение о ошибке
+     */
     private String message;
+    /**
+     * system - система, в которой произошла ошибка
+     */
     private String system;
 
     public ResponseError(UUID id, String code, String message, String system) {

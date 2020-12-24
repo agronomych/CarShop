@@ -1,4 +1,4 @@
-package ru.agronomych.dao.interfaces;
+package ru.agronomych.dao;
 
 import ru.agronomych.model.Identified;
 

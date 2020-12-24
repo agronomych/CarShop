@@ -32,8 +32,8 @@ public class ManagerValidator implements Validator {
 
     /**
      * Валидация: имя и фамилия у менеджера обязательны
-     * @param target
-     * @param errors
+     * @param target входящий объект менеджер для валидации
+     * @param errors объект, куда будут сохранены ошибки
      */
     @Override
     public void validate(Object target, Errors errors) {
