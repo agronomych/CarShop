@@ -3,11 +3,13 @@ package ru.agronomych.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.agronomych.controller.dto.ContractDTO;
+import ru.agronomych.exception.UnknownIdException;
 import ru.agronomych.service.CarService;
 import ru.agronomych.service.ClientService;
 import ru.agronomych.service.ContractService;
@@ -67,8 +69,7 @@ public class ContractController {
     @PostMapping("/")
     public ResponseEntity<ContractDTO> add(@Validated @RequestBody ContractDTO contractData, BindingResult result, UriComponentsBuilder uriBuilder){
         if (result.hasErrors()){
-            contractData.setErrors(result.getAllErrors());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(contractData);
+            throw new UnknownIdException(result);
         }
         contractService.add(contractData);
         return ResponseEntity.created(uriBuilder.path("/api/v1/contracts/" + contractData.getId()).buildAndExpand(contractData).toUri()).body(contractData);

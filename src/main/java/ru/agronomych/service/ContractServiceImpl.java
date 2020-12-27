@@ -7,7 +7,7 @@ import ru.agronomych.controller.dto.converters.CarDTOConverter;
 import ru.agronomych.controller.dto.converters.ClientDTOConverter;
 import ru.agronomych.controller.dto.converters.ContractDTOConverter;
 import ru.agronomych.controller.dto.converters.ManagerDTOConverter;
-import ru.agronomych.dao.interfaces.ContractDAO;
+import ru.agronomych.dao.ContractDAO;
 import ru.agronomych.model.Contract;
 
 import java.util.HashMap;
