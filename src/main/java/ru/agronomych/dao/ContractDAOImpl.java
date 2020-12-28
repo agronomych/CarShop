@@ -1,10 +1,6 @@
-package ru.agronomych.dao.implementation;
+package ru.agronomych.dao;
 
 import org.springframework.stereotype.Repository;
-import ru.agronomych.dao.interfaces.CarDAO;
-import ru.agronomych.dao.interfaces.ClientDAO;
-import ru.agronomych.dao.interfaces.ContractDAO;
-import ru.agronomych.dao.interfaces.ManagerDAO;
 import ru.agronomych.model.Contract;
 
 import java.util.HashMap;

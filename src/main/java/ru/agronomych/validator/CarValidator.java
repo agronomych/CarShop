@@ -30,8 +30,8 @@ public class CarValidator implements Validator {
 
     /**
      * Валидация: id и указание модели для автомобиля обязательны
-     * @param target
-     * @param errors
+     * @param target входящий объект автомобиль для валидации
+     * @param errors объект, куда будут сохранены ошибки
      */
     @Override
     public void validate(Object target, Errors errors) {

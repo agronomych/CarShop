@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import ru.agronomych.controller.dto.ClientDTO;
-import ru.agronomych.dao.interfaces.ClientDAO;
+import ru.agronomych.dao.ClientDAO;
 import ru.agronomych.model.Client;
 
 import java.util.HashMap;
