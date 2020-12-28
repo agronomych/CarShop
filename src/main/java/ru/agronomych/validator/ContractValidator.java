@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.agronomych.controller.dto.ContractDTO;
+import ru.agronomych.exception.UnknownIdException;
+import ru.agronomych.exception.ZeroContractException;
 import ru.agronomych.service.CarService;
 import ru.agronomych.service.ClientService;
 import ru.agronomych.service.ManagerService;
@@ -43,8 +45,8 @@ public class ContractValidator implements Validator {
 
     /**
      * Валидация: указанные менеджер, клиент и автомобиль должны уже быть заведены в бд до этого
-     * @param target
-     * @param errors
+     * @param target объекта контракта для валидации
+     * @param errors объект, куда будут сохранены ошибки
      */
     @Override
     public void validate(Object target, Errors errors) {
@@ -67,6 +69,16 @@ public class ContractValidator implements Validator {
             logger.error("Unknown manager");
             String message = messageSource.getMessage("car.unknown", new Object[]{}, Locale.getDefault());
             errors.rejectValue("carId", "car.unknown", message);
+        }
+
+        if (errors.hasErrors()){
+            throw new UnknownIdException(errors);
+        }
+        if (contractDTO.getSum().longValue() == 0){
+            logger.error("Unknown client");
+            String message = messageSource.getMessage("sum.zero", new Object[]{}, Locale.getDefault());
+            errors.rejectValue("sum", "sum.zero", message);
+            throw new ZeroContractException(message);
         }
     }
 }

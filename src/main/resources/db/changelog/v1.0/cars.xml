@@ -1,0 +1,37 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="1" author="Anton Suryapin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="cars"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="cars">
+            <column name="id" type="varchar(255)" remarks="ID машины (VIN)">
+                <constraints    primaryKey="true"
+                                primaryKeyName="car_pk"
+                                nullable="false" />
+            </column>
+            <column name="model" type="varchar(255)" remarks="Название модели">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="cars" indexName="cars_id_idx">
+            <column name="id"></column>
+        </createIndex>
+        <comment>Индекс для поиска авто по id</comment>
+
+        <createIndex tableName="cars" indexName="cars_model_idx">
+            <column name="model"></column>
+        </createIndex>
+        <comment>Индекс для поиска авто по модели</comment>
+
+    </changeSet>
+
+</databaseChangeLog>

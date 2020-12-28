@@ -1,7 +1,6 @@
-package ru.agronomych.dao.implementation;
+package ru.agronomych.dao;
 
 import org.springframework.stereotype.Repository;
-import ru.agronomych.dao.interfaces.ManagerDAO;
 import ru.agronomych.model.Manager;
 
 import java.util.HashMap;

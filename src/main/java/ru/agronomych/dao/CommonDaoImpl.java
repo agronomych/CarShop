@@ -1,7 +1,7 @@
-package ru.agronomych.dao.implementation;
+package ru.agronomych.dao;
 
 import org.springframework.stereotype.Repository;
-import ru.agronomych.dao.interfaces.CommonDAO;
+import ru.agronomych.dao.CommonDAO;
 import ru.agronomych.model.Identified;
 
 import java.io.Serializable;
