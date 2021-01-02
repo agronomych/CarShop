@@ -14,10 +14,16 @@ public class Car implements Identified<String>{
      */
     private String id;
 
+    /**
+     * Получить модель машины
+     */
     public String getModel() {
         return model;
     }
 
+    /**
+     * Установить модель машины
+     */
     public void setModel(String model) {
         this.model = model;
     }
