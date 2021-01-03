@@ -48,15 +48,15 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public List<ContractDTO> getAll() {
-        HashMap<Long, Contract> map = (HashMap<Long,Contract>)contractDAO.getAll();
-        List<ContractDTO> list = new LinkedList<>();
-        for(Contract contract:map.values()){
-            list.add(ContractDTOConverter.toDTO(contract,
+        List<Contract> list = contractDAO.getAll();
+        List<ContractDTO> listDTO = new LinkedList<>();
+        for(Contract contract:list){
+            listDTO.add(ContractDTOConverter.toDTO(contract,
                     contract.getCar().getId(),
                     contract.getClient().getId(),
                     contract.getManager().getId()));
         }
-        return list;
+        return listDTO;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();
-        for(Contract contract:contractDAO.getAll().values()){
+        for(Contract contract:contractDAO.getAll()){
             list.add(contract.getId());
         }
         return list;

@@ -38,12 +38,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<ManagerDTO> getAll() {
-        HashMap<Long,Manager> map = (HashMap<Long, Manager>)managerDAO.getAll();
-        List<ManagerDTO> list = new LinkedList<>();
-        for(Manager manager:map.values()){
-            list.add(toDTO(manager));
+        List<Manager> list = managerDAO.getAll();
+        List<ManagerDTO> listDTO = new LinkedList<>();
+        for(Manager manager:list){
+            listDTO.add(toDTO(manager));
         }
-        return list;
+        return listDTO;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();
-        for(Manager manager:managerDAO.getAll().values()){
+        for(Manager manager:managerDAO.getAll()){
             list.add(manager.getId());
         }
         return list;

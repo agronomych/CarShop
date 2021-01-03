@@ -35,12 +35,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<ClientDTO> getAll() {
-        HashMap<Long,Client> map = (HashMap<Long, Client>)clientDAO.getAll();
-        List<ClientDTO> list = new LinkedList<>();
-        for(Client client:map.values()){
-            list.add(toDTO(client));
+        List<Client> list = clientDAO.getAll();
+        List<ClientDTO> listDTO = new LinkedList<>();
+        for(Client client:list){
+            listDTO.add(toDTO(client));
         }
-        return list;
+        return listDTO;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();
-        for(Client client:clientDAO.getAll().values()){
+        for(Client client:clientDAO.getAll()){
             list.add(client.getId());
         }
         return list;
