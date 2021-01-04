@@ -25,27 +25,43 @@ public class ContractDAOImpl implements ContractDAO {
     }
 
     @Override
-    public int save(Contract ob) {
-        return 0;
+    public int save(Contract contract) {
+        return jdbcTemplate.update("INSERT INTO contracts VALUES (?, ?, ?, ?, ?, ?)",
+                contract.getId(),
+                contract.getCar().getId(),
+                contract.getClient().getId(),
+                contract.getManager().getId(),
+                contract.getDate(),
+                contract.getSum()
+        );
     }
 
     @Override
     public Contract getByPK(Long key) {
-        return null;
+        return jdbcTemplate.queryForObject("SELECT * FROM contracts WHERE id = ?", new Object[]{key}, new ContractRowMapper());
     }
 
     @Override
     public int deleteByPK(Long key) {
-        return 0;
+        String sql = "DELETE FROM contracts WHERE id = ?";
+        Object[] args = new Object[] {key};
+        return jdbcTemplate.update(sql, args);
     }
 
     @Override
-    public int update(Contract ob) {
-        return 0;
+    public int update(Contract contract) {
+        return jdbcTemplate.update("UPDATE contracts SET carId = ?, " +
+                        "clientId= ?, managerId = ?, date = ?, sum = ? WHERE id = ?",
+                contract.getCar().getId(),
+                contract.getClient().getId(),
+                contract.getManager().getId(),
+                contract.getDate(),
+                contract.getSum(),
+                contract.getId());
     }
 
     @Override
     public List<Contract> getAll() {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM contracts", new ContractRowMapper());
     }
 }

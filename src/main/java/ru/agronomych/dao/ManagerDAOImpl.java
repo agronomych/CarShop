@@ -25,27 +25,38 @@ public class ManagerDAOImpl implements ManagerDAO {
     }
 
     @Override
-    public int save(Manager ob) {
-        return 0;
+    public int save(Manager manager) {
+        return jdbcTemplate.update("INSERT INTO managers VALUES (?, ?, ?, ?)",
+                manager.getId(),
+                manager.getName(),
+                manager.getLastName(),
+                manager.getPatronymic());
     }
 
     @Override
     public Manager getByPK(Long key) {
-        return null;
+        return jdbcTemplate.queryForObject("SELECT * FROM managers WHERE id = ?", new Object[]{key}, new ManagerRowMapper());
     }
 
     @Override
     public int deleteByPK(Long key) {
-        return 0;
+        String sql = "DELETE FROM managers WHERE id = ?";
+        Object[] args = new Object[] {key};
+        return jdbcTemplate.update(sql, args);
     }
 
     @Override
-    public int update(Manager ob) {
-        return 0;
+    public int update(Manager manager) {
+        return jdbcTemplate.update("UPDATE managers SET name = ?, " +
+                        "lastName = ?, patronymic = ? WHERE id = ?",
+                manager.getName(),
+                manager.getLastName(),
+                manager.getPatronymic(),
+                manager.getId());
     }
 
     @Override
     public List<Manager> getAll() {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM managers", new ManagerRowMapper());
     }
 }
