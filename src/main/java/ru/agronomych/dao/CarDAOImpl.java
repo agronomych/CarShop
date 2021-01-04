@@ -19,9 +19,8 @@ public class CarDAOImpl implements CarDAO{
 
     private JdbcTemplate jdbcTemplate;
 
-    public CarDAOImpl(JdbcTemplate jdbcTemplate,SimpleJdbcInsert simpleJdbcInsert) {
+    public CarDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        simpleJdbcInsert.withTableName("cars");
     }
 
     @Override

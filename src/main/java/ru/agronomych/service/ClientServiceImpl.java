@@ -3,6 +3,7 @@ package ru.agronomych.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.dao.ClientDAO;
 import ru.agronomych.model.Client;
@@ -28,11 +29,13 @@ public class ClientServiceImpl implements ClientService {
         this.clientDAO = clientDAO;
     }
 
+    @Transactional
     @Override
     public void add(ClientDTO client) {
         clientDAO.save(fromDTO(client));
     }
 
+    @Transactional
     @Override
     public List<ClientDTO> getAll() {
         List<Client> list = clientDAO.getAll();
@@ -43,21 +46,25 @@ public class ClientServiceImpl implements ClientService {
         return listDTO;
     }
 
+    @Transactional
     @Override
     public ClientDTO getById(Long id) {
         return toDTO(clientDAO.getByPK(id));
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         clientDAO.deleteByPK(id);
     }
 
+    @Transactional
     @Override
     public void update(ClientDTO client) {
         clientDAO.update(fromDTO(client));
     }
 
+    @Transactional
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();

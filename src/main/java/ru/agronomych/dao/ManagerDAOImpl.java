@@ -19,9 +19,8 @@ public class ManagerDAOImpl implements ManagerDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    public ManagerDAOImpl(JdbcTemplate jdbcTemplate, SimpleJdbcInsert simpleJdbcInsert) {
+    public ManagerDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        simpleJdbcInsert.withTableName("managers");
     }
 
     @Override

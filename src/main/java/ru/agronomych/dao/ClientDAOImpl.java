@@ -19,9 +19,8 @@ public class ClientDAOImpl implements ClientDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    public ClientDAOImpl(JdbcTemplate jdbcTemplate, SimpleJdbcInsert simpleJdbcInsert) {
+    public ClientDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        simpleJdbcInsert.withTableName("clients");
     }
 
     @Override

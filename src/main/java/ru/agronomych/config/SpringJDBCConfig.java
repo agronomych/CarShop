@@ -4,13 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
+@EnableTransactionManagement
 public class SpringJDBCConfig {
 
     @Bean
@@ -22,23 +23,7 @@ public class SpringJDBCConfig {
     }
 
     @Bean
-    @DependsOn("dataSource")
-    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
-        var namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-        return namedParameterJdbcTemplate;
-    }
-
-    @Bean
-    @DependsOn("dataSource")
-    public SimpleJdbcInsert simpleJdbcInsert(DataSource dataSource) {
-        var simpleJdbcInsert = new SimpleJdbcInsert(dataSource);
-        return simpleJdbcInsert;
-    }
-
-    @Bean
-    @DependsOn("dataSource")
-    public SimpleJdbcCall simpleJdbcCall(DataSource dataSource) {
-        var simpleJdbcCall = new SimpleJdbcCall(dataSource);
-        return simpleJdbcCall;
+    public TransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 }

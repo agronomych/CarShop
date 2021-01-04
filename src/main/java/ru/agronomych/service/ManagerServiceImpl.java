@@ -3,6 +3,7 @@ package ru.agronomych.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.agronomych.controller.dto.ManagerDTO;
 import ru.agronomych.dao.ManagerDAO;
 import ru.agronomych.model.Manager;
@@ -31,11 +32,13 @@ public class ManagerServiceImpl implements ManagerService {
         this.managerDAO = managerDAO;
     }
 
+    @Transactional
     @Override
     public void add(ManagerDTO manager) {
         managerDAO.save(fromDTO(manager));
     }
 
+    @Transactional
     @Override
     public List<ManagerDTO> getAll() {
         List<Manager> list = managerDAO.getAll();
@@ -46,21 +49,25 @@ public class ManagerServiceImpl implements ManagerService {
         return listDTO;
     }
 
+    @Transactional
     @Override
     public ManagerDTO getById(Long id) {
         return toDTO(managerDAO.getByPK(id));
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         managerDAO.deleteByPK(id);
     }
 
+    @Transactional
     @Override
     public void update(ManagerDTO manager) {
         managerDAO.update(fromDTO(manager));
     }
 
+    @Transactional
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();

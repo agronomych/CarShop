@@ -19,18 +19,17 @@ public class ContractDAOImpl implements ContractDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-    public ContractDAOImpl(JdbcTemplate jdbcTemplate, SimpleJdbcInsert simpleJdbcInsert) {
+    public ContractDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        simpleJdbcInsert.withTableName("contracts");
     }
 
     @Override
     public int save(Contract contract) {
         return jdbcTemplate.update("INSERT INTO contracts VALUES (?, ?, ?, ?, ?, ?)",
                 contract.getId(),
-                contract.getCar().getId(),
-                contract.getClient().getId(),
-                contract.getManager().getId(),
+                contract.getCar(),
+                contract.getClient(),
+                contract.getManager(),
                 contract.getDate(),
                 contract.getSum()
         );
@@ -52,9 +51,9 @@ public class ContractDAOImpl implements ContractDAO {
     public int update(Contract contract) {
         return jdbcTemplate.update("UPDATE contracts SET carId = ?, " +
                         "clientId= ?, managerId = ?, date = ?, sum = ? WHERE id = ?",
-                contract.getCar().getId(),
-                contract.getClient().getId(),
-                contract.getManager().getId(),
+                contract.getCar(),
+                contract.getClient(),
+                contract.getManager(),
                 contract.getDate(),
                 contract.getSum(),
                 contract.getId());
