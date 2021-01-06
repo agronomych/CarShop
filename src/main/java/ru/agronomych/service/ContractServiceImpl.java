@@ -2,6 +2,7 @@ package ru.agronomych.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.agronomych.controller.dto.ContractDTO;
 import ru.agronomych.controller.dto.converters.CarDTOConverter;
 import ru.agronomych.controller.dto.converters.ClientDTOConverter;
@@ -37,54 +38,60 @@ public class ContractServiceImpl implements ContractService {
         this.managerService = managerService;
     }
 
+    @Transactional
     @Override
     public void add(ContractDTO contract) {
         contractDAO.save(
                 ContractDTOConverter.fromDTO(contract,
-                        CarDTOConverter.fromDTO(carService.getById(contract.getCarId())),
-                        ClientDTOConverter.fromDTO(clientService.getById(contract.getClientId())),
-                        ManagerDTOConverter.fromDTO(managerService.getById(contract.getManagerId()))));
+                        contract.getCarId(),
+                        contract.getClientId(),
+                        contract.getManagerId()));
     }
 
+    @Transactional
     @Override
     public List<ContractDTO> getAll() {
-        HashMap<Long, Contract> map = (HashMap<Long,Contract>)contractDAO.getAll();
-        List<ContractDTO> list = new LinkedList<>();
-        for(Contract contract:map.values()){
-            list.add(ContractDTOConverter.toDTO(contract,
-                    contract.getCar().getId(),
-                    contract.getClient().getId(),
-                    contract.getManager().getId()));
+        List<Contract> list = contractDAO.getAll();
+        List<ContractDTO> listDTO = new LinkedList<>();
+        for(Contract contract:list){
+            listDTO.add(ContractDTOConverter.toDTO(contract,
+                    contract.getCar(),
+                    contract.getClient(),
+                    contract.getManager()));
         }
-        return list;
+        return listDTO;
     }
 
+    @Transactional
     @Override
     public ContractDTO getById(Long id) {
         Contract contract = contractDAO.getByPK(id);
         return ContractDTOConverter.toDTO(contract,
-                contract.getCar().getId(),
-                contract.getClient().getId(),
-                contract.getManager().getId());
+                contract.getCar(),
+                contract.getClient(),
+                contract.getManager());
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         contractDAO.deleteByPK(id);
     }
 
+    @Transactional
     @Override
     public void update(ContractDTO contract) {
         contractDAO.update(ContractDTOConverter.fromDTO(contract,
-                CarDTOConverter.fromDTO(carService.getById(contract.getCarId())),
-                ClientDTOConverter.fromDTO(clientService.getById(contract.getClientId())),
-                ManagerDTOConverter.fromDTO(managerService.getById(contract.getManagerId()))));
+                contract.getCarId(),
+                contract.getClientId(),
+                contract.getManagerId()));
     }
 
+    @Transactional
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();
-        for(Contract contract:contractDAO.getAll().values()){
+        for(Contract contract:contractDAO.getAll()){
             list.add(contract.getId());
         }
         return list;

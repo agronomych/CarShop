@@ -21,9 +21,9 @@ public class ContractDTOConverter{
      * @return - возвращает объект контракта
      */
     public static Contract fromDTO(ContractDTO contractDTO,
-                                   Car car,
-                                   Client client,
-                                   Manager manager){
+                                   String car,
+                                   Long client,
+                                   Long manager){
         Contract contract = new Contract();
         contract.setId(contractDTO.getId());
         contract.setSum(contractDTO.getSum());
@@ -48,9 +48,9 @@ public class ContractDTOConverter{
                                     Long managerID
                                     ){
         ContractDTO contractDTO = new ContractDTO();
-        contractDTO.setCarId(contract.getCar().getId());
-        contractDTO.setClientId(contract.getClient().getId());
-        contractDTO.setManagerId(contract.getManager().getId());
+        contractDTO.setCarId(contract.getCar());
+        contractDTO.setClientId(contract.getClient());
+        contractDTO.setManagerId(contract.getManager());
         contractDTO.setDate(contract.getDate());
         contractDTO.setSum(contract.getSum());
         contractDTO.setId(contract.getId());

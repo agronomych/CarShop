@@ -3,6 +3,7 @@ package ru.agronomych.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.agronomych.controller.dto.ManagerDTO;
 import ru.agronomych.dao.ManagerDAO;
 import ru.agronomych.model.Manager;
@@ -31,40 +32,46 @@ public class ManagerServiceImpl implements ManagerService {
         this.managerDAO = managerDAO;
     }
 
+    @Transactional
     @Override
     public void add(ManagerDTO manager) {
         managerDAO.save(fromDTO(manager));
     }
 
+    @Transactional
     @Override
     public List<ManagerDTO> getAll() {
-        HashMap<Long,Manager> map = (HashMap<Long, Manager>)managerDAO.getAll();
-        List<ManagerDTO> list = new LinkedList<>();
-        for(Manager manager:map.values()){
-            list.add(toDTO(manager));
+        List<Manager> list = managerDAO.getAll();
+        List<ManagerDTO> listDTO = new LinkedList<>();
+        for(Manager manager:list){
+            listDTO.add(toDTO(manager));
         }
-        return list;
+        return listDTO;
     }
 
+    @Transactional
     @Override
     public ManagerDTO getById(Long id) {
         return toDTO(managerDAO.getByPK(id));
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         managerDAO.deleteByPK(id);
     }
 
+    @Transactional
     @Override
     public void update(ManagerDTO manager) {
         managerDAO.update(fromDTO(manager));
     }
 
+    @Transactional
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();
-        for(Manager manager:managerDAO.getAll().values()){
+        for(Manager manager:managerDAO.getAll()){
             list.add(manager.getId());
         }
         return list;
