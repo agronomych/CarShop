@@ -14,15 +14,15 @@ public class Contract implements Identified<Long>{
     /**
      * Название модели авто, продаваемая по договору
      */
-    private Car car;
+    private String car;
     /**
      * клиент покупатель авто
      */
-    private Client client;
+    private Long client;
     /**
      * менеджер, оформивший продажу
      */
-    private Manager manager;
+    private Long manager;
     /**
      * дата договора (DD.MM.YYYY)
      */
@@ -32,27 +32,27 @@ public class Contract implements Identified<Long>{
      */
     private BigDecimal sum;
 
-    public Car getCar() {
+    public String getCar() {
         return car;
     }
 
-    public void setCar(Car car) {
+    public void setCar(String car) {
         this.car = car;
     }
 
-    public Client getClient() {
+    public Long getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(Long client) {
         this.client = client;
     }
 
-    public Manager getManager() {
+    public Long getManager() {
         return manager;
     }
 
-    public void setManager(Manager manager) {
+    public void setManager(Long manager) {
         this.manager = manager;
     }
 
