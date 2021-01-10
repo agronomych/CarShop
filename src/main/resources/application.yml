@@ -13,12 +13,8 @@ server:
 
 spring:
   application:
-    name: my-app
+    name: CarShop
   datasource:
-    url: jdbc:postgresql://localhost:5432/carshop
-    username: postgres
-    password: postgres
-    driverClassName: org.postgresql.Driver
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
@@ -45,9 +41,10 @@ management:
     export:
       atlas:
         enabled: true
-
-systemName:
-  CarShop
 organization:
   name:
-    AntonCars
+    CarShop
+corePoolSize:
+  4
+maxPoolSize:
+  12
