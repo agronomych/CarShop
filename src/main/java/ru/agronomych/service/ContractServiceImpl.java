@@ -15,13 +15,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-@Service(value = "ContractService")
+@Service(value = "contractService")
 public class ContractServiceImpl implements ContractService {
-
-    @Value("${data.path}")
-    private String dbPath;
-    @Value("${data.contracts}")
-    private String filename;
 
     private ContractDAO contractDAO;
     private ClientService clientService;

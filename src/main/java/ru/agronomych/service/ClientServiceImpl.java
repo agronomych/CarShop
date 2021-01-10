@@ -14,14 +14,8 @@ import java.util.List;
 
 import static ru.agronomych.controller.dto.converters.ClientDTOConverter.*;
 
-@Service(value = "ClientService")
-@PropertySource(value = {"classpath:application.properties"})
+@Service(value = "clientService")
 public class ClientServiceImpl implements ClientService {
-
-    @Value("${data.path}")
-    private String dbPath;
-    @Value("${data.clients}")
-    private String filename;
 
     private ClientDAO clientDAO;
 

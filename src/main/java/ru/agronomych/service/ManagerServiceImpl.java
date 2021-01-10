@@ -14,14 +14,8 @@ import java.util.List;
 
 import static ru.agronomych.controller.dto.converters.ManagerDTOConverter.*;
 
-@Service(value = "ManagerService")
-@PropertySource(value = {"classpath:application.properties"})
+@Service(value = "managerService")
 public class ManagerServiceImpl implements ManagerService {
-
-    @Value("${data.path}")
-    private String dbPath;
-    @Value("${data.managers}")
-    private String filename;
 
     @Value("${organization.name}")
     private String orgName;

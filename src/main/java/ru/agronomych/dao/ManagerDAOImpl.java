@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Anton_Suryapin
  */
-@Repository(value = "ManagerDAO")
+@Repository(value = "nanagerDAO")
 public class ManagerDAOImpl implements ManagerDAO {
 
     private JdbcTemplate jdbcTemplate;
