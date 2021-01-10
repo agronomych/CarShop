@@ -51,7 +51,3 @@ systemName:
 organization:
   name:
     AntonCars
-corePoolSize:
-  4
-maxPoolSize:
-  12
