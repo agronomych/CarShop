@@ -33,8 +33,8 @@ public class Manager{
      */
     private String patronymic;
 
-//    @OneToOne(mappedBy = "manager_join", cascade = CascadeType.ALL)
-//    private Contract contract;
+    @OneToOne(mappedBy = "manager")
+    private Contract contract;
 
     public Long getId() {
         return this.id;

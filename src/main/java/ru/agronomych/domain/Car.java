@@ -47,8 +47,8 @@ public class Car {
         this.id = id;
     }
 
-//    @OneToOne(mappedBy = "car_join",cascade = CascadeType.ALL)
-//    private Contract contract;
+    @OneToOne(mappedBy = "car")
+    private Contract contract;
 
     @Override
     public int hashCode() {

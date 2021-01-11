@@ -22,21 +22,24 @@
                 <constraints foreignKeyName="car_fk"
                              referencedTableName="cars"
                              referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="false"
+                             deleteCascade="0"/>
             </column>
 
             <column name="client_id" type="bigint" remarks="ID клиента из БД">
                 <constraints foreignKeyName="client_fk"
                              referencedTableName="clients"
                              referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="false"
+                             deleteCascade="0"/>
             </column>
 
             <column name="manager_id" type="bigint" remarks="ID менеджера из БД">
                 <constraints foreignKeyName="manager_fk"
                              referencedTableName="managers"
                              referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="false"
+                             deleteCascade="0"/>
             </column>
 
             <column name="date" type="varchar(255)" remarks="Дата заключения договора">

@@ -5,7 +5,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.agronomych.controller.dto.ContractDTO;
 import ru.agronomych.controller.dto.converters.ContractDTOConverter;
 import ru.agronomych.domain.Contract;
+import ru.agronomych.repository.CarRepository;
+import ru.agronomych.repository.ClientRepository;
 import ru.agronomych.repository.ContractRepository;
+import ru.agronomych.repository.ManagerRepository;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,9 +17,16 @@ import java.util.List;
 public class ContractServiceImpl implements ContractService {
 
     private ContractRepository contractRepository;
+    private CarRepository carRepository;
+    private ClientRepository clientRepository;
+    private ManagerRepository managerRepository;
 
-    public ContractServiceImpl(ContractRepository contractRepository) {
+    public ContractServiceImpl(ContractRepository contractRepository, CarRepository carRepository,
+                               ClientRepository clientRepository, ManagerRepository managerRepository) {
         this.contractRepository = contractRepository;
+        this.carRepository = carRepository;
+        this.clientRepository = clientRepository;
+        this.managerRepository = managerRepository;
     }
 
     @Transactional
@@ -24,9 +34,9 @@ public class ContractServiceImpl implements ContractService {
     public void add(ContractDTO contract) {
         contractRepository.save(
                 ContractDTOConverter.fromDTO(contract,
-                        contract.getCarId(),
-                        contract.getClientId(),
-                        contract.getManagerId()));
+                        carRepository.getOne(contract.getCarId()),
+                        clientRepository.getOne(contract.getClientId()),
+                        managerRepository.getOne(contract.getManagerId())));
     }
 
     @Transactional
@@ -35,10 +45,7 @@ public class ContractServiceImpl implements ContractService {
         List<Contract> list = contractRepository.findAll();
         List<ContractDTO> listDTO = new LinkedList<>();
         for(Contract contract:list){
-            listDTO.add(ContractDTOConverter.toDTO(contract,
-                    contract.getCar(),
-                    contract.getClient(),
-                    contract.getManager()));
+            listDTO.add(ContractDTOConverter.toDTO(contract));
         }
         return listDTO;
     }
@@ -47,10 +54,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public ContractDTO getById(Long id) {
         Contract contract = contractRepository.getOne(id);
-        return ContractDTOConverter.toDTO(contract,
-                contract.getCar(),
-                contract.getClient(),
-                contract.getManager());
+        return ContractDTOConverter.toDTO(contract);
     }
 
     @Transactional
@@ -63,9 +67,9 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public void update(ContractDTO contract) {
         contractRepository.save(ContractDTOConverter.fromDTO(contract,
-                contract.getCarId(),
-                contract.getClientId(),
-                contract.getManagerId()));
+                carRepository.getOne(contract.getCarId()),
+                clientRepository.getOne(contract.getClientId()),
+                managerRepository.getOne(contract.getManagerId())));
     }
 
     @Transactional

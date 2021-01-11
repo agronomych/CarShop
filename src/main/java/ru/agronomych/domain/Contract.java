@@ -19,37 +19,29 @@ public class Contract{
     @Column
     private Long id;
 
-    @Column(name = "car_id")
-    private String car;
+    /**
+     * автомобиль, проданный по договору
+     */
+    @OneToOne()
+    @JoinColumn(name = "car_id",
+    referencedColumnName = "id")
+    private Car car;
 
-    @Column(name = "client_id")
-    private Long client;
+    /**
+     * клиент, покупатель авто
+     */
+    @OneToOne()
+    @JoinColumn(name = "client_id",
+            referencedColumnName = "id")
+    private Client client;
 
-    @Column(name = "manager_id")
-    private Long manager;
-//    /**
-//     * автомобиль, проданный по договору
-//     */
-//    @OneToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "car_id",
-//    referencedColumnName = "id")
-//    private Car car_join;
-//
-//    /**
-//     * клиент, покупатель авто
-//     */
-//    @OneToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "client_id",
-//            referencedColumnName = "id")
-//    private Client client_join;
-//
-//    /**
-//     * менеджер, оформивший продажу
-//     */
-//    @OneToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "manager_id",
-//            referencedColumnName = "id")
-//    private Manager manager_join;
+    /**
+     * менеджер, оформивший продажу
+     */
+    @OneToOne()
+    @JoinColumn(name = "manager_id",
+            referencedColumnName = "id")
+    private Manager manager;
 
     /**
      * дата договора (DD.MM.YYYY)
@@ -60,28 +52,28 @@ public class Contract{
      */
     private BigDecimal sum;
 
-    public String getCar() {
+    public Car getCar() {
         return car;
     }
 
-    public void setCar(String car) {
-        this.car = car;
+    public void setCar(Car car_join) {
+        this.car = car_join;
     }
 
-    public Long getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(Long client) {
-        this.client = client;
+    public void setClient(Client client_join) {
+        this.client = client_join;
     }
 
-    public Long getManager() {
+    public Manager getManager() {
         return manager;
     }
 
-    public void setManager(Long manager) {
-        this.manager = manager;
+    public void setManager(Manager manager_join) {
+        this.manager = manager_join;
     }
 
     public String getDate() {
@@ -111,7 +103,7 @@ public class Contract{
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCar(), getClient(), getManager());
+        return Objects.hash(getId(), getCar().getId(), getClient().getId(), getManager().getId());
     }
 
     @Override
@@ -120,16 +112,16 @@ public class Contract{
         if (!(obj instanceof Contract)) return false;
         Contract contract = (Contract) obj;
         return  Objects.equals(getId(), contract.getId()) &&
-                Objects.equals(getCar(), contract.getCar()) &&
-                Objects.equals(getClient(),contract.getClient()) &&
-                Objects.equals(getManager(), contract.getManager()) &&
+                Objects.equals(getCar().getId(), contract.getCar().getId()) &&
+                Objects.equals(getClient().getId(),contract.getClient().getId()) &&
+                Objects.equals(getManager().getId(), contract.getManager().getId()) &&
                 Objects.equals(getDate(),contract.getDate()) &&
                 Objects.equals(getSum(),contract.getSum());
     }
 
     @Override
     public String toString() {
-        return getId()+". date: "+getDate()+" :"+getManager()+" "+getClient()+" "+getManager()+" "+getSum();
+        return getId()+". date: "+getDate()+" :"+getManager().getId()+" "+getClient().getId()+" "+getManager().getId()+" "+getSum();
     }
 
 }

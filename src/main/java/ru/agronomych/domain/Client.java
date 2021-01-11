@@ -37,8 +37,8 @@ public class Client {
      */
     private String patronymic;
 
-//    @OneToOne(mappedBy = "client_join", cascade = CascadeType.ALL)
-//    private Contract contract;
+    @OneToOne(mappedBy = "client")
+    private Contract contract;
 
     public Long getId() {
         return this.id;
