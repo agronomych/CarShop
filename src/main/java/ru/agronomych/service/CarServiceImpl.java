@@ -1,14 +1,11 @@
 package ru.agronomych.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agronomych.controller.dto.CarDTO;
-import ru.agronomych.dao.CarDAO;
-import ru.agronomych.model.Car;
+import ru.agronomych.domain.Car;
+import ru.agronomych.repository.CarRepository;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,22 +14,22 @@ import static ru.agronomych.controller.dto.converters.CarDTOConverter.*;
 @Service(value = "carService")
 public class CarServiceImpl implements CarService {
 
-    private CarDAO carDAO;
+    private CarRepository carRepository;
 
-    public CarServiceImpl(CarDAO carDAO) {
-        this.carDAO = carDAO;
+    public CarServiceImpl(CarRepository carRepository) {
+        this.carRepository = carRepository;
     }
 
     @Transactional
     @Override
     public void add(CarDTO car) {
-        carDAO.save(fromDTO(car));
+        carRepository.save(fromDTO(car));
     }
 
     @Transactional
     @Override
     public List<CarDTO> getAll() {
-        List<Car> list = carDAO.getAll();
+        List<Car> list = carRepository.findAll();
         List<CarDTO> listDTO = new LinkedList<>();
         for(Car car:list){
             listDTO.add(toDTO(car));
@@ -43,26 +40,26 @@ public class CarServiceImpl implements CarService {
     @Transactional
     @Override
     public CarDTO getById(String id) {
-        return toDTO(carDAO.getByPK(id));
+        return toDTO(carRepository.getOne(id));
     }
 
     @Transactional
     @Override
     public void deleteById(String id) {
-        carDAO.deleteByPK(id);
+        carRepository.deleteById(id);
     }
 
     @Transactional
     @Override
     public void update(CarDTO car) {
-        carDAO.update(fromDTO(car));
+        carRepository.save(fromDTO(car));
     }
 
     @Transactional
     @Override
     public List<String> getIDs() {
         List<String> list = new LinkedList<>();
-        for(Car car:carDAO.getAll()){
+        for(Car car:carRepository.findAll()){
             list.add(car.getId());
         }
         return list;

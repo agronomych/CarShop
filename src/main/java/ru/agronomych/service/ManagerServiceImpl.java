@@ -1,14 +1,12 @@
 package ru.agronomych.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.agronomych.controller.dto.ManagerDTO;
-import ru.agronomych.dao.ManagerDAO;
-import ru.agronomych.model.Manager;
+import ru.agronomych.domain.Manager;
+import ru.agronomych.repository.ManagerRepository;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,22 +18,22 @@ public class ManagerServiceImpl implements ManagerService {
     @Value("${organization.name}")
     private String orgName;
 
-    private ManagerDAO managerDAO;
+    private ManagerRepository managerRepository;
 
-    public ManagerServiceImpl(ManagerDAO managerDAO) {
-        this.managerDAO = managerDAO;
+    public ManagerServiceImpl(ManagerRepository managerRepository) {
+        this.managerRepository = managerRepository;
     }
 
     @Transactional
     @Override
     public void add(ManagerDTO manager) {
-        managerDAO.save(fromDTO(manager));
+        managerRepository.save(fromDTO(manager));
     }
 
     @Transactional
     @Override
     public List<ManagerDTO> getAll() {
-        List<Manager> list = managerDAO.getAll();
+        List<Manager> list = managerRepository.findAll();
         List<ManagerDTO> listDTO = new LinkedList<>();
         for(Manager manager:list){
             listDTO.add(toDTO(manager));
@@ -46,26 +44,26 @@ public class ManagerServiceImpl implements ManagerService {
     @Transactional
     @Override
     public ManagerDTO getById(Long id) {
-        return toDTO(managerDAO.getByPK(id));
+        return toDTO(managerRepository.getOne(id));
     }
 
     @Transactional
     @Override
     public void deleteById(Long id) {
-        managerDAO.deleteByPK(id);
+        managerRepository.deleteById(id);
     }
 
     @Transactional
     @Override
     public void update(ManagerDTO manager) {
-        managerDAO.update(fromDTO(manager));
+        managerRepository.save(fromDTO(manager));
     }
 
     @Transactional
     @Override
     public List<Long> getIDs() {
         List<Long> list = new LinkedList<>();
-        for(Manager manager:managerDAO.getAll()){
+        for(Manager manager:managerRepository.findAll()){
             list.add(manager.getId());
         }
         return list;

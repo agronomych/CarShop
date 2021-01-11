@@ -1,10 +1,7 @@
 package ru.agronomych.controller.dto.converters;
 
 import ru.agronomych.controller.dto.ContractDTO;
-import ru.agronomych.model.Car;
-import ru.agronomych.model.Client;
-import ru.agronomych.model.Contract;
-import ru.agronomych.model.Manager;
+import ru.agronomych.domain.Contract;
 
 /**
  * класс для конвертации DTO <-> Model сущности Контракт

@@ -1,7 +1,7 @@
 package ru.agronomych.controller.dto.converters;
 
 import ru.agronomych.controller.dto.ClientDTO;
-import ru.agronomych.model.Client;
+import ru.agronomych.domain.Client;
 
 /**
  * класс для конвертации DTO <-> Model сущности Клиент

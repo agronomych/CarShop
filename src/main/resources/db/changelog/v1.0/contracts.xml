@@ -18,21 +18,21 @@
                              nullable="false"/>
             </column>
 
-            <column name="carId" type="varchar(255)" remarks="ID машины из БД">
+            <column name="car_id" type="varchar(255)" remarks="ID машины из БД">
                 <constraints foreignKeyName="car_fk"
                              referencedTableName="cars"
                              referencedColumnNames="id"
                              nullable="false"/>
             </column>
 
-            <column name="clientId" type="bigint" remarks="ID клиента из БД">
+            <column name="client_id" type="bigint" remarks="ID клиента из БД">
                 <constraints foreignKeyName="client_fk"
                              referencedTableName="clients"
                              referencedColumnNames="id"
                              nullable="false"/>
             </column>
 
-            <column name="managerId" type="bigint" remarks="ID менеджера из БД">
+            <column name="manager_id" type="bigint" remarks="ID менеджера из БД">
                 <constraints foreignKeyName="manager_fk"
                              referencedTableName="managers"
                              referencedColumnNames="id"

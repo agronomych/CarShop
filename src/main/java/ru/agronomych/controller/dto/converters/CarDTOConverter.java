@@ -1,7 +1,7 @@
 package ru.agronomych.controller.dto.converters;
 
 import ru.agronomych.controller.dto.CarDTO;
-import ru.agronomych.model.Car;
+import ru.agronomych.domain.Car;
 
 /**
  * класс для конвертации DTO <-> Model сущности Автомобиль
