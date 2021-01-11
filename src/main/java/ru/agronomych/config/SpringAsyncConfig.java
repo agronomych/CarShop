@@ -12,15 +12,15 @@ import java.util.concurrent.Executor;
 public class SpringAsyncConfig implements AsyncConfigurer {
 
     @Value("${corePoolSize}")
-    private int corePoolSize;
+    private String corePoolSize;
     @Value("${maxPoolSize}")
-    private int maxPoolSize;
+    private String maxPoolSize;
 
     @Override
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
-        threadPoolTaskExecutor.setCorePoolSize(corePoolSize);
-        threadPoolTaskExecutor.setMaxPoolSize(maxPoolSize);
+        threadPoolTaskExecutor.setCorePoolSize(Integer.valueOf(corePoolSize));
+        threadPoolTaskExecutor.setMaxPoolSize(Integer.valueOf(maxPoolSize));
         threadPoolTaskExecutor.initialize();
         return threadPoolTaskExecutor;
     }

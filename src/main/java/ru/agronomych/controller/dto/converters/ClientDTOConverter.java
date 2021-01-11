@@ -1,6 +1,5 @@
 package ru.agronomych.controller.dto.converters;
 
-import org.springframework.context.annotation.PropertySource;
 import ru.agronomych.controller.dto.ClientDTO;
 import ru.agronomych.model.Client;
 
@@ -8,7 +7,6 @@ import ru.agronomych.model.Client;
  * класс для конвертации DTO <-> Model сущности Клиент
  */
 
-@PropertySource(value = {"classpath:application.properties"})
 public class ClientDTOConverter{
 
     /**

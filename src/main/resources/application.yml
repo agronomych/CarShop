@@ -1,0 +1,50 @@
+server:
+  port: ${APP_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        http-only: true
+    context-path: /carshop
+    application-display-name: CarShop
+  tomcat:
+    max-connections: 1000
+    accept-count: 100
+    connection-timeout: 30000
+
+spring:
+  application:
+    name: CarShop
+  datasource:
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/changelog-master.xml
+  jackson:
+    default-property-inclusion: non_null
+  messages:
+    basename: messages
+
+logging:
+  level:
+    ROOT: INFO
+    ru.iteco: DEBUG
+    org.springframework: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: true
+organization:
+  name:
+    CarShop
+corePoolSize:
+  4
+maxPoolSize:
+  12

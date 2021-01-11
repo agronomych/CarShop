@@ -19,7 +19,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LogManager.getLogger(GlobalExceptionHandler.class.getName());
 
-    @Value("${systemName}")
+    @Value("${spring.application.name}")
     private String systemName;
 
     /**
