@@ -22,7 +22,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="lastName" type="varchar(255)" remarks="Фамилия клиента">
+            <column name="last_name" type="varchar(255)" remarks="Фамилия клиента">
                 <constraints nullable="false"/>
             </column>
 
@@ -34,8 +34,8 @@
 
         </createTable>
 
-        <createIndex tableName="clients" indexName="clients_lastName_idx">
-            <column name="lastName"></column>
+        <createIndex tableName="clients" indexName="clients_last_name_idx">
+            <column name="last_name"></column>
         </createIndex>
         <comment>Индекс для поиска по фамилии</comment>
 

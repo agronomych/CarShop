@@ -1,7 +1,7 @@
 package ru.agronomych.controller.dto.converters;
 
 import ru.agronomych.controller.dto.ManagerDTO;
-import ru.agronomych.model.Manager;
+import ru.agronomych.domain.Manager;
 
 /**
  * класс для конвертации DTO <-> Model сущности Менеджер

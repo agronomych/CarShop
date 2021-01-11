@@ -22,15 +22,15 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="lastName" type="varchar(255)" remarks="Фамилия менеджера">
+            <column name="last_name" type="varchar(255)" remarks="Фамилия менеджера">
                 <constraints nullable="false"/>
             </column>
 
             <column name="patronymic" type="varchar(255)" remarks="Отчество менеджера (если есть)"/>
         </createTable>
 
-        <createIndex tableName="managers" indexName="managers_lastname_idx">
-            <column name="lastName"/>
+        <createIndex tableName="managers" indexName="managers_last_name_idx">
+            <column name="last_name"/>
         </createIndex>
 
         <createIndex tableName="managers" indexName="managers_id_idx">
