@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Anton_Suryapin
  */
-@Repository(value = "CarDAO")
+@Repository(value = "carDAO")
 public class CarDAOImpl implements CarDAO{
 
     private JdbcTemplate jdbcTemplate;

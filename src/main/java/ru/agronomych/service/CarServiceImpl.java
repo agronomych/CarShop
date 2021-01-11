@@ -14,14 +14,8 @@ import java.util.List;
 
 import static ru.agronomych.controller.dto.converters.CarDTOConverter.*;
 
-@Service(value = "CarService")
-@PropertySource(value = {"classpath:application.properties"})
+@Service(value = "carService")
 public class CarServiceImpl implements CarService {
-
-    @Value("${data.path}")
-    private String dbPath;
-    @Value("${data.cars}")
-    private String filename;
 
     private CarDAO carDAO;
 

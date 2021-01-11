@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Anton_Suryapin
  */
-@Repository(value = "ClientDAO")
+@Repository(value = "clientDAO")
 public class ClientDAOImpl implements ClientDAO {
 
     private JdbcTemplate jdbcTemplate;

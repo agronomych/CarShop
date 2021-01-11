@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Anton_Suryapin
  */
-@Repository(value = "ContractDAO")
+@Repository(value = "contractDAO")
 public class ContractDAOImpl implements ContractDAO {
 
     private JdbcTemplate jdbcTemplate;
